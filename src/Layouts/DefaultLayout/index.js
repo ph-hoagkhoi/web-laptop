@@ -1,4 +1,4 @@
-import Header from '~/components/Layouts/components/Header';
+import Header from '~/Layouts/components/Header';
 import Footer from './Footer';
 
 function DefaultLayout({ children }) {

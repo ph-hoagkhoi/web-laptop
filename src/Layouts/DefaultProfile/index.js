@@ -1,5 +1,5 @@
-import Header from '~/components/Layouts/components/Header';
-import Footer from '~/components/Layouts/DefaultLayout/Footer';
+import Header from '~/Layouts/components/Header';
+import Footer from '~/Layouts/DefaultLayout/Footer';
 import SidebarProfile from '~/components/SidebarProfile';
 
 function DefaultProfile({ children }) {
