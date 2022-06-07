@@ -18,6 +18,7 @@ const routes = {
     adminAddProduct: '/admin/product/:idproduct',
     adminSlider: '/admin/slider',
     adminBill: '/admin/bill',
+    adminViewBill: '/admin/bill/:idbill',
 };
 
 export default routes;

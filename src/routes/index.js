@@ -25,6 +25,7 @@ import AdminUsers from '~/components/AdminUsers';
 import AdminProduct from '~/components/AdminProduct';
 import AddProduct from '~/components/AddProduct';
 import AdminBill from '~/components/AdminBill';
+import ViewBill from '~/components/ViewBill';
 import AdminSlider from '~/components/AdminSlider';
 
 const publicRoutes = [
@@ -47,6 +48,7 @@ const publicRoutes = [
     { path: config.routes.adminProduct, component: AdminProduct, layout: Admin },
     { path: config.routes.adminAddProduct, component: AddProduct, layout: Admin },
     { path: config.routes.adminBill, component: AdminBill, layout: Admin },
+    { path: config.routes.adminViewBill, component: ViewBill, layout: Admin },
     { path: config.routes.adminSlider, component: AdminSlider, layout: Admin },
 ];
 const privateRoutes = [];

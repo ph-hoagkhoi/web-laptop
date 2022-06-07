@@ -12,7 +12,7 @@ function AdminProduct() {
                 <h2 className={cx('account-heading')}>Thêm sản phẩm</h2>
                 <Button to={`/admin/product/new-item`} className={cx('account-create-btn')}>
                     Thêm mới
-                </Button>
+                </Button>   
             </div>
             <table className={cx('details-table')}>
                 <thead className={cx('details-thead')}>
