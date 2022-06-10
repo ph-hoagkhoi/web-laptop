@@ -15,7 +15,7 @@ const cx = classNames.bind(styles);
 
 function AddProduct() {
     const [state, dispatch] = useReducer(productDetailsReducer, initState);
-
+    const [statusModal, setStatusModal] = useState(false);
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await handleSubmitLogin({
@@ -55,6 +55,19 @@ function AddProduct() {
             };
         });
     };
+
+    // Begin : Tickets
+    const showModal = () => {
+        // add class open vào hàm open đã viết bên CSS
+        setStatusModal(true);
+    };
+    console.log(statusModal);
+    // ẩn
+    const hideModal = () => {
+        setStatusModal(false);
+    };
+    // End : Tickets
+
     console.log(state);
     return (
         <>
