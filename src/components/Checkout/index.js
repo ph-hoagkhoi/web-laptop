@@ -21,7 +21,7 @@ function Checkout() {
     return (
         <>
             <div className={cx('container')}>
-                <h1 className={cx('heading-primary')}>Accordion Checkout Form Version 0.1 </h1>
+                <h1 className={cx('heading-primary')}>Accordion Checkout</h1>
                 <div className={cx('accordion')}>
                     <div className={cx('accordion-content')}>
                         {/* accordion tab 2 - Shipping Info  */}
