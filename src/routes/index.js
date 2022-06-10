@@ -28,6 +28,7 @@ import AdminBill from '~/components/AdminBill';
 import ViewBill from '~/components/ViewBill';
 import AdminSlider from '~/components/AdminSlider';
 import UpdateBrand from '~/components/UpdateBrand';
+import AdminStock from '~/components/AdminStock';
 
 // Cookies
 
@@ -46,6 +47,8 @@ const publicRoutes = [
     { path: config.routes.checkout, component: Checkout },
     // Product
     { path: config.routes.product, component: DetailProduct },
+    // admin 
+    { path: config.routes.adminStock, component: AdminStock, layout: Admin },
 ];
 
 const privateRoutes = [
