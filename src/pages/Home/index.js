@@ -8,7 +8,7 @@ function Home() {
         <Fragment>
             <Slider />
             <div className="content grid wide">
-                <Featured />
+                {/* <Featured /> */}
                 <Brands />
             </div>
         </Fragment>

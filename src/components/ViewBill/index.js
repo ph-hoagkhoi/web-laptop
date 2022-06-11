@@ -1,9 +1,10 @@
 import classNames from 'classnames/bind';
 import Button from '~/components/Button';
 import styles from './ViewBill.module.scss';
+import config from '~/config';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUp, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp, faXmark, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
@@ -56,6 +57,13 @@ function ViewBill() {
                     </tr>
                 </tbody>
             </table>
+            <Button
+                to={config.routes.adminBill}
+                className={cx('btn_back')}
+                leftIcon={<FontAwesomeIcon icon={faArrowLeft} />}
+            >
+                Trở về
+            </Button>
             {/* <!-- End adminProductTable --> */}
         </>
     );

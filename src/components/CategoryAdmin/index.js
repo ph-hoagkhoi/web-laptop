@@ -85,7 +85,7 @@ function AdminUser() {
                     Thêm mới
                 </button>
             </div>
-            {brandData.length != 123 ? (
+            {brandData != 0 ? (
                 <table className={cx('details-table')}>
                     <thead className={cx('details-thead')}>
                         <tr className={cx('details-title-list')}>

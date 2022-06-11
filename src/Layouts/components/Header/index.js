@@ -8,6 +8,7 @@ import 'tippy.js/dist/tippy.css';
 import { Link } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
 import { faBagShopping, faSignIn, faSignOut } from '@fortawesome/free-solid-svg-icons';
 import Search from '../Search';
@@ -25,10 +26,11 @@ const MENU_ITEMS = [
 
 function Header() {
     const [cookies, setCookie, removeCookie] = useCookies(['name']);
-    console.log(cookies);
-    function removeCK() {
+    let navigate = useNavigate();
+    const removeCK = () => {
         removeCookie('name');
-    }
+        window.location.reload();
+    };
     const userMenu = [
         {
             icon: <FontAwesomeIcon icon={faUser} />,
@@ -40,6 +42,7 @@ function Header() {
             title: 'Đăng xuất',
             to: '/',
             separate: true,
+            to: '/',
             onClick: removeCK,
         },
     ];

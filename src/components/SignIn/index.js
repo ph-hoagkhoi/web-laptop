@@ -137,13 +137,13 @@ function SignIn() {
                         <span className={cx('subcontent')}>hoặc sử dụng tài khoản của bạn</span>
                         <input
                             type="text"
-                            placeholder="Email"
+                            placeholder="Tên đăng nhập"
                             className={cx('morri_input')}
                             onChange={(e) => dispatchLogin(setNameLogin(e.target.value))}
                         />
                         <input
                             type="password"
-                            placeholder="Password"
+                            placeholder="Mật khẩu"
                             className={cx('morri_input')}
                             onChange={(e) => dispatchLogin(setPasswordLogin(e.target.value))}
                         />
