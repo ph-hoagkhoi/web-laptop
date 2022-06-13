@@ -13,6 +13,7 @@ const routes = {
     checkout: '/@:nickname/checkout',
     admin: '/admin',
     adminUsers: '/admin/users',
+    adminManagers: '/admin/managers',
     adminCategory: '/admin/category',
     adminProduct: '/admin/product',
     adminAddProduct: '/admin/product/:idproduct',

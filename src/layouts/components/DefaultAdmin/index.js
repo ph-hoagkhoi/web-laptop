@@ -49,11 +49,19 @@ function SidebarAdmin({ children }) {
                         </Link>
                     </li>
                     <li className={cx('nav-item')}>
+                        <Link to={config.routes.adminManagers} className={cx('nav-item-link')}>
+                            <span className={cx('nav-icon')}>
+                                <FontAwesomeIcon icon={faUsers} />
+                            </span>
+                            <span className={cx('nav-title')}>Nhân viên</span>
+                        </Link>
+                    </li>
+                    <li className={cx('nav-item')}>
                         <Link to={config.routes.adminUsers} className={cx('nav-item-link')}>
                             <span className={cx('nav-icon')}>
                                 <FontAwesomeIcon icon={faUsers} />
                             </span>
-                            <span className={cx('nav-title')}>Tài khoản</span>
+                            <span className={cx('nav-title')}>Khách hàng</span>
                         </Link>
                     </li>
                     <li className={cx('nav-item')}>
@@ -96,14 +104,14 @@ function SidebarAdmin({ children }) {
                             <span className={cx('nav-title')}>Thống kê</span>
                         </Link>
                     </li>
-                    <li className={cx('nav-item')}>
+                    {/* <li className={cx('nav-item')}>
                         <Link to={config.routes.adminStock} className={cx('nav-item-link')}>
                             <span className={cx('nav-icon')}>
                                 <FontAwesomeIcon icon={faComment} />
                             </span>
                             <span className={cx('nav-title')}>Kho</span>
                         </Link>
-                    </li>
+                    </li> */}
                     <li className={cx('nav-item')}>
                         <Link to="#" className={cx('nav-item-link')}>
                             <span className={cx('nav-icon')}>

@@ -15,7 +15,7 @@ function Footer() {
                 <div className={cx('inner', 'row')}>
                     <div className={cx('brand', 'col', 'l-4')}>
                         <img src={images.logo} alt="Morri" className={cx('logo')} />
-                        <p className={cx('slogan')}>Cùng nhau lưu giữ những khoảnh khắc</p>
+                        <p className={cx('slogan')}>Shop Laptop số 1 Cần Thơ</p>
                     </div>
                     <div className={cx('quicklinks', 'col', 'l-4')}>
                         <h2 className={cx('quicklinks-heading')}>Quick Links</h2>
@@ -36,29 +36,29 @@ function Footer() {
                         <ul className={cx('contact')}>
                             <li className={cx('contact-item')}>
                                 <FontAwesomeIcon icon={faMobile} className={cx('contact-logo')}></FontAwesomeIcon>
-                                <p className={cx('contact-content')}>+84 945772109</p>
+                                <p className={cx('contact-content')}>+84 928135322</p>
                             </li>
                             <li className={cx('contact-item')}>
                                 <FontAwesomeIcon icon={faEnvelope} className={cx('contact-logo')}></FontAwesomeIcon>
-                                <p className={cx('contact-content')}>nhkkhaii@gmail.com</p>
+                                <p className={cx('contact-content')}>ph.hoagkhoi@gmail.com</p>
                             </li>
                             <li className={cx('contact-item')}>
                                 <FontAwesomeIcon icon={faMapLocation} className={cx('contact-logo')}></FontAwesomeIcon>
-                                <p className={cx('contact-content')}>Long Xuyên, An Giang</p>
+                                <p className={cx('contact-content')}>Vị Thanh, Hậu Giang</p>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div className={cx('row', 'copyright')}>
                     <div className={cx('col', 'l-6', 'copyright-text')}>
-                        Copyright <span>&copy;</span> by Morri. All right reserved
+                        Copyright <span>&copy;</span> by Der. All right reserved
                     </div>
                     <div className={cx('col', 'l-6', 'copyright-link')}>
                         <div className={cx('copyright-contact')}>
-                            <a href="https://www.instagram.com/_youngboik/">
+                            <a href="https://www.instagram.com/ph.hoagkhoi/" target="_blank">
                                 <FontAwesomeIcon icon={faInstagram} className={cx('copyright-logo')}></FontAwesomeIcon>
                             </a>
-                            <a href="https://www.facebook.com/nhk.khai/">
+                            <a href="https://www.facebook.com/ph.hoagkhoi/" target="_blank">
                                 <FontAwesomeIcon icon={faFacebook} className={cx('copyright-logo')}></FontAwesomeIcon>
                             </a>
                         </div>

@@ -41,7 +41,7 @@ function AdminProduct() {
             {/* <!-- Begin adminProductTable --> */}
             <div className={cx('account-header')}>
                 <h2 className={cx('account-heading')}>Thêm sản phẩm</h2>
-                <Button to={`/admin/shoes/new-item`} className={cx('account-create-btn')}>
+                <Button to={`/admin/product/new-item`} className={cx('account-create-btn')}>
                     Thêm mới
                 </Button>
             </div>
@@ -72,7 +72,7 @@ function AdminProduct() {
 
                                     <td className={cx('details-content-item')}>
                                         <Button
-                                            to={`/admin/shoes/${product.SHOESID}`}
+                                            to={`/admin/product/${product.SHOESID}`}
                                             state={{ data: product }}
                                             className={cx('details-content-item-btn')}
                                         >

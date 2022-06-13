@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp, faChevronDown, faChevronUp, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useState, useReducer, useEffect } from 'react';
 import axios from 'axios';
-
 import config from '~/config';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -91,6 +90,7 @@ function AddProduct() {
                 }
             });
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await handleSubmitLogin({
@@ -132,7 +132,6 @@ function AddProduct() {
             };
         });
     };
-
     return (
         <>
             <div className={cx('wrapper')}>
@@ -197,7 +196,6 @@ function AddProduct() {
                             <input className={cx('info-txt')} type="number" id="quantity" placeholder="Số lượng" />
                         </div>
                     </div>
-
                     <div className={cx('group')}>
                         <div className={cx('select-box')}>
                             <input type="checkbox" className={cx('select_view')} />
@@ -251,7 +249,6 @@ function AddProduct() {
                             </div>
                         </div>
                     </div>
-
                     <div className={cx('description')}>
                         <div className={cx('description_item')}>
                             <h2 className={cx('item_heading')}>Mô tả sản phẩm</h2>

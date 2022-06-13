@@ -23,6 +23,7 @@ import Checkout from '~/components/Checkout';
 import Dashboard from '~/components/Dashboard';
 import CategoryAdmin from '~/components/CategoryAdmin';
 import AdminUsers from '~/components/AdminUsers';
+import AdminManagers from '~/components/AdminManagers';
 import AdminProduct from '~/components/AdminProduct';
 import AddProduct from '~/components/AddProduct';
 import AdminBill from '~/components/AdminBill';
@@ -55,6 +56,7 @@ const privateRoutes = [
     { path: config.routes.admin, component: Dashboard, layout: Admin },
     { path: config.routes.adminCategory, component: CategoryAdmin, layout: Admin },
     { path: config.routes.adminUsers, component: AdminUsers, layout: Admin },
+    { path: config.routes.adminManagers, component: AdminManagers, layout: Admin },
     { path: config.routes.adminProduct, component: AdminProduct, layout: Admin },
     { path: config.routes.adminAddProduct, component: AddProduct, layout: Admin },
     { path: config.routes.adminBill, component: AdminBill, layout: Admin },

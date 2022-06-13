@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
 function ViewBill() {
     return (
         <>
-            {/* <!-- Begin adminProductTable --> */}
+            {/* <!-- Begin adminBillTable --> */}
             <div className={cx('bill-header')}>
                 <h2 className={cx('bill-heading')}>Mã hóa đơn: 1NOJ2KKNK5</h2>
                 <h2 className={cx('bill-heading')}>Tổng hóa đơn: 63.000.000</h2>
@@ -64,7 +64,7 @@ function ViewBill() {
             >
                 Trở về
             </Button>
-            {/* <!-- End adminProductTable --> */}
+            {/* <!-- End adminBillTable --> */}
         </>
     );
 }

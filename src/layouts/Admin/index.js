@@ -8,7 +8,7 @@ function Admin({ children }) {
     return (
         <div className={cx('container')}>
             <div className={cx('grid')}>
-                <div className={cx('row')}>
+                <div className={cx('row','rela')}>
                     <SidebarAdmin>{children}</SidebarAdmin>
                 </div>
             </div>

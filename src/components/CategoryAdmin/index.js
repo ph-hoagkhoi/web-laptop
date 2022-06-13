@@ -80,7 +80,7 @@ function AdminUser() {
         <>
             {/* <!-- Begin adminCategoriesTable --> */}
             <div className={cx('category-header')}>
-                <h2 className={cx('category-heading')}>Thêm tài khoản</h2>
+                <h2 className={cx('category-heading')}>Thêm danh mục</h2>
                 <button className={cx('category-create-btn')} onClick={showBuyTickets}>
                     Thêm mới
                 </button>
