@@ -12,7 +12,7 @@ function Nike() {
     // similar to componentDidMount()
     useEffect(() => {
         axios
-            .get('http://26.17.209.162/api/shoes/get')
+            .get('http://26.87.217.216:8080/api/sanpham/get')
             .then(async (res) => {
                 setItems(res.data);
                 setIsLoaded(true);
@@ -31,16 +31,18 @@ function Nike() {
         return (
             <div className="row">
                 {items.map((item) => {
-                    if (item.BRANDNAME === 'Nike') {
+                    if (item.TENTHELOAI === 'MSI') {
                         return (
-                            <div className="col l-3" key={item.SHOESID}>
+                            <div className="col l-3" key={item.ID_SANPHAM}>
                                 <Products
-                                    id={item.SHOESID}
-                                    name={item.SHOESNAME}
-                                    price={item.SHOESPRICE}
-                                    imgID={item.IMAGEID}
-                                    description={item.SHOESDESCRIPTION}
-                                    brand={item.BRANDNAME}
+                                    id={item.ID_SANPHAM}
+                                    name={item.TENSANPHAM}
+                                    price={item.GIA}
+                                    imgID={item.ID_ANH}
+                                    description={item.GIOITHIEU}
+                                    brand={item.TENTHELOAI}
+                                    soluong={item.SOLUONG}
+                                    thongso={item.THONGSO}
                                 />
                             </div>
                         );

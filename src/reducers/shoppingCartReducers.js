@@ -1,17 +1,15 @@
 import {
     SET_IDACCOUNT,
-    SET_SHOESID,
-    SET_IDSIZE,
+    SET_IDSP,
     SET_QUANTITYUP,
     SET_QUANTITYDOWN,
     SET_QUANTITY,
 } from '~/constants/shoppingCartConstants';
 
 export const initStateShoppingCart = {
-    IDACCOUNT: '',
-    SHOESID: '',
-    IDSIZE: '',
-    QUANTITY: 1,
+    ID_TAIKHOAN: '',
+    ID_SANPHAM: '',
+    SOLUONG: 1,
 };
 
 export const shoppingCartReducer = (state, action) => {
@@ -19,37 +17,31 @@ export const shoppingCartReducer = (state, action) => {
         case SET_IDACCOUNT:
             return {
                 ...state,
-                IDACCOUNT: action.payload,
+                ID_TAIKHOAN: action.payload,
             };
             break;
         case SET_QUANTITY:
             return {
                 ...state,
-                QUANTITY: 1,
+                SOLUONG: 1,
             };
             break;
-        case SET_SHOESID:
+        case SET_IDSP:
             return {
                 ...state,
-                SHOESID: action.payload,
-            };
-            break;
-        case SET_IDSIZE:
-            return {
-                ...state,
-                IDSIZE: action.payload,
+                ID_SANPHAM: action.payload,
             };
             break;
         case SET_QUANTITYUP:
             return {
                 ...state,
-                QUANTITY: state.QUANTITY + 1,
+                SOLUONG: state.SOLUONG + 1,
             };
             break;
         case SET_QUANTITYDOWN:
             return {
                 ...state,
-                QUANTITY: state.QUANTITY - 1,
+                SOLUONG: state.SOLUONG - 1,
             };
             break;
         default:

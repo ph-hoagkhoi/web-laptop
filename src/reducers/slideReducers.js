@@ -11,11 +11,11 @@ import {
 } from '~/constants/sliderConstants';
 
 export const initStateSlide = {
-    IMAGEID: '1',
-    IMAGESHOES1: '',
-    IMAGESHOES2: '',
-    IMAGESHOES3: '',
-    IMAGESHOES4: '',
+    ID_ANH: '1',
+    ANH1: '',
+    ANH2: '',
+    ANH3: '',
+    ANH4: '',
 };
 
 export const slideReducer = (state, action) => {
@@ -23,59 +23,59 @@ export const slideReducer = (state, action) => {
         case SET_IMG01:
             return {
                 ...state,
-                IMAGESHOES1: action.payload,
+                ANH1: action.payload,
             };
             break;
         case SET_IMG02:
             return {
                 ...state,
-                IMAGESHOES2: action.payload,
+                ANH2: action.payload,
             };
             break;
         case SET_IMG03:
             return {
                 ...state,
-                IMAGESHOES3: action.payload,
+                ANH3: action.payload,
             };
             break;
         case SET_IMG04:
             return {
                 ...state,
-                IMAGESHOES4: action.payload,
+                ANH4: action.payload,
             };
             break;
 
         case DELETE_IMG01:
             return {
                 ...state,
-                IMAGESHOES1: '',
+                ANH1: '',
             };
             break;
         case DELETE_IMG02:
             return {
                 ...state,
-                IMAGESHOES2: '',
+                ANH2: '',
             };
             break;
         case DELETE_IMG03:
             return {
                 ...state,
-                IMAGESHOES3: '',
+                ANH3: '',
             };
             break;
         case DELETE_IMG04:
             return {
                 ...state,
-                IMAGESHOES4: '',
+                ANH4: '',
             };
             break;
         case ADD_SLIDE:
             return {
                 ...state,
-                IMAGESHOES1: action.payload[0].IMAGESHOES1,
-                IMAGESHOES2: action.payload[0].IMAGESHOES2,
-                IMAGESHOES3: action.payload[0].IMAGESHOES3,
-                IMAGESHOES4: action.payload[0].IMAGESHOES4,
+                ANH1: action.payload[0].ANH1,
+                ANH2: action.payload[0].ANH2,
+                ANH3: action.payload[0].ANH3,
+                ANH4: action.payload[0].ANH4,
             };
             break;
         default:

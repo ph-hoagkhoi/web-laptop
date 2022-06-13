@@ -11,14 +11,14 @@ import styles from './AddressItem.module.scss';
 
 const cx = classNames.bind(styles);
 
-function AddressItem({ SHOPPINGINFOID, IDACCOUNT, SHOPPINGINFONAME, SHOPPINGINFOPHONE, ADDRESS }) {
+function AddressItem({ ID_GIAOHANG, ID_TAIKHOAN, TENNGUOINHAN, SDT, TENDIACHI }) {
     const [statusModal, setStatusModal] = useState(false);
     const [stateAddress, dispatchAddress] = useReducer(addressReducer, initStateAddress);
     useEffect(() => {
-        dispatchAddress(setIDAccount(IDACCOUNT));
-        dispatchAddress(setInfoName(SHOPPINGINFONAME));
-        dispatchAddress(setInfoPhone(SHOPPINGINFOPHONE));
-        dispatchAddress(setAddress(ADDRESS));
+        dispatchAddress(setIDAccount(ID_TAIKHOAN));
+        dispatchAddress(setInfoName(TENNGUOINHAN));
+        dispatchAddress(setInfoPhone(SDT));
+        dispatchAddress(setAddress(TENDIACHI));
     }, []);
 
     const showBuyTickets = () => {
@@ -32,7 +32,7 @@ function AddressItem({ SHOPPINGINFOID, IDACCOUNT, SHOPPINGINFONAME, SHOPPINGINFO
         await axios
             .post('http://26.17.209.162/api/shippinginfo/post', {
                 type: 'delete',
-                data: { IDACCOUNT: IDACCOUNT, SHOPPINGINFOID: SHOPPINGINFOID },
+                data: { ID_TAIKHOAN: ID_TAIKHOAN, ID_GIAOHANG: ID_GIAOHANG },
             })
             .then((res) => {
                 if ((res.data != 0) & (res.data != -1)) {
@@ -44,9 +44,9 @@ function AddressItem({ SHOPPINGINFOID, IDACCOUNT, SHOPPINGINFONAME, SHOPPINGINFO
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <div className={cx('name')}>{SHOPPINGINFONAME}</div>
-                <div className={cx('address')}>{ADDRESS}</div>
-                <div className={cx('phone')}>{SHOPPINGINFOPHONE}</div>
+                <div className={cx('name')}>{TENNGUOINHAN}</div>
+                <div className={cx('address')}>{TENDIACHI}</div>
+                <div className={cx('phone')}>{SDT}</div>
 
                 <div className={cx('action')}>
                     <button className={cx('update_btn')} onClick={showBuyTickets}>
@@ -79,7 +79,7 @@ function AddressItem({ SHOPPINGINFOID, IDACCOUNT, SHOPPINGINFONAME, SHOPPINGINFO
                                 <input
                                     className={cx('input-item')}
                                     type="text"
-                                    value={stateAddress.SHOPPINGINFONAME ? stateAddress.SHOPPINGINFONAME : null}
+                                    value={stateAddress.TENNGUOINHAN ? stateAddress.TENNGUOINHAN : null}
                                     placeholder="Tên người nhận"
                                     onChange={(e) => dispatchAddress(setInfoName(e.target.value))}
                                 />
@@ -92,7 +92,7 @@ function AddressItem({ SHOPPINGINFOID, IDACCOUNT, SHOPPINGINFONAME, SHOPPINGINFO
                                     className={cx('input-item')}
                                     type="text"
                                     placeholder="Địa chỉ"
-                                    value={stateAddress.ADDRESS ? stateAddress.ADDRESS : null}
+                                    value={stateAddress.TENDIACHI ? stateAddress.TENDIACHI : null}
                                     onChange={(e) => dispatchAddress(setAddress(e.target.value))}
                                 />
                             </div>
@@ -103,7 +103,7 @@ function AddressItem({ SHOPPINGINFOID, IDACCOUNT, SHOPPINGINFONAME, SHOPPINGINFO
                                 <input
                                     className={cx('input-item')}
                                     type="text"
-                                    value={stateAddress.SHOPPINGINFOPHONE ? stateAddress.SHOPPINGINFOPHONE : null}
+                                    value={stateAddress.SDT ? stateAddress.SDT : null}
                                     placeholder="Số điện thoại"
                                     onChange={(e) => dispatchAddress(setInfoPhone(e.target.value))}
                                 />

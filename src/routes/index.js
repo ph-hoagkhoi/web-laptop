@@ -31,7 +31,9 @@ import ViewBill from '~/components/ViewBill';
 import AdminSlider from '~/components/AdminSlider';
 import UpdateBrand from '~/components/UpdateBrand';
 import AdminStock from '~/components/AdminStock';
+//
 
+//
 const publicRoutes = [
     { path: config.routes.home, component: Home },
     { path: config.routes.nike, component: Nike, layout: DefaultWithSidebar },
@@ -47,7 +49,6 @@ const publicRoutes = [
     { path: config.routes.checkout, component: Checkout },
     // Product
     { path: config.routes.product, component: DetailProduct },
-
     { path: config.routes.adminStock, component: AdminStock, layout: Admin },
 ];
 

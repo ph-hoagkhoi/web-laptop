@@ -15,7 +15,7 @@ function AdminProduct() {
     const getCourses = async () => {
         try {
             await axios
-                .get('http://26.17.209.162/api/shoes/get')
+                .get('http://26.87.217.216:8080/api/sanpham/get')
                 .then(async (res) => setProductData(res.data))
                 .catch((error) => {
                     console.log(error);
@@ -27,9 +27,9 @@ function AdminProduct() {
 
     const handleDeleteProduct = (data) => {
         axios
-            .post('http://26.17.209.162/api/shoes/post', {
+            .post('http://26.87.217.216:8080/api/sanpham/post', {
                 type: 'delete',
-                data: { SHOESID: data },
+                data: { ID_SANPHAM: data },
             })
             .then((response) => {
                 getCourses();
@@ -55,24 +55,26 @@ function AdminProduct() {
                             <td className={cx('details-title-item')}>Tên sản phẩm</td>
                             <td className={cx('details-title-item')}>Giá</td>
                             <td className={cx('details-title-item')}>Mô tả</td>
+                            <td className={cx('details-title-item')}>Thông số</td>
+                            <td className={cx('details-title-item')}>Số lượng</td>
                         </tr>
                     </thead>
                     {productData.map((product, index) => {
                         return (
-                            <tbody className={cx('details-tbody')} key={product.SHOESID}>
+                            <tbody className={cx('details-tbody')} key={product.ID_SANPHAM}>
                                 <tr className={cx('details-content-list')}>
-                                    <td className={cx('details-content-item')}>{product.SHOESID}</td>
-                                    <td className={cx('details-content-item')}>{product.IMAGEID}</td>
-                                    <td className={cx('details-content-item')}>{product.IDBRAND}</td>
-                                    <td className={cx('details-content-item', 'justify_item')}>{product.SHOESNAME}</td>
-                                    <td className={cx('details-content-item')}>{product.SHOESPRICE}</td>
-                                    <td className={cx('details-content-item', 'justify_item')}>
-                                        {product.SHOESDESCRIPTION}
-                                    </td>
+                                    <td className={cx('details-content-item')}>{product.ID_SANPHAM}</td>
+                                    <td className={cx('details-content-item')}>{product.ID_ANH}</td>
+                                    <td className={cx('details-content-item')}>{product.ID_THELOAI}</td>
+                                    <td className={cx('details-content-item', 'justify_item')}>{product.TENSANPHAM}</td>
+                                    <td className={cx('details-content-item')}>{product.GIA}</td>
 
+                                    <td className={cx('details-content-item', 'justify_item')}>{product.GIOITHIEU}</td>
+                                    <td className={cx('details-content-item', 'justify_item')}>{product.THONGSO}</td>
+                                    <td className={cx('details-content-item', 'justify_item')}>{product.SOLUONG}</td>
                                     <td className={cx('details-content-item')}>
                                         <Button
-                                            to={`/admin/product/${product.SHOESID}`}
+                                            to={`/admin/product/${product.ID_SANPHAM}`}
                                             state={{ data: product }}
                                             className={cx('details-content-item-btn')}
                                         >
@@ -82,7 +84,7 @@ function AdminProduct() {
                                     <td className={cx('details-content-item')}>
                                         <Button
                                             className={cx('details-content-item-btn')}
-                                            onClick={(e) => handleDeleteProduct(product.SHOESID)}
+                                            onClick={(e) => handleDeleteProduct(product.ID_SANPHAM)}
                                         >
                                             Xóa
                                         </Button>

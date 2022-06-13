@@ -12,8 +12,8 @@ import {
 } from '~/constants/userConstants';
 
 export const initStateUser = {
-    ID_TAIKHOAN: '',
-    HOVATEN: '',
+    IDNHANVIEN: '',
+    TENNHANVIEN: '',
     GIOITINH: '',
     NAMSINH: '',
     SDT: '',
@@ -26,7 +26,7 @@ export const userReducer = (state, action) => {
         case SET_FULLNAME:
             return {
                 ...state,
-                HOVATEN: action.payload,
+                TENNHANVIEN: action.payload,
             };
             break;
         case SET_PASSWORD:
@@ -44,7 +44,7 @@ export const userReducer = (state, action) => {
         case SET_IDACCOUNT:
             return {
                 ...state,
-                ID_TAIKHOAN: action.payload,
+                IDACCOUNT: action.payload,
             };
             break;
         case SET_GENDER:

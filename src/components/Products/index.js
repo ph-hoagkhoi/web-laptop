@@ -9,12 +9,12 @@ import { useEffect, useState, useReducer } from 'react';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { initStateShoppingCart, shoppingCartReducer } from '~/reducers/shoppingCartReducers';
-import { setIDSize, setShoesID, setIDAccount } from '~/actions/shoppingCartActions';
+import { setIDSP, setIDAccount } from '~/actions/shoppingCartActions';
 import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-function Products({ featured, id, name, price, imgID, description, brand }) {
+function Products({ featured, id, name, price, imgID, description, brand, soluong, thongso }) {
     const [imgProducts, setImgProducts] = useState([]);
     const [stateCart, dispatchCart] = useReducer(shoppingCartReducer, initStateShoppingCart);
     const [cookies, setCookies] = useCookies(['name']);
@@ -23,18 +23,12 @@ function Products({ featured, id, name, price, imgID, description, brand }) {
         if (cookies.name) {
             dispatchCart(setIDAccount(cookies.name.ID));
         }
-        dispatchCart(setShoesID(id));
-        axios
-            .post('http://26.17.209.162/api/stock/post', {
-                type: 'getsize',
-                data: { SHOESID: id },
-            })
-            .then((res) => dispatchCart(setIDSize(res.data[0].IDSIZE)));
+        dispatchCart(setIDSP(id));
 
         axios
-            .post('http://26.17.209.162/api/image/post', {
+            .post('http://26.87.217.216:8080/api/ctanh/post', {
                 type: 'get',
-                data: { IMAGEID: imgID },
+                data: { ID_ANH: imgID },
             })
             .then(async (res) => setImgProducts(res.data[0]));
     }, []);
@@ -44,17 +38,19 @@ function Products({ featured, id, name, price, imgID, description, brand }) {
                 to={`/sneaker/${id}`}
                 state={{
                     data: {
-                        SHOESID: id,
-                        SHOESNAME: name,
-                        SHOESDESCRIPTION: description,
-                        BRANDNAME: brand,
-                        SHOESPRICE: price,
+                        ID_SANPHAM: id,
+                        TENSANPHAM: name,
+                        GIOITHIEU: description,
+                        TENTHELOAI: brand,
+                        GIA: price,
+                        SOLUONG: soluong,
+                        THONGSO: thongso,
                         IMAGE: imgProducts,
                     },
                 }}
             >
                 <div className={cx('product')}>
-                    <Image src={imgProducts.IMAGESHOES1} alt={name} className={cx('product-img')} />
+                    <Image src={imgProducts.ANH1} alt={name} className={cx('product-img')} />
                 </div>
             </Link>
             <div className={cx('content')}>
@@ -67,11 +63,13 @@ function Products({ featured, id, name, price, imgID, description, brand }) {
                     to={`/sneaker/${id}`}
                     state={{
                         data: {
-                            SHOESID: id,
-                            SHOESNAME: name,
-                            SHOESDESCRIPTION: description,
-                            BRANDNAME: brand,
-                            SHOESPRICE: price,
+                            ID_SANPHAM: id,
+                            TENSANPHAM: name,
+                            GIOITHIEU: description,
+                            TENTHELOAI: brand,
+                            GIA: price,
+                            SOLUONG: soluong,
+                            THONGSO: thongso,
                             IMAGE: imgProducts,
                         },
                     }}

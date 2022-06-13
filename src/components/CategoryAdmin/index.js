@@ -35,7 +35,7 @@ function AdminUser() {
     const getCourses = async () => {
         try {
             await axios
-                .get('http://26.17.209.162/api/brand/get')
+                .get('http://26.87.217.216:8080/api/theloai/get')
                 .then(async (res) => setBrandData(res.data))
                 .catch((error) => {
                     console.log(error);
@@ -54,26 +54,26 @@ function AdminUser() {
 
     const handleSubmitNewBrand = (data) => {
         axios
-            .post('http://26.17.209.162/api/brand/post', {
+            .post('http://26.87.217.216:8080/api/theloai/post', {
                 type: 'create',
                 data: stateBrand,
             })
             .then((response) => {
-                console.log(response.data);
                 getCourses();
             });
     };
 
     const handleSubmitDeleteBrand = ({ item }) => {
-        axios
-            .post('http://26.17.209.162/api/brand/post', {
+        if(window.confirm("Right u wanna cc!")){
+            axios
+            .post('http://26.87.217.216:8080/api/theloai/post', {
                 type: 'delete',
-                data: { IDBRAND: item.IDBRAND },
+                data: { ID_THELOAI: item.ID_THELOAI },
             })
             .then((response) => {
                 getCourses();
-                console.log(response);
             });
+        }
     };
 
     return (
@@ -95,21 +95,21 @@ function AdminUser() {
                         </tr>
                     </thead>
                     {brandData.map((item, index) => (
-                        <tbody className={cx('details-tbody')} key={item.IDBRAND}>
+                        <tbody className={cx('details-tbody')} key={item.ID_THELOAI}>
                             <tr className={cx('details-content-list')}>
-                                <td className={cx('details-content-item')}>{item.IDBRAND}</td>
-                                <td className={cx('details-content-item')}>{item.BRANDNAME}</td>
+                                <td className={cx('details-content-item')}>{item.ID_THELOAI}</td>
+                                <td className={cx('details-content-item')}>{item.TENTHELOAI}</td>
                                 <td className={cx('details-content-item', 'details-content-item--maxwith')}>
-                                    <span>{item.DESCRIPTIONBRAND}</span>
+                                    <span>{item.MOTATHELOAI}</span>
                                 </td>
                                 <td className={cx('details-content-item')}>
                                     <Button
-                                        to={`/admin/category/${item.BRANDNAME}`}
+                                        to={`/admin/category/${item.TENTHELOAI}`}
                                         state={{
                                             data: {
-                                                IDBRAND: item.IDBRAND,
-                                                BRANDNAME: item.BRANDNAME,
-                                                DESCRIPTIONBRAND: item.DESCRIPTIONBRAND,
+                                                ID_THELOAI: item.ID_THELOAI,
+                                                TENTHELOAI: item.TENTHELOAI,
+                                                MOTATHELOAI: item.MOTATHELOAI,
                                             },
                                         }}
                                         className={cx('details-content-item-btn')}

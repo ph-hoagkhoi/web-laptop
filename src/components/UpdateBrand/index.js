@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useState, useReducer, useEffect } from 'react';
 import config from '~/config';
 
+import { useNavigate } from 'react-router-dom';
 import { initStateBrand, detailBrandReducer } from '~/reducers/brandReducers';
 import { setBrandName, setDesBrand, addBrand } from '~/actions/brandActions';
 
@@ -14,7 +15,7 @@ const cx = classNames.bind(styles);
 
 function UpdateBrand({}) {
     let location = useLocation();
-
+    let navigate = useNavigate();
     const [stateBrand, dispatchBrand] = useReducer(detailBrandReducer, initStateBrand);
     const [brandData, setBrandData] = useState([location.state.data]);
 
@@ -30,12 +31,15 @@ function UpdateBrand({}) {
 
     const handleSubmitUpdateBrand = (data) => {
         axios
-            .post('http://26.17.209.162/api/brand/post', {
+            .post('http://26.87.217.216:8080/api/theloai/post', {
                 type: 'update',
                 data: stateBrand,
             })
             .then((response) => {
-                console.log(response);
+                if ((response.data != 0) & (response.data != -1)) {
+                    alert('Cập nhật thành công');
+                    navigate('/admin/category');
+                }
             });
     };
 
@@ -68,7 +72,7 @@ function UpdateBrand({}) {
                                 <input
                                     className={cx('input-item')}
                                     type="text"
-                                    value={stateBrand.BRANDNAME}
+                                    value={stateBrand.TENTHELOAI}
                                     placeholder="Tên danh mục"
                                     onChange={(e) => dispatchBrand(setBrandName(e.target.value))}
                                 />
@@ -80,7 +84,7 @@ function UpdateBrand({}) {
                                 <textarea
                                     className={cx('input-item-description')}
                                     cols="54"
-                                    value={stateBrand.DESCRIPTIONBRAND}
+                                    value={stateBrand.MOTATHELOAI}
                                     rows="10"
                                     onChange={(e) => dispatchBrand(setDesBrand(e.target.value))}
                                 ></textarea>

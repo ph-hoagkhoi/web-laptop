@@ -46,10 +46,11 @@ function SignIn() {
 
     const handleSubmitLogin = (data) => {
         axios
-            .post('http://26.17.209.162/api/account/signin', {
+            .post('http://26.87.217.216:8080/api/taikhoan/signin', {
                 data: stateLogin,
             })
             .then((response) => {
+                console.log();
                 if (response.data != 0) {
                     setCookie('name', { ID: response.data.id, STATUS: response.data.status }, { path: '/' });
                     navigate('/');
@@ -59,11 +60,10 @@ function SignIn() {
                 }
             });
     };
-
     // Đăng ký
     const handleSubmitRG = async (e) => {
         e.preventDefault();
-        if (stateRegister.REPASSWORD === stateRegister.PASSWORD) {
+        if (stateRegister.REMATKHAU === stateRegister.MATKHAU) {
             console.log(stateRegister);
             await handleSubmitRegister({
                 stateRegister,
@@ -75,7 +75,7 @@ function SignIn() {
 
     const handleSubmitRegister = (data) => {
         axios
-            .post('http://26.17.209.162/api/account/signup', {
+            .post('http://26.87.217.216:8080/api/nhanvien/signup', {
                 data: stateRegister,
             })
             .then((response) => {

@@ -21,11 +21,12 @@ function Shipping() {
     useEffect(() => {
         if (cookies.name) {
             axios
-                .post('http://26.17.209.162/api/shoppingcart/post', {
+                .post('http://26.87.217.216:8080/api/giohang/post', {
                     type: 'get',
-                    data: { IDACCOUNT: cookies.name.ID },
+                    data: { ID_TAIKHOAN: cookies.name.ID },
                 })
                 .then((res) => {
+                    console.log(res.data);
                     setShoppingCart(res.data);
                 });
         } else {
@@ -44,21 +45,19 @@ function Shipping() {
                     <h2 className={cx('detail_heading')}>Giỏ hàng</h2>
                     {shoppingCart != 0 ? (
                         shoppingCart.map((product, index) => {
-                            const count = product.SHOESPRICE * product.QUANTITY;
+                            const count = product.GIA * product.SOLUONG;
                             countMoney(count);
                             console.log(product);
                             return (
                                 <ShoppingItem
                                     key={index}
-                                    IMAGESHOES1={product.IMAGESHOES1}
-                                    SHOESNAME={product.SHOESNAME}
-                                    BRANDNAME={product.BRANDNAME}
-                                    SIZEEUR={product.SIZEEUR}
-                                    QUANTITY={product.QUANTITY}
-                                    SHOESPRICE={product.SHOESPRICE}
-                                    IDACCOUNT={product.IDACCOUNT}
-                                    IDSIZE={product.IDSIZE}
-                                    SHOESID={product.SHOESID}
+                                    ANH1={product.ANH1}
+                                    TENSANPHAM={product.TENSANPHAM}
+                                    TENTHELOAI={product.TENTHELOAI}
+                                    SOLUONG={product.SOLUONG}
+                                    GIA={product.GIA}
+                                    ID_TAIKHOAN={product.ID_TAIKHOAN}
+                                    ID_SANPHAM={product.ID_SANPHAM}
                                 />
                             );
                         })

@@ -19,11 +19,14 @@ import {
     faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import { faBarChart, faComment } from '@fortawesome/free-regular-svg-icons';
+import { useCookies } from 'react-cookie';
 
 const cx = classNames.bind(styles);
 
 function SidebarAdmin({ children }) {
     const [statusMenu, setStatusMenu] = useState(false);
+    const [cookies,setCookie] = useCookies(['name'])
+
     const handleToggleMenu = () => {
         setStatusMenu(!statusMenu);
     };
@@ -37,7 +40,7 @@ function SidebarAdmin({ children }) {
                             <span className={cx('nav-icon')}>
                                 <FontAwesomeIcon icon={faHome} />
                             </span>
-                            <span className={cx('nav-title')}>MORRI</span>
+                            <span className={cx('nav-title')}>QUẢN LÝ</span>
                         </Link>
                     </li>
                     <li className={cx('nav-item')}>

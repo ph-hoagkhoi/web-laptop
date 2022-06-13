@@ -5,7 +5,7 @@ import React from 'react';
 import { Fade } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import images from '~/assets/images';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 const cx = classNames.bind(styles);
 
@@ -14,9 +14,9 @@ function Slider() {
 
     useEffect(() => {
         axios
-            .post('http://26.17.209.162/api/image/post', {
+            .post('http://26.87.217.216:8080/api/ctanh/post', {
                 type: 'get',
-                data: { IMAGEID: '1' },
+                data: { ID_ANH: '1' },
             })
             .then((response) => {
                 setSlideData(response.data[0]);
@@ -27,7 +27,7 @@ function Slider() {
         <div className={cx('slide-container')}>
             <Fade>
                 {Object.keys(slideData)
-                    .filter((key) => key !== 'IMAGEID')
+                    .filter((key) => key !== 'ID_ANH')
                     .map((key, index) => {
                         return (
                             slideData[key] !== '' && (

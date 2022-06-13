@@ -9,7 +9,17 @@ import config from '~/config';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { initState, productDetailsReducer } from '~/reducers/productReducers';
-import { setID, setName, setPrice, setDescription, setImg, deleteImg, setBrand } from '~/actions/productActions';
+import {
+    setID,
+    setName,
+    setPrice,
+    setDescription,
+    setImg,
+    deleteImg,
+    setBrand,
+    setSoLuong,
+    setThongSo,
+} from '~/actions/productActions';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -25,18 +35,21 @@ function AddProduct() {
     useEffect(() => {
         if (location.state) {
             if (location.state.data) {
-                dispatch(setID(location.state.data.SHOESID));
-                dispatch(setDescription(location.state.data.SHOESDESCRIPTION));
-                dispatch(setPrice(location.state.data.SHOESPRICE));
-                dispatch(setName(location.state.data.SHOESNAME));
+                dispatch(setID(location.state.data.ID_SANPHAM));
+                dispatch(setDescription(location.state.data.GIOITHIEU));
+                dispatch(setPrice(location.state.data.GIA));
+                dispatch(setName(location.state.data.TENSANPHAM));
+                dispatch(setThongSo(location.state.data.THONGSO));
+                dispatch(setSoLuong(location.state.data.SOLUONG));
+
                 axios
-                    .post('http://26.17.209.162/api/image/post', {
+                    .post('http://26.87.217.216:8080/api/ctanh/post', {
                         type: 'get',
-                        data: { IMAGEID: location.state.data.IMAGEID },
+                        data: { ID_ANH: location.state.data.ID_ANH },
                     })
                     .then((res) => {
                         var array = Object.keys(res.data[0])
-                            .filter((key) => key !== 'IMAGEID')
+                            .filter((key) => key !== 'ID_ANH')
                             .map(function (key) {
                                 return res.data[0][key];
                             });
@@ -57,16 +70,16 @@ function AddProduct() {
                     });
 
                 axios
-                    .post('http://26.17.209.162/api/brand/post', {
+                    .post('http://26.87.217.216:8080/api/theloai/post', {
                         type: 'get',
-                        data: { IDBRAND: location.state.data.IDBRAND },
+                        data: { ID_THELOAI: location.state.data.ID_THELOAI },
                     })
                     .then((res) => {
                         dispatch(setBrand(res.data[0]));
                     });
             }
         }
-        axios.post('http://26.17.209.162/api/brand/get').then((res) => {
+        axios.post('http://26.87.217.216:8080/api/theloai/get').then((res) => {
             setBrandData(res.data);
         });
     }, []);
@@ -80,13 +93,15 @@ function AddProduct() {
 
     const handleSubmitUpdateProduct = (data) => {
         axios
-            .post('http://26.17.209.162/api/shoes/post', {
+            .post('http://26.87.217.216:8080/api/sanpham/post', {
                 type: 'update',
                 data: state,
             })
             .then((response) => {
+                // console.log(response.data);
                 if ((response.data != 0) & (response.data != -1)) {
-                    navigate('/admin/shoes');
+                    navigate('/admin/product');
+
                 }
             });
     };
@@ -100,13 +115,14 @@ function AddProduct() {
 
     const handleSubmitLogin = (data) => {
         axios
-            .post('http://26.17.209.162/api/shoes/post', {
+            .post('http://26.87.217.216:8080/api/sanpham/post', {
                 type: 'create',
                 data: state,
             })
             .then((response) => {
+                
                 if ((response.data != 0) & (response.data != -1)) {
-                    navigate('/admin/shoes');
+                    navigate('/admin/product');
                 }
             });
     };
@@ -156,7 +172,7 @@ function AddProduct() {
                                 className={cx('info-txt')}
                                 id="idproduct"
                                 type="text"
-                                value={location.state ? state.SHOESID : null}
+                                value={location.state ? state.ID_SANPHAM : null}
                                 placeholder="Mã sản phẩm"
                                 onChange={(e) => dispatch(setID(e.target.value))}
                             />
@@ -169,7 +185,7 @@ function AddProduct() {
                                 className={cx('info-txt')}
                                 type="text"
                                 id="name"
-                                value={location.state ? state.SHOESNAME : null}
+                                value={location.state ? state.TENSANPHAM : null}
                                 placeholder="Tên sản phẩm"
                                 onChange={(e) => dispatch(setName(e.target.value))}
                             />
@@ -184,7 +200,7 @@ function AddProduct() {
                                 className={cx('info-txt')}
                                 type="text"
                                 id="price"
-                                value={location.state ? state.SHOESPRICE : null}
+                                value={location.state ? state.GIA : null}
                                 placeholder="Giá tiền"
                                 onChange={(e) => dispatch(setPrice(e.target.value))}
                                 onKeyPress={(event) => {
@@ -198,7 +214,18 @@ function AddProduct() {
                             <label htmlFor="quantity" className={cx('info-heading')}>
                                 Số lượng
                             </label>
-                            <input className={cx('info-txt')} type="number" id="quantity" placeholder="Số lượng" />
+                            <input
+                                className={cx('info-txt')}
+                                type="number"
+                                id="quantity"
+                                placeholder="Số lượng"
+                                onChange={(e) => dispatch(setSoLuong(e.target.value))}
+                                onKeyPress={(event) => {
+                                    if (!/[0-9]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                }}
+                            />
                         </div>
                     </div>
                     <div className={cx('group')}>
@@ -208,7 +235,7 @@ function AddProduct() {
                                 <div className={cx('selected-value')}>
                                     <span>
                                         {location.state
-                                            ? state.IDBRAND.BRANDNAME
+                                            ? state.ID_THELOAI.TENTHELOAI
                                             : brandData != 0
                                             ? 'Chọn thương hiệu'
                                             : 'Chưa có thương hiệu'}
@@ -223,27 +250,27 @@ function AddProduct() {
                                 {brandData != 0 ? (
                                     brandData.map((brand) => {
                                         return (
-                                            <div className={cx('option')} key={brand.IDBRAND}>
+                                            <div className={cx('option')} key={brand.ID_THELOAI}>
                                                 <input
                                                     className={cx('s-c', 'top')}
                                                     type="radio"
                                                     name="brand"
-                                                    value={brand.IDBRAND}
+                                                    value={brand.ID_THELOAI}
                                                     onChange={(e) => dispatch(setBrand(e.target.value))}
                                                 />
                                                 <input
                                                     className={cx('s-c', 'bottom')}
                                                     type="radio"
                                                     name="brand"
-                                                    value={brand.IDBRAND}
+                                                    value={brand.ID_THELOAI}
                                                     onChange={(e) => dispatch(setBrand(e.target.value))}
                                                 />
                                                 <FontAwesomeIcon
                                                     icon={faFacebook}
                                                     className={cx('logo_brand')}
                                                 ></FontAwesomeIcon>
-                                                <span className={cx('item_label')}>{brand.BRANDNAME}</span>
-                                                <span className={cx('opt-val')}>{brand.BRANDNAME}</span>
+                                                <span className={cx('item_label')}>{brand.TENTHELOAI}</span>
+                                                <span className={cx('opt-val')}>{brand.TENTHELOAI}</span>
                                             </div>
                                         );
                                     })
@@ -260,11 +287,10 @@ function AddProduct() {
                             <CKEditor
                                 className={cx('item_content')}
                                 editor={ClassicEditor}
-                                data={location.state ? location.state.data.SHOESDESCRIPTION : ''}
+                                data={location.state ? location.state.data.GIOITHIEU : ''}
                                 onChange={(e, editor) => {
                                     const data = editor.getData();
                                     dispatch(setDescription(data));
-                                    console.log(data);
                                 }}
                             />
                         </div>
@@ -274,10 +300,10 @@ function AddProduct() {
                             <CKEditor
                                 className={cx('item_content')}
                                 editor={ClassicEditor}
-                                data=""
+                                data={location.state ? location.state.data.THONGSO : ''}
                                 onChange={(event, editor) => {
                                     const data = editor.getData();
-                                    console.log({ event, editor, data });
+                                    dispatch(setThongSo(data));
                                 }}
                             />
                         </div>
@@ -289,24 +315,20 @@ function AddProduct() {
                                 <input
                                     className={cx('upload')}
                                     type="file"
-                                    disabled={state.SHOESIMG[0]}
+                                    disabled={state.IMG[0]}
                                     onChange={(e) => uploadImage(e)}
                                 />
                                 <FontAwesomeIcon
                                     icon={faArrowUp}
-                                    className={cx(state.SHOESIMG[0] ? 'fadeout' : '')}
+                                    className={cx(state.IMG[0] ? 'fadeout' : '')}
                                 ></FontAwesomeIcon>
-                                <div className={cx('img_box', state.SHOESIMG[0] ? 'fadein' : '')}>
-                                    <img
-                                        alt=""
-                                        className={cx('img')}
-                                        src={state.SHOESIMG[0] ? state.SHOESIMG[0] : ''}
-                                    />
-                                    <div className={cx('delete_box', state.SHOESIMG[0] ? 'active' : '')}>
+                                <div className={cx('img_box', state.IMG[0] ? 'fadein' : '')}>
+                                    <img alt="" className={cx('img')} src={state.IMG[0] ? state.IMG[0] : ''} />
+                                    <div className={cx('delete_box', state.IMG[0] ? 'active' : '')}>
                                         <FontAwesomeIcon
                                             icon={faXmark}
                                             className={cx('btn_delete')}
-                                            onClick={(e) => dispatch(deleteImg(state.SHOESIMG[0]))}
+                                            onClick={(e) => dispatch(deleteImg(state.IMG[0]))}
                                         />
                                     </div>
                                 </div>
@@ -318,24 +340,20 @@ function AddProduct() {
                                 <input
                                     className={cx('upload')}
                                     type="file"
-                                    disabled={state.SHOESIMG[1]}
+                                    disabled={state.IMG[1]}
                                     onChange={(e) => uploadImage(e)}
                                 />
                                 <FontAwesomeIcon
                                     icon={faArrowUp}
-                                    className={cx(state.SHOESIMG[1] ? 'fadeout' : '')}
+                                    className={cx(state.IMG[1] ? 'fadeout' : '')}
                                 ></FontAwesomeIcon>
-                                <div className={cx('img_box', state.SHOESIMG[1] ? 'fadein' : '')}>
-                                    <img
-                                        alt=""
-                                        className={cx('img')}
-                                        src={state.SHOESIMG[1] ? state.SHOESIMG[1] : ''}
-                                    />
-                                    <div className={cx('delete_box', state.SHOESIMG[1] ? 'active' : '')}>
+                                <div className={cx('img_box', state.IMG[1] ? 'fadein' : '')}>
+                                    <img alt="" className={cx('img')} src={state.IMG[1] ? state.IMG[1] : ''} />
+                                    <div className={cx('delete_box', state.IMG[1] ? 'active' : '')}>
                                         <FontAwesomeIcon
                                             icon={faXmark}
                                             className={cx('btn_delete')}
-                                            onClick={(e) => dispatch(deleteImg(state.SHOESIMG[1]))}
+                                            onClick={(e) => dispatch(deleteImg(state.IMG[1]))}
                                         />
                                     </div>
                                 </div>
@@ -347,24 +365,20 @@ function AddProduct() {
                                 <input
                                     className={cx('upload')}
                                     type="file"
-                                    disabled={state.SHOESIMG[2]}
+                                    disabled={state.IMG[2]}
                                     onChange={(e) => uploadImage(e)}
                                 />
                                 <FontAwesomeIcon
                                     icon={faArrowUp}
-                                    className={cx(state.SHOESIMG[2] ? 'fadeout' : '')}
+                                    className={cx(state.IMG[2] ? 'fadeout' : '')}
                                 ></FontAwesomeIcon>
-                                <div className={cx('img_box', state.SHOESIMG[2] ? 'fadein' : '')}>
-                                    <img
-                                        alt=""
-                                        className={cx('img')}
-                                        src={state.SHOESIMG[2] ? state.SHOESIMG[2] : ''}
-                                    />
-                                    <div className={cx('delete_box', state.SHOESIMG[2] ? 'active' : '')}>
+                                <div className={cx('img_box', state.IMG[2] ? 'fadein' : '')}>
+                                    <img alt="" className={cx('img')} src={state.IMG[2] ? state.IMG[2] : ''} />
+                                    <div className={cx('delete_box', state.IMG[2] ? 'active' : '')}>
                                         <FontAwesomeIcon
                                             icon={faXmark}
                                             className={cx('btn_delete')}
-                                            onClick={(e) => dispatch(deleteImg(state.SHOESIMG[2]))}
+                                            onClick={(e) => dispatch(deleteImg(state.IMG[2]))}
                                         />
                                     </div>
                                 </div>
@@ -376,24 +390,20 @@ function AddProduct() {
                                 <input
                                     className={cx('upload')}
                                     type="file"
-                                    disabled={state.SHOESIMG[3]}
+                                    disabled={state.IMG[3]}
                                     onChange={(e) => uploadImage(e)}
                                 />
                                 <FontAwesomeIcon
                                     icon={faArrowUp}
-                                    className={cx(state.SHOESIMG[3] ? 'fadeout' : '')}
+                                    className={cx(state.IMG[3] ? 'fadeout' : '')}
                                 ></FontAwesomeIcon>
-                                <div className={cx('img_box', state.SHOESIMG[3] ? 'fadein' : '')}>
-                                    <img
-                                        alt=""
-                                        className={cx('img')}
-                                        src={state.SHOESIMG[3] ? state.SHOESIMG[3] : ''}
-                                    />
-                                    <div className={cx('delete_box', state.SHOESIMG[3] ? 'active' : '')}>
+                                <div className={cx('img_box', state.IMG[3] ? 'fadein' : '')}>
+                                    <img alt="" className={cx('img')} src={state.IMG[3] ? state.IMG[3] : ''} />
+                                    <div className={cx('delete_box', state.IMG[3] ? 'active' : '')}>
                                         <FontAwesomeIcon
                                             icon={faXmark}
                                             className={cx('btn_delete')}
-                                            onClick={(e) => dispatch(deleteImg(state.SHOESIMG[3]))}
+                                            onClick={(e) => dispatch(deleteImg(state.IMG[3]))}
                                         />
                                     </div>
                                 </div>

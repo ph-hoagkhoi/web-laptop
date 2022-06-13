@@ -1,7 +1,6 @@
 import {
     SET_IDACCOUNT,
-    SET_SHOESID,
-    SET_IDSIZE,
+    SET_IDSP,
     SET_QUANTITYUP,
     SET_QUANTITYDOWN,
     SET_QUANTITY,
@@ -14,16 +13,9 @@ export const setIDAccount = (payload) => {
     };
 };
 
-export const setShoesID = (payload) => {
+export const setIDSP = (payload) => {
     return {
-        type: SET_SHOESID,
-        payload,
-    };
-};
-
-export const setIDSize = (payload) => {
-    return {
-        type: SET_IDSIZE,
+        type: SET_IDSP,
         payload,
     };
 };

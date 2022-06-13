@@ -19,4 +19,4 @@ export const addBrand = (payload) => {
         type: ADD_BRAND,
         payload,
     };
-};
+};  

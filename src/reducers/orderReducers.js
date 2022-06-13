@@ -2,9 +2,9 @@ import { SET_SHOPPINGINFOID, SET_IDACCOUNT, SET_TOTAL } from '~/constants/orderC
 
 // init state
 export const initStateOrder = {
-    SHOPPINGINFOID: '',
-    IDACCOUNT: '',
-    TOTAL: 0,
+    ID_GIAOHANG: '',
+    ID_TAIKHOAN: '',
+    THANHTIEN: 0,
 };
 
 export const orderReducer = (state, action) => {
@@ -12,19 +12,19 @@ export const orderReducer = (state, action) => {
         case SET_SHOPPINGINFOID:
             return {
                 ...state,
-                SHOPPINGINFOID: action.payload,
+                ID_GIAOHANG: action.payload,
             };
             break;
         case SET_IDACCOUNT:
             return {
                 ...state,
-                IDACCOUNT: action.payload,
+                ID_TAIKHOAN: action.payload,
             };
             break;
         case SET_TOTAL:
             return {
                 ...state,
-                TOTAL: action.payload,
+                THANHTIEN: action.payload,
             };
             break;
         default:

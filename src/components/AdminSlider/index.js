@@ -25,7 +25,7 @@ function AdminSlider() {
     const [sliderData, setSliderData] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://26.17.209.162/api/image/get`).then((res) => {
+        axios.get(`http://26.87.217.216:8080/api/ctanh/get`).then((res) => {
             setSliderData(res.data);
             dispatchSlide(addSlide(res.data));
         });
@@ -62,7 +62,7 @@ function AdminSlider() {
 
     const handleSubmitSlide = (data) => {
         axios
-            .post('http://26.17.209.162/api/image/post', {
+            .post('http://26.87.217.216:8080/api/ctanh/post', {
                 type: 'update',
                 data: stateSlide,
             })
@@ -92,16 +92,16 @@ function AdminSlider() {
                                 <input
                                     type="file"
                                     className={cx('upload')}
-                                    disabled={stateSlide.IMAGESHOES1}
+                                    disabled={stateSlide.ANH1}
                                     onChange={(e) => uploadImage(e, setIMG1)}
                                 />
                                 <FontAwesomeIcon
                                     icon={faArrowUp}
-                                    className={cx(stateSlide.IMAGESHOES1 ? 'fadeout' : '')}
+                                    className={cx(stateSlide.ANH1 ? 'fadeout' : '')}
                                 ></FontAwesomeIcon>
-                                <div className={cx('img_box', stateSlide.IMAGESHOES1 != '' ? 'fadein' : '')}>
-                                    <img alt="" className={cx('img')} src={stateSlide.IMAGESHOES1} />
-                                    <div className={cx('delete_box', stateSlide.IMAGESHOES1 != '' ? 'active' : '')}>
+                                <div className={cx('img_box', stateSlide.ANH1 != '' ? 'fadein' : '')}>
+                                    <img alt="" className={cx('img')} src={stateSlide.ANH1} />
+                                    <div className={cx('delete_box', stateSlide.ANH1 != '' ? 'active' : '')}>
                                         <FontAwesomeIcon
                                             icon={faXmark}
                                             className={cx('btn_delete')}
@@ -114,16 +114,16 @@ function AdminSlider() {
                                 <input
                                     type="file"
                                     className={cx('upload')}
-                                    disabled={stateSlide.IMAGESHOES2}
+                                    disabled={stateSlide.ANH2}
                                     onChange={(e) => uploadImage(e, setIMG2)}
                                 />
                                 <FontAwesomeIcon
                                     icon={faArrowUp}
-                                    className={cx(stateSlide.IMAGESHOES2 ? 'fadeout' : '')}
+                                    className={cx(stateSlide.ANH2 ? 'fadeout' : '')}
                                 ></FontAwesomeIcon>
-                                <div className={cx('img_box', stateSlide.IMAGESHOES2 != '' ? 'fadein' : '')}>
-                                    <img alt="" className={cx('img')} src={stateSlide.IMAGESHOES2} />
-                                    <div className={cx('delete_box', stateSlide.IMAGESHOES2 != '' ? 'active' : '')}>
+                                <div className={cx('img_box', stateSlide.ANH2 != '' ? 'fadein' : '')}>
+                                    <img alt="" className={cx('img')} src={stateSlide.ANH2} />
+                                    <div className={cx('delete_box', stateSlide.ANH2 != '' ? 'active' : '')}>
                                         <FontAwesomeIcon
                                             icon={faXmark}
                                             className={cx('btn_delete')}
@@ -138,16 +138,16 @@ function AdminSlider() {
                                 <input
                                     type="file"
                                     className={cx('upload')}
-                                    disabled={stateSlide.IMAGESHOES3}
+                                    disabled={stateSlide.ANH3}
                                     onChange={(e) => uploadImage(e, setIMG3)}
                                 />
                                 <FontAwesomeIcon
                                     icon={faArrowUp}
-                                    className={cx(stateSlide.IMAGESHOES3 ? 'fadeout' : '')}
+                                    className={cx(stateSlide.ANH3 ? 'fadeout' : '')}
                                 ></FontAwesomeIcon>
-                                <div className={cx('img_box', stateSlide.IMAGESHOES3 != '' ? 'fadein' : '')}>
-                                    <img alt="" className={cx('img')} src={stateSlide.IMAGESHOES3} />
-                                    <div className={cx('delete_box', stateSlide.IMAGESHOES3 != '' ? 'active' : '')}>
+                                <div className={cx('img_box', stateSlide.ANH3 != '' ? 'fadein' : '')}>
+                                    <img alt="" className={cx('img')} src={stateSlide.ANH3} />
+                                    <div className={cx('delete_box', stateSlide.ANH3 != '' ? 'active' : '')}>
                                         <FontAwesomeIcon
                                             icon={faXmark}
                                             className={cx('btn_delete')}
@@ -160,16 +160,16 @@ function AdminSlider() {
                                 <input
                                     type="file"
                                     className={cx('upload')}
-                                    disabled={stateSlide.IMAGESHOES4}
+                                    disabled={stateSlide.ANH4}
                                     onChange={(e) => uploadImage(e, setIMG4)}
                                 />
                                 <FontAwesomeIcon
                                     icon={faArrowUp}
-                                    className={cx(stateSlide.IMAGESHOES4 ? 'fadeout' : '')}
+                                    className={cx(stateSlide.ANH4 ? 'fadeout' : '')}
                                 ></FontAwesomeIcon>
-                                <div className={cx('img_box', stateSlide.IMAGESHOES4 != '' ? 'fadein' : '')}>
-                                    <img alt="" className={cx('img')} src={stateSlide.IMAGESHOES4} />
-                                    <div className={cx('delete_box', stateSlide.IMAGESHOES4 != '' ? 'active' : '')}>
+                                <div className={cx('img_box', stateSlide.ANH4 != '' ? 'fadein' : '')}>
+                                    <img alt="" className={cx('img')} src={stateSlide.ANH4} />
+                                    <div className={cx('delete_box', stateSlide.ANH4 != '' ? 'active' : '')}>
                                         <FontAwesomeIcon
                                             icon={faXmark}
                                             className={cx('btn_delete')}

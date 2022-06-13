@@ -1,9 +1,9 @@
 import { SET_BRANDNAME, SET_DESCRIPTIONBRAND, ADD_BRAND } from '~/constants/brandConstants';
 
 export const initStateBrand = {
-    IDBRAND: '',
-    BRANDNAME: '',
-    DESCRIPTIONBRAND: '',
+    ID_THELOAI: '',
+    TENTHELOAI: '',
+    MOTATHELOAI: '',
 };
 
 export const detailBrandReducer = (state, action) => {
@@ -11,20 +11,20 @@ export const detailBrandReducer = (state, action) => {
         case SET_BRANDNAME:
             return {
                 ...state,
-                BRANDNAME: action.payload,
+                TENTHELOAI: action.payload,
             };
             break;
         case SET_DESCRIPTIONBRAND:
             return {
                 ...state,
-                DESCRIPTIONBRAND: action.payload,
+                MOTATHELOAI: action.payload,
             };
             break;
         case ADD_BRAND:
             return {
-                IDBRAND: action.payload.IDBRAND,
-                BRANDNAME: action.payload.BRANDNAME,
-                DESCRIPTIONBRAND: action.payload.DESCRIPTIONBRAND,
+                ID_THELOAI: action.payload.ID_THELOAI,
+                TENTHELOAI: action.payload.TENTHELOAI,
+                MOTATHELOAI: action.payload.MOTATHELOAI,
             };
             break;
         default:

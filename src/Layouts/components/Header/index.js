@@ -35,20 +35,20 @@ function Header() {
         window.location.reload();
     };
 
-    useEffect(() => {
-        if (cookies.name) {
-            axios
-                .post('http://26.17.209.162/api/shoppingcart/post', {
-                    type: 'get',
-                    data: { IDACCOUNT: cookies.name.ID },
-                })
-                .then((res) => {
-                    if ((res.data != 0) & (res.data != -1)) {
-                        setCountShopping(res.data.length);
-                    }
-                });
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (cookies.name) {
+    //         axios
+    //             .post('http://26.17.209.162/api/shoppingcart/post', {
+    //                 type: 'get',
+    //                 data: { IDACCOUNT: cookies.name.ID },
+    //             })
+    //             .then((res) => {
+    //                 if ((res.data != 0) & (res.data != -1)) {
+    //                     setCountShopping(res.data.length);
+    //                 }
+    //             });
+    //     }
+    // }, []);
     const userMenu = [
         {
             icon: <FontAwesomeIcon icon={faUser} />,

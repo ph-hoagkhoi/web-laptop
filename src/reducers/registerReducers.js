@@ -2,9 +2,9 @@ import { SET_NAMEREGISTER, SET_PASSWORDREGISTER, SET_REPASSWORDREGISTER } from '
 
 // init state
 export const initStateRegister = {
-    USERNAME: '',
-    PASSWORD: '',
-    REPASSWORD: '',
+    TENTAIKHOAN: '',
+    MATKHAU: '',
+    REMATKHAU: '',
 };
 
 export const registerReducer = (state, action) => {
@@ -12,19 +12,19 @@ export const registerReducer = (state, action) => {
         case SET_NAMEREGISTER:
             return {
                 ...state,
-                USERNAME: action.payload,
+                TENTAIKHOAN: action.payload,
             };
             break;
         case SET_PASSWORDREGISTER:
             return {
                 ...state,
-                PASSWORD: action.payload,
+                MATKHAU: action.payload,
             };
             break;
         case SET_REPASSWORDREGISTER:
             return {
                 ...state,
-                REPASSWORD: action.payload,
+                REMATKHAU: action.payload,
             };
             break;
         default:

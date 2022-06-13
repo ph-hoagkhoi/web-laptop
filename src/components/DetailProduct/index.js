@@ -13,14 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import { initStateShoppingCart, shoppingCartReducer } from '~/reducers/shoppingCartReducers';
-import {
-    setIDAccount,
-    setShoesID,
-    setIDSize,
-    setQuantityUP,
-    setQuantityDown,
-    setQuantity,
-} from '~/actions/shoppingCartActions';
+import { setIDAccount, setIDSP, setQuantityUP, setQuantityDown, setQuantity } from '~/actions/shoppingCartActions';
 
 import NumberFormat from 'react-number-format';
 
@@ -30,7 +23,6 @@ function DetailProduct() {
     const [cookies, setCookie] = useCookies(['name']);
     const [stateShopping, dispatchShopping] = useReducer(shoppingCartReducer, initStateShoppingCart);
     let location = useLocation();
-    const [sizeData, setSizeData] = useState([]);
     const [quantity, setQuantityData] = useState(1);
     let navigate = useNavigate();
 
@@ -38,29 +30,14 @@ function DetailProduct() {
         if (cookies.name) {
             dispatchShopping(setIDAccount(cookies.name.ID));
         }
-        dispatchShopping(setShoesID(location.state.data.SHOESID));
-        axios
-            .post('http://26.17.209.162/api/stock/post', {
-                type: 'getsize',
-                data: { SHOESID: location.state.data.SHOESID },
-            })
-            .then((res) => {
-                if ((res.data != 0) & (res.data != -1)) {
-                    setSizeData(res.data);
-                    dispatchShopping(setIDSize(res.data[0].IDSIZE));
-                }
-            });
+        dispatchShopping(setIDSP(location.state.data.ID_SANPHAM));
     }, []);
 
     const quantityUp = () => {
-        sizeData.filter((product) => {
-            if (stateShopping.IDSIZE === product.IDSIZE) {
-                if (stateShopping.QUANTITY < product.QUANTITYINSTOCK) {
-                    dispatchShopping(setQuantityUP());
-                    setQuantityData(quantity + 1);
-                }
-            }
-        });
+        if (stateShopping.QUANTITY < location.state.data.SOLUONG) {
+            dispatchShopping(setQuantityUP());
+            setQuantityData(quantity + 1);
+        }
     };
 
     const quantityDown = () => {
@@ -71,12 +48,16 @@ function DetailProduct() {
     };
 
     function createMarkup() {
-        return { __html: location.state.data.SHOESDESCRIPTION };
+        return { __html: location.state.data.GIOITHIEU };
     }
+    function createMarkupTHONGSO() {
+        return { __html: location.state.data.THONGSO };
+    }
+
     const handleShoppingCart = () => {
         if (cookies.name) {
             axios
-                .post('http://26.17.209.162/api/shoppingcart/post', {
+                .post('http://26.87.217.216:8080/api/giohang/post', {
                     type: 'create',
                     data: stateShopping,
                 })
@@ -85,7 +66,7 @@ function DetailProduct() {
             navigate('/login');
         }
     };
-
+console.log(stateShopping);
     const handleBuyNow = () => {
         if (cookies.name) {
             handleShoppingCart();
@@ -101,7 +82,7 @@ function DetailProduct() {
                 <div className={cx('slide-container', 'col', 'l-5')}>
                     <Fade>
                         {Object.keys(location.state.data.IMAGE)
-                            .filter((key) => key !== 'IMAGEID')
+                            .filter((key) => key !== 'ID_ANH')
                             .map((key, index) => {
                                 return (
                                     location.state.data.IMAGE[key] !== '' && (
@@ -110,7 +91,7 @@ function DetailProduct() {
                                                 <Image
                                                     className={cx('fill')}
                                                     src={location.state.data.IMAGE[key]}
-                                                    alt={location.state.data.SHOESNAME}
+                                                    alt={location.state.data.TENSANPHAM}
                                                 />
                                             </div>
                                         </div>
@@ -120,12 +101,12 @@ function DetailProduct() {
                     </Fade>
                 </div>
                 <div className={cx('col', 'l-7', 'info')}>
-                    <h2 className={cx('info-heading')}>{location.state.data.SHOESNAME}</h2>
-                    <p className={cx('brand')}>{location.state.data.BRANDNAME}</p>
+                    <h2 className={cx('info-heading')}>{location.state.data.TENSANPHAM}</h2>
+                    <p className={cx('brand')}>{location.state.data.TENTHELOAI}</p>
                     <p className={cx('info-money')}>
                         <span>Giá : </span>
                         <NumberFormat
-                            value={location.state.data.SHOESPRICE}
+                            value={location.state.data.GIA}
                             displayType={'text'}
                             thousandSeparator={true}
                             suffix={'đ'}
@@ -133,29 +114,6 @@ function DetailProduct() {
                     </p>
 
                     <div className={cx('options')}>
-                        <div className={cx('size')}>
-                            <label className={cx('size_heading')}>Size</label>
-                            <select
-                                className={cx('size_option')}
-                                onChange={(e) => {
-                                    dispatchShopping(setIDSize(e.target.value));
-                                    setQuantityData(1);
-                                    dispatchShopping(setQuantity());
-                                }}
-                            >
-                                {sizeData != 0 ? (
-                                    sizeData.map((size) => {
-                                        return (
-                                            <option value={size.IDSIZE} key={size.IDSIZE}>
-                                                {size.SIZEEUR}
-                                            </option>
-                                        );
-                                    })
-                                ) : (
-                                    <></>
-                                )}
-                            </select>
-                        </div>
                         <div className={cx('info_quantity')}>
                             <span className={cx('minus')} onClick={quantityDown}>
                                 -
@@ -181,7 +139,7 @@ function DetailProduct() {
                 <div className={cx('col', 'l-8', 'describe')}>
                     <h2 className={cx('describe_heading')}>Mô tả sản phẩm</h2>
                     <div className={cx('describe_content')}>
-                        <h3 className={cx('describe_content-name')}>{location.state.data.SHOESNAME}</h3>
+                        <h3 className={cx('describe_content-name')}>{location.state.data.TENSANPHAM}</h3>
                         <div className={cx('describe_content-summary')}>
                             <h3 className={cx('describe_content-summary-heading')}>Sơ lược sản phẩm</h3>
                             <p
@@ -193,18 +151,7 @@ function DetailProduct() {
                 </div>
                 <div className={cx('col', 'l-4', 'detailed_informations')}>
                     <h2 className={cx('detailed_informations-heading')}>Thông tin chi tiết</h2>
-                    <div className={cx('row', 'details')}>
-                        <div className={cx('col', 'l-4', 'details_name')}>
-                            <p className={cx('details_name-product')}>Thương hiệu</p>
-                            <p className={cx('details_name-product')}>Thương hiệu</p>
-                            <p className={cx('details_name-product')}>Thương hiệu</p>
-                        </div>
-                        <div className={cx('col', 'l-8', 'details_info')}>
-                            <p className={cx('details_info-product')}>Lenovo</p>
-                            <p className={cx('details_info-product')}>Lenovo</p>
-                            <p className={cx('details_info-product')}>Lenovo</p>
-                        </div>
-                    </div>
+                    <div className={cx('details')} dangerouslySetInnerHTML={createMarkupTHONGSO()}></div>
                 </div>
             </div>
         </div>

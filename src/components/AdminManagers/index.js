@@ -2,13 +2,52 @@ import classNames from 'classnames/bind';
 import styles from './AdminManagers.module.scss';
 import Button from '~/components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { useState, useRef } from 'react';
+import { faXmark, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { useState, useEffect, useReducer } from 'react';
+import axios from 'axios';
+import { initStateUser, userReducer } from '~/reducers/userReducers';
+import {
+    setAvatar,
+    setFullName,
+    setGender,
+    setEmail,
+    setNumberPhone,
+    setDateOfBirth,
+    deleteAvatar,
+} from '~/actions/userActions';
+import { initStateRegister, registerReducer } from '~/reducers/registerReducers';
+import { setNameRegister, setPasswordRegister } from '~/actions/registerActions';
+import Image from '~/components/Image';
 
 const cx = classNames.bind(styles);
 
 function AdminManagers() {
     const [statusModal, setStatusModal] = useState(false);
+    const [managerData, setManagerData] = useState([]);
+    const [stateTK, dispatchTK] = useReducer(registerReducer, initStateRegister);
+    const [stateInfo, dispatchInfo] = useReducer(userReducer, initStateUser);
+
+    useEffect(() => {
+        getManager();
+    }, []);
+
+    const getManager = async () => {
+        try {
+            await axios
+                .post('http://26.87.217.216:8080/api/taikhoan/nhanvien', {
+                    type: 'get',
+                })
+                .then((res) => {
+                    setManagerData(res.data);
+                });
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    const handleSubmit = async () => {
+        await axios.get('http://26.87.217.216:8080/api/taikhoan/nhanvien').then((res) => console.log(res.data));
+    };
 
     const showBuyTickets = () => {
         setStatusModal(true);
@@ -17,6 +56,29 @@ function AdminManagers() {
     const hideBuyTickets = () => {
         setStatusModal(false);
     };
+
+    // Convert input sang base 64
+    const uploadImage = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertBase64(file);
+        dispatchInfo(setAvatar(base64));
+    };
+
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    };
+
     return (
         <>
             {/* <!-- Begin adminManagers --> */}
@@ -40,26 +102,30 @@ function AdminManagers() {
                     </tr>
                 </thead>
                 {/* <!-- item 1 --> */}
-                <tbody className={cx('details-tbody')}>
-                    <tr className={cx('details-content-list')}>
-                        <td className={cx('details-content-item')}>1</td>
-                        <td className={cx('details-content-item')}>Hoàng Khôi</td>
-                        <td className={cx('details-content-item')}>Nam</td>
-                        <td className={cx('details-content-item')}>2000</td>
-                        <td className={cx('details-content-item')}>ph.hoagkhoi@gmail.com</td>
-                        <td className={cx('details-content-item')}>
-                            <img src="https://i.imgur.com/ARKkf7k.png" className={cx('content-img')} />
-                        </td>
-                        <td className={cx('details-content-item')}>admin</td>
-                        <td className={cx('details-content-item')}>MD5</td>
-                        <td className={cx('details-content-item')}>
-                            <Button className={cx('details-content-item-btn')}>Sửa</Button>
-                        </td>
-                        <td className={cx('details-content-item')}>
-                            <Button className={cx('details-content-item-btn')}>Xóa</Button>
-                        </td>
-                    </tr>
-                </tbody>
+                {managerData.map((managerData, index) => {
+                    return (
+                        <tbody className={cx('details-tbody')}>
+                            <tr className={cx('details-content-list')}>
+                                <td className={cx('details-content-item')}>{managerData.ID_TAIKHOAN}</td>
+                                <td className={cx('details-content-item')}>{managerData.HOVATEN}</td>
+                                <td className={cx('details-content-item')}>{managerData.GIOITINH}</td>
+                                <td className={cx('details-content-item')}>{managerData.NAMSINH}</td>
+                                <td className={cx('details-content-item')}>{managerData.EMAIL}</td>
+                                <td className={cx('details-content-item')}>
+                                    <img src={managerData.HINHANH} className={cx('content-img')} />
+                                </td>
+                                <td className={cx('details-content-item')}>{managerData.TENTAIKHOAN}</td>
+                                <td className={cx('details-content-item')}>{managerData.MATKHAU}</td>
+                                <td className={cx('details-content-item')}>
+                                    <Button className={cx('details-content-item-btn')}>Sửa</Button>
+                                </td>
+                                <td className={cx('details-content-item')}>
+                                    <Button className={cx('details-content-item-btn')}>Xóa</Button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    );
+                })}
             </table>
             {/* <!-- End adminManagers --> */}
             {/* modal */}
@@ -82,61 +148,121 @@ function AdminManagers() {
                                     <label htmlFor="" className={cx('input-label')}>
                                         Tên khách hàng
                                     </label>
-                                    <input className={cx('input-item')} type="text" placeholder="Tên khách hàng" />
+                                    <input
+                                        className={cx('input-item')}
+                                        type="text"
+                                        placeholder="Tên khách hàng"
+                                        onChange={(e) => dispatchInfo(setFullName(e.target.value))}
+                                    />
                                 </div>
 
                                 <div className={cx('info')}>
                                     <label htmlFor="" className={cx('input-label')}>
                                         Giới tính
                                     </label>
-                                    <input className={cx('input-item')} type="text" placeholder=" Giới tính" />
+                                    <input
+                                        className={cx('input-item')}
+                                        type="text"
+                                        placeholder=" Giới tính"
+                                        onChange={(e) => dispatchInfo(setGender(e.target.value))}
+                                    />
                                 </div>
 
                                 <div className={cx('info')}>
                                     <label htmlFor="" className={cx('input-label')}>
                                         Năm sinh
                                     </label>
-                                    <input className={cx('input-item')} type="text" placeholder="Năm sinh" />
+                                    <input
+                                        className={cx('input-item')}
+                                        type="text"
+                                        placeholder="Năm sinh"
+                                        onChange={(e) => dispatchInfo(setDateOfBirth(e.target.value))}
+                                    />
                                 </div>
 
                                 <div className={cx('info')}>
                                     <label htmlFor="" className={cx('input-label')}>
                                         Số điện thoại
                                     </label>
-                                    <input className={cx('input-item')} type="text" placeholder="Số điện thoại" />
+                                    <input
+                                        className={cx('input-item')}
+                                        type="text"
+                                        placeholder="Số điện thoại"
+                                        onChange={(e) => dispatchInfo(setNumberPhone(e.target.value))}
+                                    />
                                 </div>
 
                                 <div className={cx('info')}>
                                     <label htmlFor="" className={cx('input-label')}>
                                         Email
                                     </label>
-                                    <input className={cx('input-item')} type="text" placeholder="Email" />
+                                    <input
+                                        className={cx('input-item')}
+                                        type="text"
+                                        placeholder="Email"
+                                        onChange={(e) => dispatchInfo(setEmail(e.target.value))}
+                                    />
                                 </div>
                             </div>
 
                             <div className={cx('managers-list-info-right')}>
-                                <div className={cx('info')}>
-                                    <label htmlFor="" className={cx('input-label')}>
-                                        Hình ảnh
-                                    </label>
-                                    <input className={cx('input-item')} type="text" placeholder="Tên địa chỉ nhận" />
+                                <div className={cx('product_img')}>
+                                    <div className={cx('img_item')}>
+                                        <div className={cx('file_upload')}>
+                                            <input
+                                                className={cx('upload')}
+                                                type="file"
+                                                disabled={stateInfo.HINHANH}
+                                                onChange={(e) => uploadImage(e)}
+                                            />
+                                            <FontAwesomeIcon
+                                                icon={faArrowUp}
+                                                className={cx(stateInfo.HINHANH ? 'fadeout' : '')}
+                                            ></FontAwesomeIcon>
+                                            <div className={cx('img_box', stateInfo.HINHANH ? 'fadein' : '')}>
+                                                <img
+                                                    alt=""
+                                                    className={cx('img')}
+                                                    src={stateInfo.HINHANH ? stateInfo.HINHANH : ''}
+                                                />
+                                                <div className={cx('delete_box', stateInfo.HINHANH ? 'active' : '')}>
+                                                    <FontAwesomeIcon
+                                                        icon={faXmark}
+                                                        className={cx('btn_delete')}
+                                                        onClick={(e) => dispatchInfo(deleteAvatar())}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-
                                 <div className={cx('info')}>
                                     <label htmlFor="" className={cx('input-label')}>
                                         Tạo tài khoản
                                     </label>
-                                    <input className={cx('input-item')} type="text" placeholder=" Tạo tài khoảnn" />
+                                    <input
+                                        className={cx('input-item')}
+                                        type="text"
+                                        placeholder=" Tạo tài khoảnn"
+                                        onChange={(e) => dispatchTK(setNameRegister(e.target.value))}
+                                    />
                                 </div>
 
                                 <div className={cx('info')}>
                                     <label htmlFor="" className={cx('input-label')}>
                                         Mật khẩu
                                     </label>
-                                    <input className={cx('input-item')} type="text" placeholder="Mật khẩu" />
+                                    <input
+                                        className={cx('input-item')}
+                                        type="password"
+                                        placeholder="Mật khẩu"
+                                        autoComplete="off"
+                                        onChange={(e) => dispatchTK(setPasswordRegister(e.target.value))}
+                                    />
                                 </div>
                             </div>
                         </div>
+
                         <button className={cx('btn')}>Save</button>
                     </form>
                 </div>

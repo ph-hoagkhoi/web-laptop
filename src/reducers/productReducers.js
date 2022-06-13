@@ -7,16 +7,20 @@ import {
     SET_IMG,
     DELETE_IMG,
     SET_BRAND,
+    SET_THONGSO,
+    SET_SOLUONG,
 } from '~/constants/productConstants';
 
 // init state
 export const initState = {
-    SHOESID: '',
-    IDBRAND: '',
-    SHOESNAME: '',
-    SHOESPRICE: '',
-    SHOESDESCRIPTION: '',
-    SHOESIMG: [],
+    ID_SANPHAM: '',
+    ID_THELOAI: '',
+    TENSANPHAM: '',
+    GIA: '',
+    GIOITHIEU: '',
+    THONGSO: '',
+    SOLUONG: 0,
+    IMG: [],
 };
 
 export const productDetailsReducer = (state, action) => {
@@ -24,44 +28,56 @@ export const productDetailsReducer = (state, action) => {
         case SET_ID:
             return {
                 ...state,
-                SHOESID: action.payload,
+                ID_SANPHAM: action.payload,
+            };
+            break;
+        case SET_THONGSO:
+            return {
+                ...state,
+                THONGSO: action.payload,
+            };
+            break;
+        case SET_SOLUONG:
+            return {
+                ...state,
+                SOLUONG: action.payload,
             };
             break;
         case SET_BRAND:
             return {
                 ...state,
-                IDBRAND: action.payload,
+                ID_THELOAI: action.payload,
             };
             break;
         case SET_NAME:
             return {
                 ...state,
-                SHOESNAME: action.payload,
+                TENSANPHAM: action.payload,
             };
             break;
 
         case SET_DESCRIPTION:
             return {
                 ...state,
-                SHOESDESCRIPTION: action.payload,
+                GIOITHIEU: action.payload,
             };
             break;
         case SET_PRICE:
             return {
                 ...state,
-                SHOESPRICE: action.payload,
+                GIA: action.payload,
             };
             break;
         case SET_IMG:
             return {
                 ...state,
-                SHOESIMG: [...state.SHOESIMG, action.payload],
+                IMG: [...state.IMG, action.payload],
             };
             break;
         case DELETE_IMG:
             return {
                 ...state,
-                SHOESIMG: state.SHOESIMG.filter((item) => item !== action.payload),
+                IMG: state.IMG.filter((item) => item !== action.payload),
             };
             break;
         case ADD_PRODUCT:

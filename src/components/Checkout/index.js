@@ -35,9 +35,9 @@ function Checkout() {
             dispatchOrder(setTotal(location.state.data.delivery + location.state.data.money));
 
             axios
-                .post('http://26.17.209.162/api/shoppingcart/post', {
+                .post('http://26.87.217.216:8080/api/giohang/post', {
                     type: 'get',
-                    data: { IDACCOUNT: cookies.name.ID },
+                    data: { ID_TAIKHOAN: cookies.name.ID },
                 })
                 .then((res) => {
                     setShoppingCartData(res.data);
@@ -54,22 +54,26 @@ function Checkout() {
 
     const addOrder = async () => {
         await axios
-            .post('http://26.17.209.162/api/bill/post', {
+            .post('http://26.87.217.216:8080/api/hoadon/post', {
                 type: 'create',
                 data: stateOrder,
             })
             .then((res) => {
-                console.log(res);
+                if(res.data != 0){
+                    alert('Thanh toán thành công!');
+                    navigate('/');
+                }
             });
     };
 
     const getCourses = async () => {
         await axios
-            .post('http://26.17.209.162/api/shippinginfo/post', {
+            .post('http://26.87.217.216:8080/api/giaohang/post', {
                 type: 'get',
-                data: { IDACCOUNT: cookies.name.ID },
+                data: { ID_TAIKHOAN: cookies.name.ID },
             })
             .then((res) => {
+                console.log(res.data);
                 setAddressData(res.data);
             });
     };
@@ -77,7 +81,7 @@ function Checkout() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await axios
-            .post('http://26.17.209.162/api/shippinginfo/post', {
+            .post('http://26.87.217.216:8080/api/giaohang/post', {
                 type: 'create',
                 data: stateAddress,
             })
@@ -88,7 +92,6 @@ function Checkout() {
                 }
             });
     };
-    console.log(stateOrder);
 
     const showBuyTickets = () => {
         setStatusModal(true);
@@ -107,24 +110,25 @@ function Checkout() {
                             <div className={cx('address')}>
                                 {addressData != 0 ? (
                                     addressData.map((address) => {
+                                        console.log(address);
                                         return (
-                                            <div className={cx('item')} key={address.SHOPPINGINFOID}>
+                                            <div className={cx('item')} key={address.ID_GIAOHANG}>
                                                 <input
                                                     type="radio"
                                                     name="address"
                                                     className={cx('rdo-address')}
-                                                    value={address.SHOPPINGINFOID ? address.SHOPPINGINFOID : null}
-                                                    id={address.SHOPPINGINFOID}
-                                                    checked={stateOrder.SHOPPINGINFOID === address.SHOPPINGINFOID}
+                                                    value={address.ID_GIAOHANG ? address.ID_GIAOHANG : null}
+                                                    id={address.ID_GIAOHANG}
+                                                    checked={stateOrder.ID_GIAOHANG === address.ID_GIAOHANG}
                                                     onChange={(e) => dispatchOrder(setSHOPPINGINFOID(e.target.value))}
                                                 ></input>
-                                                <label htmlFor={address.SHOPPINGINFOID} className={cx('address_item')}>
+                                                <label htmlFor={address.ID_GIAOHANG} className={cx('address_item')}>
                                                     <AddressItem
-                                                        SHOPPINGINFOID={address.SHOPPINGINFOID}
-                                                        SHOPPINGINFONAME={address.SHOPPINGINFONAME}
-                                                        IDACCOUNT={address.IDACCOUNT}
-                                                        SHOPPINGINFOPHONE={address.SHOPPINGINFOPHONE}
-                                                        ADDRESS={address.ADDRESS}
+                                                        ID_GIAOHANG={address.ID_GIAOHANG}
+                                                        TENNGUOINHAN={address.TENNGUOINHAN}
+                                                        ID_TAIKHOAN={address.ID_TAIKHOAN}
+                                                        SDT={address.SDT}
+                                                        TENDIACHI={address.TENDIACHI}
                                                     />
                                                 </label>
                                             </div>
@@ -136,7 +140,7 @@ function Checkout() {
                                 <div className={cx('actions')}>
                                     <button
                                         className={cx('btn_ctn')}
-                                        disabled={stateOrder.SHOPPINGINFOID == '' ? true : false}
+                                        disabled={stateOrder.ID_GIAOHANG == '' ? true : false}
                                         onClick={addOrder}
                                     >
                                         Tiếp tục
@@ -217,23 +221,20 @@ function Checkout() {
                                     return (
                                         <div className={cx('product_item')}>
                                             <img
-                                                src={product.IMAGESHOES1}
-                                                alt={product.SHOESNAME}
+                                                src={product.ANH1}
+                                                alt={product.TENSANPHAM}
                                                 className={cx('product_img')}
                                             />
                                             <div className={cx('product_content-box')}>
-                                                <p className={cx('product_content')}>{product.SHOESNAME}</p>
+                                                <p className={cx('product_content')}>{product.TENSANPHAM}</p>
                                                 <p className={cx('product_content')}>
                                                     <span>Số lượng : </span>
-                                                    {product.QUANTITY}
-                                                </p>
-                                                <p className={cx('product_content')}>
-                                                    <span>Size : {product.SIZEEUR}</span>
+                                                    {product.SOLUONG}
                                                 </p>
                                                 <p className={cx('product_content')}>
                                                     <span>Thành tiền :</span>
                                                     <NumberFormat
-                                                        value={product.SHOESPRICE * product.QUANTITY}
+                                                        value={product.GIA * product.SOLUONG}
                                                         displayType={'text'}
                                                         thousandSeparator={true}
                                                         suffix={'đ'}

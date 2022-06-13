@@ -2,8 +2,8 @@ import { SET_NAMELOGIN, SET_PASSWORDLOGIN } from '~/constants/loginConstants';
 
 // init state
 export const initStateLogin = {
-    USERNAME: '',
-    PASSWORD: '',
+    TENTAIKHOAN: '',
+    MATKHAU: '',
 };
 
 export const loginReducer = (state, action) => {
@@ -11,13 +11,13 @@ export const loginReducer = (state, action) => {
         case SET_NAMELOGIN:
             return {
                 ...state,
-                USERNAME: action.payload,
+                TENTAIKHOAN: action.payload,
             };
             break;
         case SET_PASSWORDLOGIN:
             return {
                 ...state,
-                PASSWORD: action.payload,
+                MATKHAU: action.payload,
             };
             break;
         default:
