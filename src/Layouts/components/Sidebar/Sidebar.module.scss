@@ -20,7 +20,7 @@
     border-radius: 2px;
 }
 .category__heading {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     color: var(--color-black);
     padding: 8px 0 16px 10px;
 }
@@ -41,7 +41,7 @@
 }
 
 .category-item__link:hover {
-    color: var(--color-white-20);
+    opacity: 0.8;
 }
 
 /* home-filter */

@@ -59,8 +59,8 @@ function AdminUser() {
                 data: stateBrand,
             })
             .then((response) => {
+                console.log(response.data);
                 getCourses();
-                console.log(response);
             });
     };
 
