@@ -66,8 +66,12 @@ function AdminSlider() {
                 type: 'update',
                 data: stateSlide,
             })
-            .then((response) => {
-                console.log(response);
+            .then((res) => {
+                if (res.data == 1) {
+                    alert('Cập nhật Slider thành công');
+                } else if (res.data == -1) {
+                    alert('Cập nhật Slider thất bại !!\n Lỗi có thể do hình ảnh có dung lượng quá lớn');
+                }
             });
     };
 

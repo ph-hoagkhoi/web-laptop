@@ -1,5 +1,11 @@
-import { SET_IDACCOUNT, SET_SHIPPINGINFONAME, SET_ADDRESS, SET_SHIPPINGINFOPHONE } from '~/constants/addressConstants';
-// uset [aasdasd,dispatch]=usetstate() 
+import {
+    SET_IDACCOUNT,
+    SET_SHIPPINGINFONAME,
+    SET_ADDRESS,
+    SET_SHIPPINGINFOPHONE,
+    SET_SHIPPINGINFOID,
+} from '~/constants/addressConstants';
+// uset [aasdasd,dispatch]=usetstate()
 // dispatch(setIDaccount(asdads))
 // cosnt [state,dispat] = userReducer(addressReducer,initStateAddress)
 export const setIDAccount = (payload) => {
@@ -26,6 +32,13 @@ export const setAddress = (payload) => {
 export const setInfoPhone = (payload) => {
     return {
         type: SET_SHIPPINGINFOPHONE,
+        payload,
+    };
+};
+
+export const setIDInfo = (payload) => {
+    return {
+        type: SET_SHIPPINGINFOID,
         payload,
     };
 };

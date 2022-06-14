@@ -1,12 +1,12 @@
 const routes = {
     home: '/',
-    sneaker: '/sneaker',
-    nike: '/nike',
-    adidas: '/adidas',
-    mlb: '/mlb',
+    laptop: '/laptop',
+    msi: '/msi',
+    acer: '/acer',
+    asus: '/asus',
     search: '/search',
     login: 'login',
-    product: '/sneaker/:product',
+    product: '/laptop/:product',
     profile: '/@:nickname',
     addressProfile: '/@:nickname/address-shipping',
     shoppingCart: '/@:nickname/shopping-cart',
@@ -22,6 +22,7 @@ const routes = {
     adminBill: '/admin/bill',
     adminViewBill: '/admin/bill/:idbill',
     adminStock: '/admin/stock',
+    adminProfileInfo: '/admin/profileinfo',
 };
 
 export default routes;

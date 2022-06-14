@@ -5,46 +5,52 @@ import styles from './ShoppingItem.module.scss';
 import NumberFormat from 'react-number-format';
 import axios from 'axios';
 
+import { useState } from 'react';
 const cx = classNames.bind(styles);
 
-function ShoppingItem({
-    ANH1,
-    TENSANPHAM,
-    TENTHELOAI,
-    GIA,
-    SOLUONG,
-    ID_TAIKHOAN,
-    ID_SANPHAM,
-}) {
+function ShoppingItem({ ANH1, TENSANPHAM, TENTHELOAI, GIA, SOLUONG, ID_TAIKHOAN, ID_SANPHAM, SOLUONGKHO }) {
+    const [quantity, setQuantity] = useState(Number(SOLUONG));
+
     const deleteItem = async () => {
-        await axios
-            .post('http://26.87.217.216:8080/api/giohang/post', {
-                type: 'delete',
-                data: { ID_TAIKHOAN: ID_TAIKHOAN, ID_SANPHAM: ID_SANPHAM },
-            })
-            .then((res) => {
-                if ((res.data != 0) & (res.data != -1)) {
-                    alert('Xóa sản phẩm khỏi giỏ hàng thành công');
-                    window.location.reload();
-                } else {
-                    alert('Xóa sản phẩm khỏi giỏ hàng thất bại');
-                }
-            });
+        if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
+            await axios
+                .post('http://26.87.217.216:8080/api/giohang/post', {
+                    type: 'delete',
+                    data: { ID_TAIKHOAN: ID_TAIKHOAN, ID_SANPHAM: ID_SANPHAM },
+                })
+                .then((res) => {
+                    if ((res.data != 0) & (res.data != -1)) {
+                        alert('Xóa sản phẩm khỏi giỏ hàng thành công');
+                        window.location.reload();
+                    } else {
+                        alert('Xóa sản phẩm khỏi giỏ hàng thất bại');
+                    }
+                });
+        }
     };
-    // const quantityUp = async () => {
-    //     await axios
-    //         .post('http://26.17.209.162/api/shoppingcart/post', {
-    //             type: 'update',
-    //             data: { IDACCOUNT: IDACCOUNT, IDSIZE: IDSIZE, SHOESID: SHOESID, QUANTITY: QUANTITY + 1 },
-    //         })
-    //         .then((res) => {
-    //             if ((res.data != 0) & (res.data != -1)) {
-    //                 window.location.reload();
-    //             } else {
-    //                 alert('Xóa sản phẩm khỏi giỏ hàng thất bại');
-    //             }
-    //         });
-    // };
+
+    const quantityUp = async () => {
+        if (Number(SOLUONG) < Number(SOLUONGKHO)) {
+            await axios
+                .post('http://26.87.217.216:8080/api/giohang/post', {
+                    type: 'update',
+                    data: { ID_TAIKHOAN: ID_TAIKHOAN, ID_SANPHAM: ID_SANPHAM, SOLUONG: Number(SOLUONG) + 1 },
+                })
+                .then((res) => console.log(res.data));
+        }
+    };
+
+    const quantityDown = async () => {
+        if (Number(SOLUONG) > 1) {
+            await axios
+                .post('http://26.87.217.216:8080/api/giohang/post', {
+                    type: 'update',
+                    data: { ID_TAIKHOAN: ID_TAIKHOAN, ID_SANPHAM: ID_SANPHAM, SOLUONG: Number(SOLUONG) - 1 },
+                })
+                .then((res) => console.log(res.data));
+        }
+    };
+
     return (
         <div className={cx('row', 'item')}>
             <div className={cx('col', 'l-3', 'item_box')}>
@@ -57,16 +63,13 @@ function ShoppingItem({
                         <div className={cx('brand')}>{TENTHELOAI}</div>
                         <div className={cx('options')}>
                             <div className={cx('info_quantity')}>
-                                <span className={cx('minus')}>-</span>
-                                <span className={cx('num')}>
-                                    {Number(SOLUONG) < 10 ? '0' + SOLUONG : Number(SOLUONG)}
+                                <span className={cx('minus')} onClick={quantityDown}>
+                                    -
                                 </span>
-                                <span
-                                    className={cx('plus')}
-                                    onClick={(e) => {
-                                        SOLUONG = Number(SOLUONG) + 1;
-                                    }}
-                                >
+                                <span className={cx('num')}>
+                                    {Number(SOLUONG) < 10 ? '0' + Number(SOLUONG) : Number(SOLUONG)}
+                                </span>
+                                <span className={cx('plus')} onClick={quantityUp}>
                                     +
                                 </span>
                             </div>
@@ -76,7 +79,7 @@ function ShoppingItem({
                         <p className={cx('item_money')}>
                             <span>Giá : </span>
                             <NumberFormat
-                                value={SOLUONG * GIA}
+                                value={Number(SOLUONG) * GIA}
                                 displayType={'text'}
                                 thousandSeparator={true}
                                 suffix={'đ'}

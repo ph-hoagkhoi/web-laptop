@@ -26,7 +26,8 @@ function AdminProduct() {
     };
 
     const handleDeleteProduct = (data) => {
-        axios
+        if(window.confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")){
+            axios
             .post('http://26.87.217.216:8080/api/sanpham/post', {
                 type: 'delete',
                 data: { ID_SANPHAM: data },
@@ -34,6 +35,7 @@ function AdminProduct() {
             .then((response) => {
                 getCourses();
             });
+        }
     };
 
     return (

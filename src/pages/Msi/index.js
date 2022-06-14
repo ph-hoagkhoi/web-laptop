@@ -6,13 +6,13 @@ function Nike() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
-
+    const brand = 'MSI';
     // Note: the empty deps array [] means
     // this useEffect will run once
     // similar to componentDidMount()
     useEffect(() => {
         axios
-            .get('http://26.17.209.162/api/shoes/get')
+            .get('http://26.87.217.216:8080/api/sanpham/get')
             .then(async (res) => {
                 setItems(res.data);
                 setIsLoaded(true);
@@ -31,16 +31,18 @@ function Nike() {
         return (
             <div className="row">
                 {items.map((item) => {
-                    if (item.BRANDNAME === 'MLB') {
+                    if (item.TENTHELOAI.toLowerCase() === brand.toLowerCase() && item.SOLUONG > 0) {
                         return (
-                            <div className="col l-3" key={item.SHOESID}>
+                            <div className="col l-3" key={item.ID_SANPHAM}>
                                 <Products
-                                    id={item.SHOESID}
-                                    name={item.SHOESNAME}
-                                    price={item.SHOESPRICE}
-                                    imgID={item.IMAGEID}
-                                    description={item.SHOESDESCRIPTION}
-                                    brand={item.BRANDNAME}
+                                    id={item.ID_SANPHAM}
+                                    name={item.TENSANPHAM}
+                                    price={item.GIA}
+                                    imgID={item.ID_ANH}
+                                    description={item.GIOITHIEU}
+                                    brand={item.TENTHELOAI}
+                                    thongso={item.THONGSO}
+                                    soluong={item.SOLUONG}
                                 />
                             </div>
                         );

@@ -6,16 +6,29 @@ import Breadcrumbs from '~/components/Breadcrumbs';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import config from '~/config';
 const cx = classNames.bind(styles);
 
 function Sidebar({ children }) {
     const [brandData, setBrandData] = useState([]);
     useEffect(() => {
-        axios.post('http://26.17.209.162/api/brand/get').then((res) => {
-            setBrandData(res.data);
-        });
+        getCourses();
     }, []);
+
+    const getCourses = async () => {
+        try {
+            await axios
+                .get('http://26.87.217.216:8080/api/theloai')
+                .then(async (res) => {
+                    setBrandData(res.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } catch (error) {
+            console.error(error);
+        }
+    };
     return (
         <div className={cx('row', 'app_content')}>
             <Breadcrumbs />
@@ -25,15 +38,18 @@ function Sidebar({ children }) {
                     {brandData != 0 ? (
                         <ul className={cx('category-list')}>
                             <li className={cx('category-item')}>
-                                <Link to={`/sneaker`} className={cx('category-item__link')}>
-                                    Sneaker
+                                <Link to={config.routes.laptop} className={cx('category-item__link')}>
+                                    Laptop
                                 </Link>
                             </li>
                             {brandData.map((brand) => {
                                 return (
-                                    <li className={cx('category-item')} key={brand.IDBRAND}>
-                                        <Link to={`/${brand.BRANDNAME}`} className={cx('category-item__link')}>
-                                            {brand.BRANDNAME}
+                                    <li className={cx('category-item')} key={brand.ID_THELOAI}>
+                                        <Link
+                                            to={`/${brand.TENTHELOAI.toLowerCase()}`}
+                                            className={cx('category-item__link')}
+                                        >
+                                            {brand.TENTHELOAI}
                                         </Link>
                                     </li>
                                 );

@@ -1,5 +1,8 @@
+import classNames from 'classnames/bind';
+import styles from './AdminProfileInfo.module.scss';
 import { useReducer, useEffect, useState } from 'react';
 import { initStateUser, userReducer } from '~/reducers/userReducers';
+
 import {
     setIDAccount,
     setFullName,
@@ -18,12 +21,10 @@ import { faXmark, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
-import classNames from 'classnames/bind';
-import styles from './Profile.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Profile() {
+function ProfileInfo() {
     const [cookies, setCookies] = useCookies(['name']);
     const [stateUser, dispatchUser] = useReducer(userReducer, initStateUser);
     const [password, setPassword] = useState('');
@@ -82,10 +83,11 @@ function Profile() {
                 data: stateUser,
             })
             .then((res) => {
-                if (res.data == 1) {
-                    alert('Cập nhật thành công');
-                    window.location.reload();
-                }
+                    console.log(res.data);
+                // if (res.data == 1) {
+                //     alert('Cập nhật thành công');
+                //     window.location.reload();
+                // }
             });
     };
 
@@ -231,4 +233,4 @@ function Profile() {
     );
 }
 
-export default Profile;
+export default ProfileInfo;

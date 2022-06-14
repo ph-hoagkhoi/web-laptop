@@ -15,7 +15,8 @@ import { faBagShopping, faSignIn, faSignOut } from '@fortawesome/free-solid-svg-
 import Search from '../Search';
 import Image from '~/components/Image';
 import Menu from '~/components/Popper/Menu';
-
+import config from '~/config';
+import { useDebounce } from '~/hooks';
 import axios from 'axios';
 const cx = classNames.bind(styles);
 const MENU_ITEMS = [
@@ -28,37 +29,58 @@ const MENU_ITEMS = [
 
 function Header() {
     const [cookies, setCookie, removeCookie] = useCookies(['name']);
-    const [countShopping, setCountShopping] = useState(0);
+    const [countShopping, setCountShopping] = useState([]);
+    const [accountData, setAccountData] = useState([]);
+    const debounced = useDebounce(countShopping, 500);
     let navigate = useNavigate();
     const removeCK = () => {
         removeCookie('name');
         window.location.reload();
     };
 
-    // useEffect(() => {
-    //     if (cookies.name) {
-    //         axios
-    //             .post('http://26.17.209.162/api/shoppingcart/post', {
-    //                 type: 'get',
-    //                 data: { IDACCOUNT: cookies.name.ID },
-    //             })
-    //             .then((res) => {
-    //                 if ((res.data != 0) & (res.data != -1)) {
-    //                     setCountShopping(res.data.length);
-    //                 }
-    //             });
-    //     }
-    // }, []);
+    useEffect(() => {
+        if (cookies.name) {
+            axios
+                .post('http://26.87.217.216:8080/api/giohang/post', {
+                    type: 'get',
+                    data: { ID_TAIKHOAN: cookies.name.ID },
+                })
+                .then((res) => {
+                    if ((res.data != 0) & (res.data != -1)) {
+                        console.log(res.data);
+                        setCountShopping(res.data);
+                    }
+                });
+
+            axios
+                .post('http://26.87.217.216:8080/api/taikhoan/post', {
+                    type: 'get',
+                    data: { ID_TAIKHOAN: cookies.name.ID },
+                })
+                .then((res) => {
+                    if (res.data) {
+                        setAccountData(res.data[0]);
+                    }
+                });
+        }
+    }, [debounced]);
     const userMenu = [
         {
             icon: <FontAwesomeIcon icon={faUser} />,
-            title: 'Thông tin tài khoản',
-            to: cookies.name ? `/@${cookies.name.ID}` : '',
+            title: cookies.name
+                ? cookies.name.STATUS === 'e3afed0047b08059d0fada10f400c1e5'
+                    ? 'Đi tới trang Admin'
+                    : 'Thông tin tài khoản'
+                : '',
+            to: cookies.name
+                ? cookies.name.STATUS === 'e3afed0047b08059d0fada10f400c1e5'
+                    ? `${config.routes.admin}`
+                    : `/@${cookies.name.ID}`
+                : '',
         },
         {
             icon: <FontAwesomeIcon icon={faSignOut} />,
             title: 'Đăng xuất',
-            to: '/',
             separate: true,
             to: '/',
             onClick: removeCK,
@@ -67,7 +89,7 @@ function Header() {
 
     return (
         <header className={cx('wrapper')}>
-            <Link to="/">
+            <Link to="/" className={cx('logo_box')}>
                 <Image src={images.logo} className={cx('logo')} />
             </Link>
             <Navbar />
@@ -81,7 +103,7 @@ function Header() {
                                 className={cx('action-btn')}
                             >
                                 <FontAwesomeIcon icon={faBagShopping} />
-                                <span className={cx('badge')}>{countShopping}</span>
+                                <span className={cx('badge')}>{countShopping.length}</span>
                             </Link>
                         </Tippy>
                     </>
@@ -92,8 +114,8 @@ function Header() {
                     {cookies.name ? (
                         <Image
                             className={cx('user-avatar')}
-                            src="https://files.fullstack.edu.vn/f8-prod/user_avatars/1/623d4b2d95cec.png"
-                            alt="Nguyen Van A"
+                            src={accountData.HINHANH !== null ? accountData.HINHANH : ''}
+                            alt={accountData.FULLNAME}
                         />
                     ) : (
                         <button className={cx('account-btn')}>

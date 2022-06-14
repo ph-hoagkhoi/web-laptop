@@ -29,24 +29,27 @@ function AddressProfile() {
 
     const getCourses = async () => {
         await axios
-            .post('http://26.17.209.162/api/shippinginfo/post', {
+            .post('http://26.87.217.216:8080/api/giaohang/post', {
                 type: 'get',
-                data: { IDACCOUNT: cookies.name.ID },
+                data: { ID_TAIKHOAN: cookies.name.ID },
             })
             .then((res) => {
+                // console.log(res.data);
                 setAddressData(res.data);
             });
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         await axios
-            .post('http://26.17.209.162/api/shippinginfo/post', {
+            .post('http://26.87.217.216:8080/api/giaohang/post', {
                 type: 'create',
                 data: stateAddress,
             })
+
             .then((response) => {
+                console.log(response.data);
                 if (response.data == 1) {
+                    alert('Thêm địa chỉ thành công');
                     setStatusModal(false);
                     getCourses();
                 }
@@ -64,14 +67,15 @@ function AddressProfile() {
             <h2 className={cx('title')}>Địa chỉ giao hàng</h2>
             {addressData != 0 ? (
                 addressData.map((address) => {
+                    console.log(address);
                     return (
                         <AddressItem
-                            key={address.SHOPPINGINFOID}
-                            SHOPPINGINFOID={address.SHOPPINGINFOID}
-                            SHOPPINGINFONAME={address.SHOPPINGINFONAME}
-                            IDACCOUNT={address.IDACCOUNT}
-                            SHOPPINGINFOPHONE={address.SHOPPINGINFOPHONE}
-                            ADDRESS={address.ADDRESS}
+                            key={address.ID_GIAOHANG}
+                            ID_GIAOHANG={address.ID_GIAOHANG}
+                            TENNGUOINHAN={address.TENNGUOINHAN}
+                            ID_TAIKHOAN={address.ID_TAIKHOAN}
+                            SDT={address.SDT}
+                            TENDIACHI={address.TENDIACHI}
                         />
                     );
                 })
@@ -129,6 +133,7 @@ function AddressProfile() {
                                     Số điện thoại
                                 </label>
                                 <input
+                                    maxLength={10}
                                     className={cx('input-item')}
                                     type="text"
                                     placeholder="Số điện thoại"

@@ -26,6 +26,8 @@ function DetailProduct() {
     const [quantity, setQuantityData] = useState(1);
     let navigate = useNavigate();
 
+    console.log(location.state.data);
+
     useEffect(() => {
         if (cookies.name) {
             dispatchShopping(setIDAccount(cookies.name.ID));
@@ -34,7 +36,7 @@ function DetailProduct() {
     }, []);
 
     const quantityUp = () => {
-        if (stateShopping.QUANTITY < location.state.data.SOLUONG) {
+        if (stateShopping.SOLUONG < location.state.data.SOLUONG) {
             dispatchShopping(setQuantityUP());
             setQuantityData(quantity + 1);
         }
@@ -61,12 +63,20 @@ function DetailProduct() {
                     type: 'create',
                     data: stateShopping,
                 })
-                .then(async (res) => console.log(res.data));
+                .then(async (res) => {
+                    if (res.data == 1) {
+                        alert('Thêm vào giỏ hàng thành công !!!');
+                    } else if (res.data != 1) {
+                        alert('Sản phẩm đã tồn tại trong giỏ hàng !!!');
+                    } else {
+                        alert('Thêm vào giỏ hàng thất bại  !!!');
+                    }
+                });
         } else {
             navigate('/login');
         }
-    };
-console.log(stateShopping);
+    }; 
+    console.log(stateShopping);
     const handleBuyNow = () => {
         if (cookies.name) {
             handleShoppingCart();

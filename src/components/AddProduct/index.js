@@ -101,7 +101,6 @@ function AddProduct() {
                 // console.log(response.data);
                 if ((response.data != 0) & (response.data != -1)) {
                     navigate('/admin/product');
-
                 }
             });
     };
@@ -120,8 +119,8 @@ function AddProduct() {
                 data: state,
             })
             .then((response) => {
-                
-                if ((response.data != 0) & (response.data != -1)) {
+                console.log(response.data);
+                if (response.data == 1) {
                     navigate('/admin/product');
                 }
             });

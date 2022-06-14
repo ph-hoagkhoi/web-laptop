@@ -1,7 +1,14 @@
-import { SET_IDACCOUNT, SET_SHIPPINGINFONAME, SET_ADDRESS, SET_SHIPPINGINFOPHONE } from '~/constants/addressConstants';
+import {
+    SET_IDACCOUNT,
+    SET_SHIPPINGINFONAME,
+    SET_ADDRESS,
+    SET_SHIPPINGINFOPHONE,
+    SET_SHIPPINGINFOID,
+} from '~/constants/addressConstants';
 
 export const initStateAddress = {
-    ID_TAIKHOAN : '',
+    ID_TAIKHOAN: '',
+    ID_GIAOHANG: '',
     TENNGUOINHAN: '',
     TENDIACHI: '',
     SDT: '',
@@ -12,7 +19,7 @@ export const addressReducer = (state, action) => {
         case SET_IDACCOUNT:
             return {
                 ...state,
-                ID_TAIKHOAN : action.payload,
+                ID_TAIKHOAN: action.payload,
             };
             break;
         case SET_SHIPPINGINFONAME:
@@ -25,6 +32,12 @@ export const addressReducer = (state, action) => {
             return {
                 ...state,
                 TENDIACHI: action.payload,
+            };
+            break;
+        case SET_SHIPPINGINFOID:
+            return {
+                ...state,
+                ID_GIAOHANG: action.payload,
             };
             break;
         case SET_SHIPPINGINFOPHONE:

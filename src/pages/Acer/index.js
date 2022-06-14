@@ -2,10 +2,11 @@ import Products from '~/components/Products';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function Nike() {
+function Acer() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
+    const brand = 'Acer';
 
     // Note: the empty deps array [] means
     // this useEffect will run once
@@ -31,7 +32,7 @@ function Nike() {
         return (
             <div className="row">
                 {items.map((item) => {
-                    if (item.TENTHELOAI === 'MSI') {
+                    if (item.TENTHELOAI.toLowerCase() === brand.toLowerCase()) {
                         return (
                             <div className="col l-3" key={item.ID_SANPHAM}>
                                 <Products
@@ -41,8 +42,8 @@ function Nike() {
                                     imgID={item.ID_ANH}
                                     description={item.GIOITHIEU}
                                     brand={item.TENTHELOAI}
-                                    soluong={item.SOLUONG}
                                     thongso={item.THONGSO}
+                                    soluong={item.SOLUONG}
                                 />
                             </div>
                         );
@@ -53,4 +54,4 @@ function Nike() {
     }
 }
 
-export default Nike;
+export default Acer;

@@ -1,14 +1,53 @@
 import classNames from 'classnames/bind';
 import styles from './Dashboard.module.scss';
 import Button from '~/components/Button';
+import { useEffect, useState } from 'react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faEye, faMoneyCheckDollar } from '@fortawesome/free-solid-svg-icons';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
 import Image from '~/components/Image';
+import NumberFormat from 'react-number-format';
+import { useCookies } from 'react-cookie';
+import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
 function Dashboard() {
+    const [cookies, setCookie] = useCookies(['name']);
+    const [billData, setBillData] = useState([]);
+    const [accData, setAccData] = useState([]);
+    const [stockData, setStockData] = useState([]);
+
+    let money = 0;
+    let quantitystock = 0;
+
+    useEffect(() => {
+        if (cookies.name) {
+            axios.get('http://26.87.217.216:8080/api/hoadon/get').then((res) => {
+                console.log(res.data);
+
+                setBillData(res.data);
+            });
+            // axios.get('http://26.87.217.216:8080/api/taikhoan/get').then((res) => {
+            //     console.log(res.data);
+
+            //     setAccData(res.data);
+            // });
+            axios.get('http://26.87.217.216:8080/api/sanpham/get').then((res) => {
+                console.log(res.data);
+                setStockData(res.data);
+            });
+        }
+    }, []);
+
+    billData.forEach((data) => {
+        money = money + data.THANHTIEN * 1;
+    });
+
+    stockData.forEach((data) => {
+        quantitystock = quantitystock + data.SOLUONG * 1;
+    });
     return (
         <>
             <div className={cx('card__box')}>
@@ -24,8 +63,8 @@ function Dashboard() {
 
                 <div className={cx('card')}>
                     <div>
-                        <div className={cx('card-numbers')}>80</div>
-                        <div className={cx('card-name')}>Sales</div>
+                        <div className={cx('card-numbers')}>{billData.length}</div>
+                        <div className={cx('card-name')}>Số hóa đơn</div>
                     </div>
                     <div className={cx('card-icon')}>
                         <FontAwesomeIcon icon={faCartShopping} />
@@ -34,8 +73,8 @@ function Dashboard() {
 
                 <div className={cx('card')}>
                     <div>
-                        <div className={cx('card-numbers')}>2,000</div>
-                        <div className={cx('card-name')}>Commnets</div>
+                        <div className={cx('card-numbers')}>{quantitystock}</div>
+                        <div className={cx('card-name')}>Số sản phẩm trong kho</div>
                     </div>
                     <div className={cx('card-icon')}>
                         <FontAwesomeIcon icon={faComment} />
@@ -44,8 +83,10 @@ function Dashboard() {
 
                 <div className={cx('card')}>
                     <div>
-                        <div className={cx('card-numbers')}>2,000</div>
-                        <div className={cx('card-name')}>Enrning</div>
+                        <div className={cx('card-numbers')}>
+                            <NumberFormat value={money} displayType={'text'} thousandSeparator={true} suffix={'đ'} />
+                        </div>
+                        <div className={cx('card-name')}>Doanh thu</div>
                     </div>
                     <div className={cx('card-icon')}>
                         <FontAwesomeIcon icon={faMoneyCheckDollar} />
@@ -60,107 +101,56 @@ function Dashboard() {
                         <h2 className={cx('details-header-heading')}>Đơn hàng gần đây</h2>
                         <Button className={cx('details-header-btn')}>View All</Button>
                     </div>
-                    <table className={cx('details-table')}>
-                        <thead className={cx('details-table-thead')}>
-                            <tr className={cx('details-table-thead-list')}>
-                                <td>Tên</td>
-                                <td>Giá</td>
-                                <td>Thanh toán</td>
-                                <td>Trạng thái</td>
-                            </tr>
-                        </thead>
-                        <tbody className={cx('details-table-tbody')}>
-                            <tr>
-                                <td>Laptop</td>
-                                <td>20.000.000</td>
-                                <td>Tiền mặt</td>
-                                <td>
-                                    <span className={cx('status', 'delivered')}>Đã giao hàng</span>
-                                </td>
-                            </tr>
-                        </tbody>
-
-                        <tbody className={cx('details-table-tbody')}>
-                            <tr>
-                                <td>Laptop</td>
-                                <td>20.000.000</td>
-                                <td>Tiền mặt</td>
-                                <td>
-                                    <span className={cx('status', 'pending')}>Chưa giải quyết</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tbody className={cx('details-table-tbody')}>
-                            <tr>
-                                <td>Laptop</td>
-                                <td>20.000.000</td>
-                                <td>Tiền mặt</td>
-                                <td>
-                                    <span className={cx('status', 'return')}>Trả về</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tbody className={cx('details-table-tbody')}>
-                            <tr>
-                                <td>Laptop</td>
-                                <td>20.000.000</td>
-                                <td>Tiền mặt</td>
-                                <td>
-                                    <span className={cx('status', 'ingrogress')}>Đang giải quyết</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tbody className={cx('details-table-tbody')}>
-                            <tr>
-                                <td>Laptop</td>
-                                <td>20.000.000</td>
-                                <td>Tiền mặt</td>
-                                <td>
-                                    <span className={cx('status', 'delivered')}>Đã giao hàng</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tbody className={cx('details-table-tbody')}>
-                            <tr>
-                                <td>Laptop</td>
-                                <td>20.000.000</td>
-                                <td>Tiền mặt</td>
-                                <td>
-                                    <span className={cx('status', 'delivered')}>Đã giao hàng</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tbody className={cx('details-table-tbody')}>
-                            <tr>
-                                <td>Laptop</td>
-                                <td>20.000.000</td>
-                                <td>Tiền mặt</td>
-                                <td>
-                                    <span className={cx('status', 'delivered')}>Đã giao hàng</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tbody className={cx('details-table-tbody')}>
-                            <tr>
-                                <td>Laptop</td>
-                                <td>20.000.000</td>
-                                <td>Tiền mặt</td>
-                                <td>
-                                    <span className={cx('status', 'delivered')}>Đã giao hàng</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tbody className={cx('details-table-tbody')}>
-                            <tr>
-                                <td>Laptop</td>
-                                <td>20.000.000</td>
-                                <td>Tiền mặt</td>
-                                <td>
-                                    <span className={cx('status', 'delivered')}>Đã giao hàng</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    {billData != 0 ? (
+                        <table className={cx('details-table')}>
+                            <thead className={cx('details-table-thead')}>
+                                <tr className={cx('details-table-thead-list')}>
+                                    <td>Tên</td>
+                                    <td>Giá</td>
+                                    <td>Thanh toán</td>
+                                    <td>Trạng thái</td>
+                                </tr>
+                            </thead>
+                            {billData
+                                .sort((a, b) => b.ID_HOADON - a.ID_HOADON)
+                                .map((bill) => {
+                                    return (
+                                        <tbody className={cx('details-table-tbody')} key={bill.IDBILL}>
+                                            <tr>
+                                                <td>{bill.HOVATEN}</td>
+                                                <td>
+                                                    <NumberFormat
+                                                        value={bill.THANHTIEN}
+                                                        displayType={'text'}
+                                                        thousandSeparator={true}
+                                                        suffix={'đ'}
+                                                    />
+                                                </td>
+                                                <td>Tiền mặt</td>
+                                                <td>
+                                                    <span
+                                                        className={cx(
+                                                            'status',
+                                                            bill.TRANGTHAI == 'Chờ duyệt'
+                                                                ? 'pending'
+                                                                : bill.TRANGTHAI == 'Trả hàng'
+                                                                ? 'return'
+                                                                : bill.TRANGTHAI == 'Đang giao hàng'
+                                                                ? 'ingrogress'
+                                                                : 'delivered',
+                                                        )}
+                                                    >
+                                                        {bill.TRANGTHAI}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    );
+                                })}
+                        </table>
+                    ) : (
+                        <h2> không có đơn hàng</h2>
+                    )}
                 </div>
                 {/* <!-- End order details list -->*/}
                 {/* <!-- Begin New Customers--> */}
@@ -168,112 +158,37 @@ function Dashboard() {
                     <div className={cx('details-header')}>
                         <h2 className={cx('details-header-heading')}>Khách hàng gần đây</h2>
                     </div>
-                    <table className={cx('recent__customers-table')}>
-                        <tr>
-                            <td width="60px">
-                                <div className={cx('customers-img')}>
-                                    <Image src="" alt="" />
-                                </div>
-                            </td>
-                            <td>
-                                <h4>
-                                    Khôi nè
-                                    <br />
-                                    <span>Việt Nam</span>
-                                </h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div className={cx('customers-img')}>
-                                    <Image src="" alt="" />
-                                </div>
-                            </td>
-                            <td>
-                                <h4>
-                                    Khôi nè
-                                    <br />
-                                    <span>Việt Nam</span>
-                                </h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div className={cx('customers-img')}>
-                                    <Image src="" alt="" />
-                                </div>
-                            </td>
-                            <td>
-                                <h4>
-                                    Khôi nè
-                                    <br />
-                                    <span>Việt Nam</span>
-                                </h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div className={cx('customers-img')}>
-                                    <Image src="" alt="" />
-                                </div>
-                            </td>
-                            <td>
-                                <h4>
-                                    Khôi nè
-                                    <br />
-                                    <span>Việt Nam</span>
-                                </h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div className={cx('customers-img')}>
-                                    <Image src="" alt="" />
-                                </div>
-                            </td>
-                            <td>
-                                <h4>
-                                    Khôi nè
-                                    <br />
-                                    <span>Việt Nam</span>
-                                </h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div className={cx('customers-img')}>
-                                    <Image src="" alt="" />
-                                </div>
-                            </td>
-                            <td>
-                                <h4>
-                                    Khôi nè
-                                    <br />
-                                    <span>Việt Nam</span>
-                                </h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-                                <div className={cx('customers-img')}>
-                                    <Image src="" alt="" />
-                                </div>
-                            </td>
-                            <td>
-                                <h4>
-                                    Khôi nè
-                                    <br />
-                                    <span>Việt Nam</span>
-                                </h4>
-                            </td>
-                        </tr>
-                    </table>
+                    {billData != 0 ? (
+                        <table className={cx('recent__customers-table')}>
+                            {billData
+                                .sort((a, b) => b - a)
+                                .map((bill) => {
+                                    return (
+                                        <tbody key={bill.ID_HOADON}>
+                                            <tr>
+                                                <td width="60px">
+                                                    <div className={cx('customers-img')}>
+                                                        <Image
+                                                            src={bill.HINHANH ? bill.HINHANH : ''}
+                                                            alt={bill.HOVATEN}
+                                                        />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <h4>
+                                                        {bill.HOVATEN}
+                                                        <br />
+                                                        <span> {bill.GIOITINH}</span>
+                                                    </h4>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    );
+                                })}
+                        </table>
+                    ) : (
+                        <h2> Chứa có khách hàng</h2>
+                    )}
                 </div>
                 {/* <!-- End New Customers--> */}
             </div>

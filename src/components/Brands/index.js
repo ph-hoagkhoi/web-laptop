@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 const brands = [
     {
         id: '1',
-        title: 'Nike',
+        title: 'MSI',
         image: images.nike,
     },
     {

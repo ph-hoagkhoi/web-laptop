@@ -7,11 +7,11 @@ import Login from '~/layouts/Login';
 import Admin from '~/layouts/Admin';
 
 // Pages
-import Sneaker from '~/pages/Sneaker';
+import Sneaker from '~/pages/Laptop';
 import Home from '~/pages/Home';
-import Nike from '~/pages/Nike';
-import Adidas from '~/pages/Adidas';
-import MLB from '~/pages/MLB';
+import Msi from '~/pages/Msi';
+import Acer from '~/pages/Acer';
+import Asus from '~/pages/Asus';
 import SignIn from '~/components/SignIn';
 import Profile from '~/pages/Profile';
 import AddressProfile from '~/pages/AddressProfile';
@@ -31,16 +31,17 @@ import ViewBill from '~/components/ViewBill';
 import AdminSlider from '~/components/AdminSlider';
 import UpdateBrand from '~/components/UpdateBrand';
 import AdminStock from '~/components/AdminStock';
+import AdminProfileInfo from '~/components/AdminProfileInfo';
 //
 
 //
 const publicRoutes = [
     { path: config.routes.home, component: Home },
-    { path: config.routes.nike, component: Nike, layout: DefaultWithSidebar },
-    { path: config.routes.adidas, component: Adidas, layout: DefaultWithSidebar },
-    { path: config.routes.mlb, component: MLB, layout: DefaultWithSidebar },
+    { path: config.routes.msi, component: Msi, layout: DefaultWithSidebar },
+    { path: config.routes.acer, component: Acer, layout: DefaultWithSidebar },
+    { path: config.routes.asus, component: Asus, layout: DefaultWithSidebar },
     { path: config.routes.login, component: SignIn, layout: Login },
-    { path: config.routes.sneaker, component: Sneaker, layout: DefaultWithSidebar },
+    { path: config.routes.laptop, component: Sneaker, layout: DefaultWithSidebar },
 
     // Profile
     { path: config.routes.profile, component: Profile, layout: ProfileAccount },
@@ -65,17 +66,17 @@ const privateRoutes = [
     { path: config.routes.adminSlider, component: AdminSlider, layout: Admin },
     { path: config.routes.adminUpdateBrand, component: UpdateBrand, layout: Admin },
     { path: config.routes.home, component: Home },
-    { path: config.routes.nike, component: Nike, layout: DefaultWithSidebar },
-    { path: config.routes.adidas, component: Adidas, layout: DefaultWithSidebar },
-    { path: config.routes.mlb, component: MLB, layout: DefaultWithSidebar },
+    { path: config.routes.msi, component: Msi, layout: DefaultWithSidebar },
+    { path: config.routes.acer, component: Acer, layout: DefaultWithSidebar },
+    { path: config.routes.asus, component: Asus, layout: DefaultWithSidebar },
     { path: config.routes.login, component: SignIn, layout: Login },
-    { path: config.routes.adminViewBill, component: ViewBill, layout: Admin },
     // Profile
     { path: config.routes.profile, component: Profile, layout: ProfileAccount },
+    { path: config.routes.adminProfileInfo, component: AdminProfileInfo, layout: Admin },
     { path: config.routes.addressProfile, component: AddressProfile, layout: ProfileAccount },
     { path: config.routes.shoppingCart, component: Shopping },
     { path: config.routes.checkout, component: Checkout },
-    { path: config.routes.sneaker, component: Sneaker, layout: DefaultWithSidebar },
+    { path: config.routes.laptop, component: Sneaker, layout: DefaultWithSidebar },
     // Product
     { path: config.routes.product, component: DetailProduct },
 ];

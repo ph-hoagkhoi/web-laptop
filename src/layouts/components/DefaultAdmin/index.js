@@ -25,7 +25,7 @@ const cx = classNames.bind(styles);
 
 function SidebarAdmin({ children }) {
     const [statusMenu, setStatusMenu] = useState(false);
-    const [cookies,setCookie] = useCookies(['name'])
+    const [cookies, setCookie] = useCookies(['name']);
 
     const handleToggleMenu = () => {
         setStatusMenu(!statusMenu);
@@ -49,6 +49,14 @@ function SidebarAdmin({ children }) {
                                 <FontAwesomeIcon icon={faDashboard} />
                             </span>
                             <span className={cx('nav-title')}>Dashboard</span>
+                        </Link>
+                    </li>
+                    <li className={cx('nav-item')}>
+                        <Link to={config.routes.adminProfileInfo} className={cx('nav-item-link')}>
+                            <span className={cx('nav-icon')}>
+                                <FontAwesomeIcon icon={faUsers} />
+                            </span>
+                            <span className={cx('nav-title')}>Thông tin cá nhân</span>
                         </Link>
                     </li>
                     <li className={cx('nav-item')}>

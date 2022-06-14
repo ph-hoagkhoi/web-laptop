@@ -35,7 +35,7 @@ function Products({ featured, id, name, price, imgID, description, brand, soluon
     return (
         <div className={cx('card', featured ? 'featured' : '')}>
             <Link
-                to={`/sneaker/${id}`}
+                to={`/laptop/${id}`}
                 state={{
                     data: {
                         ID_SANPHAM: id,
@@ -60,7 +60,7 @@ function Products({ featured, id, name, price, imgID, description, brand, soluon
                     <NumberFormat value={price} displayType={'text'} thousandSeparator={true} suffix={'đ'} />
                 </p>
                 <Link
-                    to={`/sneaker/${id}`}
+                    to={`/laptop/${id}`}
                     state={{
                         data: {
                             ID_SANPHAM: id,

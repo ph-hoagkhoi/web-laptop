@@ -10,11 +10,14 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import ShoppingItem from '~/components/ShoppingItem';
+import { useDebounce } from '~/hooks';
 
 const cx = classNames.bind(styles);
 function Shipping() {
     const [cookies, setCookie] = useCookies(['name']);
     const [shoppingCart, setShoppingCart] = useState([]);
+    const debounced = useDebounce(shoppingCart, 500);
+
     let money = 0;
     const delivery = 30000;
     let navigate = useNavigate();
@@ -26,17 +29,12 @@ function Shipping() {
                     data: { ID_TAIKHOAN: cookies.name.ID },
                 })
                 .then((res) => {
-                    console.log(res.data);
                     setShoppingCart(res.data);
                 });
         } else {
             navigate('/login');
         }
-    }, []);
-
-    const countMoney = (e) => {
-        money += e;
-    };
+    }, [debounced]);
 
     return (
         <div className={cx('grid', 'wide')}>
@@ -46,8 +44,7 @@ function Shipping() {
                     {shoppingCart != 0 ? (
                         shoppingCart.map((product, index) => {
                             const count = product.GIA * product.SOLUONG;
-                            countMoney(count);
-                            console.log(product);
+                            money += count;
                             return (
                                 <ShoppingItem
                                     key={index}
@@ -58,6 +55,7 @@ function Shipping() {
                                     GIA={product.GIA}
                                     ID_TAIKHOAN={product.ID_TAIKHOAN}
                                     ID_SANPHAM={product.ID_SANPHAM}
+                                    SOLUONGKHO={product.SOLUONGKHO}
                                 />
                             );
                         })
@@ -70,7 +68,6 @@ function Shipping() {
                     <div className={cx('subtotal', 'row')}>
                         <p className={cx('subtotal-title', 'col', 'l-8')}>Giá tiền</p>
                         <p className={cx('subtotal-money', 'col', 'l-4')}>
-                            {' '}
                             <NumberFormat value={money} displayType={'text'} thousandSeparator={true} suffix={'đ'} />
                         </p>
                     </div>
@@ -94,7 +91,7 @@ function Shipping() {
 
                     <Button
                         to={`/@${cookies.name.ID}/checkout`}
-                        disabled={shoppingCart > 0 ? true : false}
+                        disabled={shoppingCart == 0 ? true : false}
                         state={{ data: { money: money, delivery: delivery } }}
                         className={cx('checkout')}
                     >

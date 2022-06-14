@@ -14,6 +14,7 @@ import NumberFormat from 'react-number-format';
 import classNames from 'classnames/bind';
 import styles from './Checkout.module.scss';
 import AddressItem from '~/components/AddressItem';
+import Button from '~/components/Button';
 
 const cx = classNames.bind(styles);
 
@@ -33,7 +34,6 @@ function Checkout() {
             dispatchAddress(setIDAccount(cookies.name.ID));
             dispatchOrder(setIDUser(cookies.name.ID));
             dispatchOrder(setTotal(location.state.data.delivery + location.state.data.money));
-
             axios
                 .post('http://26.87.217.216:8080/api/giohang/post', {
                     type: 'get',
@@ -59,7 +59,8 @@ function Checkout() {
                 data: stateOrder,
             })
             .then((res) => {
-                if(res.data != 0){
+                // console.log(res);
+                if (res.data != 0) {
                     alert('Thanh toán thành công!');
                     navigate('/');
                 }
@@ -99,7 +100,7 @@ function Checkout() {
     const hideBuyTickets = () => {
         setStatusModal(false);
     };
-
+    console.log(stateOrder.ID_GIAOHANG === '');
     return (
         <>
             <div className={cx('grid wide')}>
@@ -129,6 +130,7 @@ function Checkout() {
                                                         ID_TAIKHOAN={address.ID_TAIKHOAN}
                                                         SDT={address.SDT}
                                                         TENDIACHI={address.TENDIACHI}
+                                                        nonUpdate
                                                     />
                                                 </label>
                                             </div>
@@ -138,13 +140,13 @@ function Checkout() {
                                     <></>
                                 )}
                                 <div className={cx('actions')}>
-                                    <button
+                                    <Button
                                         className={cx('btn_ctn')}
-                                        disabled={stateOrder.ID_GIAOHANG == '' ? true : false}
                                         onClick={addOrder}
+                                        disabled={stateOrder.ID_GIAOHANG === '' ? true : false}
                                     >
                                         Tiếp tục
-                                    </button>
+                                    </Button>
                                     <button className={cx('btn_add')} onClick={showBuyTickets}>
                                         Thêm địa chỉ
                                     </button>
@@ -232,7 +234,7 @@ function Checkout() {
                                                     {product.SOLUONG}
                                                 </p>
                                                 <p className={cx('product_content')}>
-                                                    <span>Thành tiền :</span>
+                                                    <span>Thành tiền: </span>
                                                     <NumberFormat
                                                         value={product.GIA * product.SOLUONG}
                                                         displayType={'text'}
@@ -292,10 +294,16 @@ function Checkout() {
                                     Số điện thoại
                                 </label>
                                 <input
+                                    maxLength={10}
                                     className={cx('input-item')}
                                     type="text"
                                     placeholder="Số điện thoại"
                                     onChange={(e) => dispatchAddress(setInfoPhone(e.target.value))}
+                                    onKeyPress={(event) => {
+                                        if (!/[0-9]/.test(event.key)) {
+                                            event.preventDefault();
+                                        }
+                                    }}
                                 />
                             </div>
                         </div>

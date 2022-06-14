@@ -33,7 +33,7 @@ function SignIn() {
         setIsContainerActive(true);
     };
     const signInButton = () => {
-        setIsContainerActive(true);
+        setIsContainerActive(false);
     };
 
     // Login
@@ -50,7 +50,7 @@ function SignIn() {
                 data: stateLogin,
             })
             .then((response) => {
-                console.log();
+                console.log(response.data);
                 if (response.data != 0) {
                     setCookie('name', { ID: response.data.id, STATUS: response.data.status }, { path: '/' });
                     navigate('/');
@@ -63,23 +63,29 @@ function SignIn() {
     // Đăng ký
     const handleSubmitRG = async (e) => {
         e.preventDefault();
+
         if (stateRegister.REMATKHAU === stateRegister.MATKHAU) {
             console.log(stateRegister);
             await handleSubmitRegister({
                 stateRegister,
             });
         } else {
-            console.log('Nhập lại mật khẩu không trùng khớp');
+           alert('Nhập lại mật khẩu không trùng khớp');
         }
     };
 
     const handleSubmitRegister = (data) => {
         axios
-            .post('http://26.87.217.216:8080/api/nhanvien/signup', {
+            .post('http://26.87.217.216:8080/api/taikhoan/signup', {
                 data: stateRegister,
             })
-            .then((response) => {
-                console.log(response);
+            .then((res) => {
+                if (res.data == 1) {
+                    alert('Đăng ký thành công!');
+                    navigate('/');
+                } else {
+                    alert('Tài khoản đã có người sử dụng!');
+                }
             });
     };
 
@@ -107,17 +113,20 @@ function SignIn() {
                             placeholder="Tên tài khoản"
                             className={cx('morri_input')}
                             onChange={(e) => dispatchRegister(setNameRegister(e.target.value))}
+                            required
                         />
                         <input
                             type="password"
                             placeholder="Mật khẩu"
                             className={cx('morri_input')}
                             onChange={(e) => dispatchRegister(setPasswordRegister(e.target.value))}
+                            required
                         />
                         <input
                             type="password"
                             placeholder="Nhập lại mật khẩu"
                             className={cx('morri_input')}
+                            required    
                             onChange={(e) => dispatchRegister(setRePasswordRegister(e.target.value))}
                         />
                         <button className={cx('btn')}>Đăng kí</button>
