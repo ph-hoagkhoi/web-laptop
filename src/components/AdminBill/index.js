@@ -15,9 +15,10 @@ const cx = classNames.bind(styles);
 
 function AdminBill() {
     const [billData, setBillData] = useState([]);
-        
+
     useEffect(() => {
         getCourses();
+        document.title = 'Quản lý đơn hàng';
     }, []);
 
     const getCourses = async () => {
@@ -32,30 +33,24 @@ function AdminBill() {
             console.error(error);
         }
     };
-    const capNhatTrangThai = async(ID_HOADON, TRANGTHAI) =>{
-        try{
-            // console.log('TRANGTHAI');
+    const capNhatTrangThai = async (ID_HOADON, TRANGTHAI) => {
+        try {
             await axios
-            .post('http://26.87.217.216:8080/api/hoadon/post',
-            {
-                type: 'updatebill',
-                data: {ID_HOADON: ID_HOADON,
-                       TRANGTHAI: TRANGTHAI}
-            })
-            .then(async (res)=>
-            {
-                console.log(res.data);
-            if(res.data == 1){
-                alert('Cập nhật thành công!');
-                window.location.reload();
-            }
-            })
-            
-        }
-        catch(error){
+                .post('http://26.87.217.216:8080/api/hoadon/post', {
+                    type: 'updatebill',
+                    data: { ID_HOADON: ID_HOADON, TRANGTHAI: TRANGTHAI },
+                })
+                .then(async (res) => {
+                    if (res.data == 1) {
+                        alert('Cập nhật trạng thái hóa đơn thành công');
+                    } else if (res.data == -1) {
+                        alert('Cập nhật trạng thái hóa đơn thất bại');
+                    }
+                });
+        } catch (error) {
             console.log(error);
         }
-    }
+    };
     return (
         <>
             {/* <!-- Begin adminProductTable --> */}
@@ -92,13 +87,14 @@ function AdminBill() {
                                         />
                                     </td>
                                     <td className={cx('details-content-item')}>
-                                        <select 
-                                        onChange={(e)=>{
-                                            trangthai = e.target.value;
-                                            console.log(trangthai);
-                                        }}
-                                        className={cx('details-content-select')}>
-                                        <option value={bill.TRANGTHAI}>{bill.TRANGTHAI}</option>
+                                        <select
+                                            onChange={(e) => {
+                                                trangthai = e.target.value;
+                                                console.log(trangthai);
+                                            }}
+                                            className={cx('details-content-select')}
+                                        >
+                                            <option value={bill.TRANGTHAI}>{bill.TRANGTHAI}</option>
                                             <option value="Đang giao hàng">Đang giao hàng</option>
                                             <option value="Trả về">Trả về</option>
                                             <option value="Thành công">Thành công</option>
@@ -115,8 +111,11 @@ function AdminBill() {
                                     </td>
                                     <td className={cx('details-content-item')}>
                                         <Button
-                                            onClick={(e)=>capNhatTrangThai(bill.ID_HOADON, trangthai)}
-                                        className={cx('details-content-item-btn')}>Cập nhật</Button>
+                                            onClick={(e) => capNhatTrangThai(bill.ID_HOADON, trangthai)}
+                                            className={cx('details-content-item-btn')}
+                                        >
+                                            Cập nhật
+                                        </Button>
                                     </td>
                                 </tr>
                             </tbody>

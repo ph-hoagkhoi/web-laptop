@@ -3,7 +3,7 @@ import { faCircleXmark, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HeadlessTippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
-
+import axios from 'axios';
 import ProductItem from '~/components/ProductItem';
 import classNames from 'classnames/bind';
 import styles from './Search.module.scss';
@@ -27,9 +27,12 @@ function Search() {
             return;
         }
         setLoading(true);
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
-            .then((res) => res.json())
+        axios
+            .post('http://26.87.217.216:8080/api/sanpham/search', {
+                data: { keysearch: debounced },
+            })
             .then((res) => {
+                console.log(res.data);
                 setSearchResult(res.data);
                 setLoading(false);
             });
@@ -52,9 +55,30 @@ function Search() {
             render={(attrs) => (
                 <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                     <PopperWrapper>
-                        {searchResult.map((result) => {
-                            return <ProductItem key={result.id} data={result} />;
-                        })}
+                        {searchResult != 0 ? (
+                            searchResult.map((result) => {
+                                return (
+                                    <ProductItem
+                                        SHOESDESCRIPTION={result.GIOITHIEU}
+                                        key={result.ID_SANPHAM}
+                                        SHOESID={result.ID_SANPHAM}
+                                        BRANDNAME={result.TENTHELOAI}
+                                        IMAGESHOES1={result.ANH1}
+                                        imgProducts={{
+                                            IMAGEID: result.ID_ANH,
+                                            IMAGESHOES1: result.ANH1,
+                                            IMAGESHOES2: result.ANH2,
+                                            IMAGESHOES3: result.ANH3,
+                                            IMAGESHOES4: result.ANH4,
+                                        }}
+                                        SHOESNAME={result.TENSANPHAM}
+                                        SHOESPRICE={result.GIA}
+                                    />
+                                );
+                            })
+                        ) : (
+                            <></>
+                        )}
                     </PopperWrapper>
                 </div>
             )}

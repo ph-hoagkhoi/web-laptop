@@ -2,6 +2,8 @@ import classNames from 'classnames/bind';
 import styles from './UpdateBrand.module.scss';
 import { useLocation } from 'react-router-dom';
 import Button from '~/components/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
 import axios from 'axios';
 import { useState, useReducer, useEffect } from 'react';
@@ -9,7 +11,7 @@ import config from '~/config';
 
 import { useNavigate } from 'react-router-dom';
 import { initStateBrand, detailBrandReducer } from '~/reducers/brandReducers';
-import { setBrandName, setDesBrand, addBrand } from '~/actions/brandActions';
+import { setBrandName, setDesBrand, addBrand, setImgBrand, deleteImgBrand } from '~/actions/brandActions';
 
 const cx = classNames.bind(styles);
 
@@ -26,21 +28,29 @@ function UpdateBrand({}) {
         e.preventDefault();
         await handleSubmitUpdateBrand({
             stateBrand,
+            
         });
     };
 
     const handleSubmitUpdateBrand = (data) => {
-        axios
-            .post('http://26.87.217.216:8080/api/theloai/post', {
-                type: 'update',
-                data: stateBrand,
-            })
-            .then((response) => {
-                if ((response.data != 0) & (response.data != -1)) {
-                    alert('Cập nhật thành công');
-                    navigate('/admin/category');
-                }
-            });
+        try {
+            axios
+                .post('http://26.87.217.216:8080/api/theloai/post', {
+                    type: 'update',
+                    data: stateBrand,
+                })
+                .then((res) => {
+                    // console.log(res.data);
+                    if (res.data == 1) {
+                        alert('Cập nhật thành công!!');
+                        navigate('/admin/category');
+                    } else if (res.data == -1) {
+                        alert('Cập nhật thất bại!!');
+                    }
+                });
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     // check coi có thay đổi dữ liệu không
@@ -52,7 +62,30 @@ function UpdateBrand({}) {
         }
     };
 
+    // Convert input sang base 64
+    const uploadImage = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertBase64(file);
+        dispatchBrand(setImgBrand(base64));
+    };
+
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    };
+  
     return (
+        
         <>
             <div className={cx('wrapper')}>
                 <div className={cx('inner')}>
@@ -64,6 +97,37 @@ function UpdateBrand({}) {
 
                 <div className={cx('update_form')}>
                     <form className={cx('category-list')} onSubmit={handleSubmit}>
+                        <div className={cx('product_img')}>
+                            <div className={cx('img_item')}>
+                                <div className={cx('file_upload')}>
+                                    <input
+                                        className={cx('upload')}
+                                        type="file"
+                                        disabled={stateBrand.ANHMOTA}
+                                        onChange={(e) => uploadImage(e)}
+                                    />
+                                    <FontAwesomeIcon
+                                        icon={faArrowUp}
+                                        className={cx(stateBrand.ANHMOTA ? 'fadeout' : '')}
+                                    ></FontAwesomeIcon>
+                                    <div className={cx('img_box', stateBrand.ANHMOTA ? 'fadein' : '')}>
+                                        <img
+                                            alt={stateBrand.TENTHELOAI ? stateBrand.TENTHELOAI : ''}
+                                            className={cx('img')}
+                                            src={stateBrand.ANHMOTA ? stateBrand.ANHMOTA : ''}
+                                        />
+                                        <div className={cx('delete_box', stateBrand.ANHMOTA ? 'active' : '')}>
+                                            <FontAwesomeIcon
+                                                icon={faXmark}
+                                                className={cx('btn_delete')}
+                                                onClick={(e) => dispatchBrand(deleteImgBrand(stateBrand.ANHMOTA))}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div className={cx('category_box')}>
                             <div className={cx('category-item')}>
                                 <label htmlFor="" className={cx('input-label')}>

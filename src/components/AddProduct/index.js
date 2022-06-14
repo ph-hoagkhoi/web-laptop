@@ -33,6 +33,7 @@ function AddProduct() {
     let navigate = useNavigate();
 
     useEffect(() => {
+        document.title = "Thêm sản phẩm";
         if (location.state) {
             if (location.state.data) {
                 dispatch(setID(location.state.data.ID_SANPHAM));
@@ -100,6 +101,7 @@ function AddProduct() {
             .then((response) => {
                 // console.log(response.data);
                 if ((response.data != 0) & (response.data != -1)) {
+                    alert("Sửa thành công!");
                     navigate('/admin/product');
                 }
             });

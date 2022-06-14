@@ -15,6 +15,7 @@ function AddressItem({ ID_GIAOHANG, ID_TAIKHOAN, TENNGUOINHAN, SDT, TENDIACHI, n
     const [statusModal, setStatusModal] = useState(false);
     const [stateAddress, dispatchAddress] = useReducer(addressReducer, initStateAddress);
     useEffect(() => {
+        document.title = "Danh sách địa chỉ";
         dispatchAddress(setIDAccount(ID_TAIKHOAN));
         dispatchAddress(setIDInfo(ID_GIAOHANG));
         dispatchAddress(setInfoName(TENNGUOINHAN));

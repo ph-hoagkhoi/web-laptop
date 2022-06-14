@@ -1,11 +1,12 @@
 import classNames from 'classnames/bind';
 import styles from './DefaultAdmin.module.scss';
 import { Link } from 'react-router-dom';
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Image from '~/components/Image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import config from '~/config';
-
+import { useCookies } from 'react-cookie';
 import {
     faBars,
     faBoxOpen,
@@ -19,7 +20,6 @@ import {
     faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import { faBarChart, faComment } from '@fortawesome/free-regular-svg-icons';
-import { useCookies } from 'react-cookie';
 
 const cx = classNames.bind(styles);
 
@@ -29,6 +29,18 @@ function SidebarAdmin({ children }) {
 
     const handleToggleMenu = () => {
         setStatusMenu(!statusMenu);
+    };
+    const [cookie, setCookies, removeCookie] = useCookies(['name']);
+    let navigate = useNavigate();
+
+    useEffect(() => {
+        if (!cookie.name) {
+            navigate('/login');
+        }
+    }, []);
+    const logOut = () => {
+        removeCookie('name');
+        navigate('/login');
     };
 
     return (
@@ -123,8 +135,8 @@ function SidebarAdmin({ children }) {
                             <span className={cx('nav-title')}>Kho</span>
                         </Link>
                     </li> */}
-                    <li className={cx('nav-item')}>
-                        <Link to="#" className={cx('nav-item-link')}>
+                    <li className={cx('nav-item')} onClick={logOut}>
+                        <Link to={''} className={cx('nav-item-link')}>
                             <span className={cx('nav-icon')}>
                                 <FontAwesomeIcon icon={faSignOut} />
                             </span>

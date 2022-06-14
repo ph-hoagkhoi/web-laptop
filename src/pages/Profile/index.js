@@ -30,6 +30,7 @@ function Profile() {
     let navigate = useNavigate();
     console.log(stateUser);
     useEffect(() => {
+        document.title = "Thông tin cá nhân";
         if (cookies.name) {
             dispatchUser(setIDAccount(cookies.name.ID));
             axios

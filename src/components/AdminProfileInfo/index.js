@@ -84,10 +84,10 @@ function ProfileInfo() {
             })
             .then((res) => {
                     console.log(res.data);
-                // if (res.data == 1) {
-                //     alert('Cập nhật thành công');
-                //     window.location.reload();
-                // }
+                if (res.data == 1) {
+                    alert('Cập nhật thành công');
+                    window.location.reload();
+                }
             });
     };
 

@@ -58,7 +58,10 @@
 
     .content {
         position: absolute;
+        width: 100%;
         bottom: 0;
+        right: 0;
+        left: 0;
         padding: 20px;
         display: flex;
         justify-content: center;
@@ -117,5 +120,5 @@
 }
 
 .featured {
-    height: 370px;
+    height: 370px !important;
 }

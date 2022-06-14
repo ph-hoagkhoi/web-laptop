@@ -4,52 +4,48 @@ import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import * as httpRequest from '~/utils/httpRequest';
 import * as searchServices from '~/services/searchServices';
+import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
 function Featured() {
     const [countProduct, setCountProduct] = useState([]);
-    const [dataApi, setdataApi] = useState([]);
-
-    const products = [
-        { id: 1, count: 4 },
-        { id: 2, count: 7 },
-        { id: 3, count: 1 },
-        { id: 4, count: 5 },
-        { id: 5, count: 2 },
-        { id: 6, count: 9 },
-        { id: 7, count: 10, username: 'air-jordan-1-black-white' },
-        { id: 8, count: 8 },
-    ];
-    // useEffect(() => {
-    //     // const fetchApi = async () => {
-    //     //     const result = await searchServices.search();
-    //     //     setdataApi(result);
-    //     // };
-    //     // fetch('http://26.215.178.30/DACS/api/theloai')
-    //     //     .then((res) => res.json())
-    //     //     .then((result) => {
-    //     //         console.log(result);
-    //     //         setdataApi(result);
-    //     //     });
-    //     // fetchApi();
-    // }, []);
+    useEffect(() => {
+        try {
+            axios.post('http://26.87.217.216:8080/api/sanpham/noibat').then((res) => setCountProduct(res.data));
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
 
     return (
         <div className={cx('row', 'features')}>
-            <h1 className={cx('features_heading', 'l-12')}>Sản phẩm nổi bật</h1>
-            <div className="row">
-                {products
-                    .sort((a, b) => b.count - a.count)
-                    .map((product, index) => {
-                        if (index < 4) {
-                            return (
-                                <div key={product.id} className="col l-3">
-                                    <Products id={product.id} username={product.username} featured />
-                                </div>
-                            );
-                        }
-                    })}
+            <h1 className={cx('features_heading', 'col', 'l-12')}>Sản phẩm nổi bật</h1>
+            <div className={cx('row', 'item', 'l-12', 'col')}>
+                {countProduct != 0 ? (
+                    countProduct
+                        .sort((a, b) => b.GIA - a.GIA)
+                        .map((product, index) => {
+                            if (index < 4) {
+                                return (
+                                    <div key={product.ID_SANPHAM} className={cx('col', 'l-3')}>
+                                        <Products
+                                            id={product.ID_SANPHAM}
+                                            name={product.TENSANPHAM}
+                                            price={product.GIA}
+                                            imgID={product.ID_ANH}
+                                            description={product.GIOITHIEU}
+                                            thongso={product.THONGSO}
+                                            brand={product.TENTHELOAI}
+                                            featured
+                                        />
+                                    </div>
+                                );
+                            }
+                        })
+                ) : (
+                    <></>
+                )}
             </div>
         </div>
     );

@@ -1,4 +1,10 @@
-import { SET_BRANDNAME, SET_DESCRIPTIONBRAND, ADD_BRAND } from '~/constants/brandConstants';
+import {
+    SET_BRANDNAME,
+    SET_DESCRIPTIONBRAND,
+    ADD_BRAND,
+    SET_IMAGEBRAND,
+    DELETE_IMAGEBRAND,
+} from '~/constants/brandConstants';
 
 export const setBrandName = (payload) => {
     return {
@@ -7,6 +13,18 @@ export const setBrandName = (payload) => {
     };
 };
 
+export const deleteImgBrand = (payload) => {
+    return {
+        type: DELETE_IMAGEBRAND,
+    };
+};
+
+export const setImgBrand = (payload) => {
+    return {
+        type: SET_IMAGEBRAND,
+        payload,
+    };
+};
 export const setDesBrand = (payload) => {
     return {
         type: SET_DESCRIPTIONBRAND,
@@ -19,4 +37,4 @@ export const addBrand = (payload) => {
         type: ADD_BRAND,
         payload,
     };
-};  
+};
