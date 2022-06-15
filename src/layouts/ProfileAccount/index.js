@@ -9,7 +9,7 @@ function ProfileAccount({ children }) {
             <div className="container">
                 <div className=" grid wide">
                     <div className="row">
-                        <h2 className="title col l-12" style={{ marginTop: '40px' }}>
+                        <h2 className="title col l-12" style={{ marginTop: '80px' }}>
                             Thông tin cá nhân
                         </h2>
                         <SidebarProfile />

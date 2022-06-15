@@ -28,8 +28,8 @@ function Search() {
         }
         setLoading(true);
         axios
-            .post('http://26.87.217.216:8080/api/sanpham/search', {
-                data: { keysearch: debounced },
+            .post('http://26.87.217.216:8080/api/sanpham/timkiem', {
+                data: { tukhoa: debounced },
             })
             .then((res) => {
                 console.log(res.data);
@@ -57,22 +57,23 @@ function Search() {
                     <PopperWrapper>
                         {searchResult != 0 ? (
                             searchResult.map((result) => {
+                                console.log(result);
                                 return (
                                     <ProductItem
-                                        SHOESDESCRIPTION={result.GIOITHIEU}
+                                        GIOITHIEU={result.GIOITHIEU}
                                         key={result.ID_SANPHAM}
-                                        SHOESID={result.ID_SANPHAM}
-                                        BRANDNAME={result.TENTHELOAI}
-                                        IMAGESHOES1={result.ANH1}
+                                        ID_SANPHAM={result.ID_SANPHAM}
+                                        TENTHELOAI={result.TENTHELOAI}
+                                        ANH1={result.ANH1}
                                         imgProducts={{
-                                            IMAGEID: result.ID_ANH,
-                                            IMAGESHOES1: result.ANH1,
-                                            IMAGESHOES2: result.ANH2,
-                                            IMAGESHOES3: result.ANH3,
-                                            IMAGESHOES4: result.ANH4,
+                                            IMAGEID: result.ID_ANH, 
+                                            ANH1: result.ANH1,
+                                            ANH2: result.ANH2,
+                                            ANH3: result.ANH3,
+                                            ANH4: result.ANH4,
                                         }}
-                                        SHOESNAME={result.TENSANPHAM}
-                                        SHOESPRICE={result.GIA}
+                                        TENSANPHAM={result.TENSANPHAM}
+                                        GIA={result.GIA}
                                     />
                                 );
                             })

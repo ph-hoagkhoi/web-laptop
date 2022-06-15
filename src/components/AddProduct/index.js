@@ -33,7 +33,7 @@ function AddProduct() {
     let navigate = useNavigate();
 
     useEffect(() => {
-        document.title = "Thêm sản phẩm";
+        document.title = 'Thêm sản phẩm';
         if (location.state) {
             if (location.state.data) {
                 dispatch(setID(location.state.data.ID_SANPHAM));
@@ -101,7 +101,7 @@ function AddProduct() {
             .then((response) => {
                 // console.log(response.data);
                 if ((response.data != 0) & (response.data != -1)) {
-                    alert("Sửa thành công!");
+                    alert('Sửa thành công!');
                     navigate('/admin/product');
                 }
             });
@@ -123,6 +123,7 @@ function AddProduct() {
             .then((response) => {
                 console.log(response.data);
                 if (response.data == 1) {
+                    alert('Thêm sản phẩm thành công!');
                     navigate('/admin/product');
                 }
             });
@@ -220,6 +221,7 @@ function AddProduct() {
                                 type="number"
                                 id="quantity"
                                 placeholder="Số lượng"
+                                value={location.state ? state.SOLUONG : null}
                                 onChange={(e) => dispatch(setSoLuong(e.target.value))}
                                 onKeyPress={(event) => {
                                     if (!/[0-9]/.test(event.key)) {

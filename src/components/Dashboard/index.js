@@ -25,36 +25,35 @@ function Dashboard() {
     useEffect(() => {
         if (cookies.name) {
             axios.get('http://26.87.217.216:8080/api/hoadon/get').then((res) => {
-                console.log(res.data);
-
                 setBillData(res.data);
             });
-            // axios.get('http://26.87.217.216:8080/api/taikhoan/get').then((res) => {
-            //     console.log(res.data);
-
-            //     setAccData(res.data);
-            // });
+            axios.get('http://26.87.217.216:8080/api/taikhoan/get').then((res) => {
+                setAccData(res.data);
+            });
             axios.get('http://26.87.217.216:8080/api/sanpham/get').then((res) => {
-                console.log(res.data);
                 setStockData(res.data);
             });
         }
     }, []);
+    if (billData) {
+        billData.forEach((data) => {
+            money = money + data.THANHTIEN * 1;
+        });
+    }
 
-    billData.forEach((data) => {
-        money = money + data.THANHTIEN * 1;
-    });
+    if (stockData) {
+        stockData.forEach((data) => {
+            quantitystock = quantitystock + data.SOLUONG * 1;
+        });
+    }
 
-    stockData.forEach((data) => {
-        quantitystock = quantitystock + data.SOLUONG * 1;
-    });
     return (
         <>
             <div className={cx('card__box')}>
                 <div className={cx('card')}>
                     <div>
-                        <div className={cx('card-numbers')}>2,000</div>
-                        <div className={cx('card-name')}>Daily View</div>
+                        <div className={cx('card-numbers')}>{accData.length}</div>
+                        <div className={cx('card-name')}>Tổng tài khoản</div>
                     </div>
                     <div className={cx('card-icon')}>
                         <FontAwesomeIcon icon={faEye} />
@@ -63,7 +62,7 @@ function Dashboard() {
 
                 <div className={cx('card')}>
                     <div>
-                        <div className={cx('card-numbers')}>{billData.length}</div>
+                        <div className={cx('card-numbers')}>{billData ? billData.length : '0'}</div>
                         <div className={cx('card-name')}>Số hóa đơn</div>
                     </div>
                     <div className={cx('card-icon')}>
@@ -73,7 +72,7 @@ function Dashboard() {
 
                 <div className={cx('card')}>
                     <div>
-                        <div className={cx('card-numbers')}>{quantitystock}</div>
+                        <div className={cx('card-numbers')}>{stockData ? quantitystock : '0'}</div>
                         <div className={cx('card-name')}>Số sản phẩm trong kho</div>
                     </div>
                     <div className={cx('card-icon')}>

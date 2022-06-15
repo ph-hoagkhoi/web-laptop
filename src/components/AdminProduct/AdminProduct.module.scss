@@ -51,10 +51,16 @@
     min-width: 20px;
     text-align: center;
     color: var(--black1-color);
+    .details-content-item p img {
+        max-height: 50px !important;
+    }
     .details-content-item-img {
         width: 100px;
         height: 100px;
     }
+}
+.ck__edit p img {
+    max-width: 100px;
 }
 
 .details-content-item::after {

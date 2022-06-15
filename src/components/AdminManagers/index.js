@@ -50,18 +50,36 @@ function AdminManagers() {
         await axios.get('http://26.87.217.216:8080/api/taikhoan/nhanvien').then((res) => console.log(res.data));
     };
     const xoaNhanVien = async (ID_TAIKHOAN) => {
-        if(window.confirm('Bạn chắc có chắc chắn xóa nhân viên này?')){
-            await axios.post('http://26.87.217.216:8080/api/taikhoan/nhanvien',{
-            type:'delete',
-            data: {ID_TAIKHOAN:ID_TAIKHOAN},
-        })
-        .then((res) => {
-            if(res.data == 1){
-                alert('Xóa thành công!');
-                window.location.reload();
-            }
-        });
+        if (window.confirm('Bạn chắc có chắc chắn xóa nhân viên này?')) {
+            await axios
+                .post('http://26.87.217.216:8080/api/taikhoan/nhanvien', {
+                    type: 'delete',
+                    data: { ID_TAIKHOAN: ID_TAIKHOAN },
+                })
+                .then((res) => {
+                    if (res.data == 1) {
+                        alert('Xóa thành công!');
+                        window.location.reload();
+                    }
+                });
         }
+    };
+    const themNhanVien = async (e) => {
+        e.preventDefault();
+            await axios
+                .post('http://26.87.217.216:8080/api/taikhoan/nhanvien', {
+                    type: 'create',
+                    data: {...stateInfo,...stateTK}
+                })
+                .then((res) => {
+                    console.log(res.data);
+                    if (res.data == 1) {
+                        alert('Thêm thành công!');
+                        window.location.reload();
+                    }else if(res.data == -1){
+                      alert('Tài khoản đã có người sử dụng!');
+                    }
+                });
     };
     const showBuyTickets = () => {
         setStatusModal(true);
@@ -92,8 +110,8 @@ function AdminManagers() {
             };
         });
     };
-    const [cookies,setCookie] = useCookies(['name']);
-    if(cookies.name.STATUS == 'e3afed0047b08059d0fada10f400c1e5'){
+    const [cookies, setCookie] = useCookies(['name']);
+    if (cookies.name.STATUS == 'e3afed0047b08059d0fada10f400c1e5') {
         return (
             <>
                 {/* <!-- Begin adminManagers --> */}
@@ -119,7 +137,7 @@ function AdminManagers() {
                     {/* <!-- item 1 --> */}
                     {managerData.map((managerData, index) => {
                         return (
-                            <tbody className={cx('details-tbody')} key ={managerData.ID_TAIKHOAN} >
+                            <tbody className={cx('details-tbody')} key={managerData.ID_TAIKHOAN}>
                                 <tr className={cx('details-content-list')}>
                                     <td className={cx('details-content-item')}>{managerData.ID_TAIKHOAN}</td>
                                     <td className={cx('details-content-item')}>{managerData.HOVATEN}</td>
@@ -136,8 +154,11 @@ function AdminManagers() {
                                     </td> */}
                                     <td className={cx('details-content-item')}>
                                         <Button
-                                        onClick={e=>xoaNhanVien(managerData.ID_TAIKHOAN)}
-                                        className={cx('details-content-item-btn')}>Xóa</Button>
+                                            onClick={(e) => xoaNhanVien(managerData.ID_TAIKHOAN)}
+                                            className={cx('details-content-item-btn')}
+                                        >
+                                            Xóa
+                                        </Button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -157,22 +178,22 @@ function AdminManagers() {
                             <h2 className={cx('modal-heading')}>Thêm nhân viên</h2>
                             <FontAwesomeIcon className={cx('modal--close')} icon={faXmark} onClick={hideBuyTickets} />
                         </div>
-    
-                        <form>
+
+                        <form onSubmit={themNhanVien}>
                             <div className={cx('managers-list')}>
                                 <div className={cx('managers-list-info-left')}>
                                     <div className={cx('info')}>
                                         <label htmlFor="" className={cx('input-label')}>
-                                            Tên khách hàng
+                                            Tên nhân viên
                                         </label>
                                         <input
                                             className={cx('input-item')}
                                             type="text"
-                                            placeholder="Tên khách hàng"
+                                            placeholder="Tên nhân viên"
                                             onChange={(e) => dispatchInfo(setFullName(e.target.value))}
                                         />
                                     </div>
-    
+
                                     <div className={cx('info')}>
                                         <label htmlFor="" className={cx('input-label')}>
                                             Giới tính
@@ -184,19 +205,19 @@ function AdminManagers() {
                                             onChange={(e) => dispatchInfo(setGender(e.target.value))}
                                         />
                                     </div>
-    
+
                                     <div className={cx('info')}>
                                         <label htmlFor="" className={cx('input-label')}>
                                             Năm sinh
                                         </label>
                                         <input
                                             className={cx('input-item')}
-                                            type="text"
+                                            type="date"
                                             placeholder="Năm sinh"
                                             onChange={(e) => dispatchInfo(setDateOfBirth(e.target.value))}
                                         />
                                     </div>
-    
+
                                     <div className={cx('info')}>
                                         <label htmlFor="" className={cx('input-label')}>
                                             Số điện thoại
@@ -208,7 +229,7 @@ function AdminManagers() {
                                             onChange={(e) => dispatchInfo(setNumberPhone(e.target.value))}
                                         />
                                     </div>
-    
+
                                     <div className={cx('info')}>
                                         <label htmlFor="" className={cx('input-label')}>
                                             Email
@@ -221,7 +242,7 @@ function AdminManagers() {
                                         />
                                     </div>
                                 </div>
-    
+
                                 <div className={cx('managers-list-info-right')}>
                                     <div className={cx('product_img')}>
                                         <div className={cx('img_item')}>
@@ -242,7 +263,9 @@ function AdminManagers() {
                                                         className={cx('img')}
                                                         src={stateInfo.HINHANH ? stateInfo.HINHANH : ''}
                                                     />
-                                                    <div className={cx('delete_box', stateInfo.HINHANH ? 'active' : '')}>
+                                                    <div
+                                                        className={cx('delete_box', stateInfo.HINHANH ? 'active' : '')}
+                                                    >
                                                         <FontAwesomeIcon
                                                             icon={faXmark}
                                                             className={cx('btn_delete')}
@@ -264,7 +287,7 @@ function AdminManagers() {
                                             onChange={(e) => dispatchTK(setNameRegister(e.target.value))}
                                         />
                                     </div>
-    
+
                                     <div className={cx('info')}>
                                         <label htmlFor="" className={cx('input-label')}>
                                             Mật khẩu
@@ -279,20 +302,17 @@ function AdminManagers() {
                                     </div>
                                 </div>
                             </div>
-    
-                            <button className={cx('btn')}>Save</button>
+
+                            <button className={cx('btn')}>Thêm</button>
                         </form>
                     </div>
                 </div>
                 {/* modal */}
             </>
         );
-    }else{
-        return(
-            <h2>Bạn không có quyền truy cập</h2>
-        );
+    } else {
+        return <h2>Bạn không có quyền truy cập</h2>;
     }
-    
 }
 
 export default AdminManagers;

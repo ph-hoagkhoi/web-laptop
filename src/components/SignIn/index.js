@@ -50,7 +50,6 @@ function SignIn() {
                 data: stateLogin,
             })
             .then((response) => {
-                console.log(response.data);
                 if (response.data != 0) {
                     setCookie('name', { ID: response.data.id, STATUS: response.data.status }, { path: '/' });
                     navigate('/');
@@ -70,7 +69,7 @@ function SignIn() {
                 stateRegister,
             });
         } else {
-           alert('Nhập lại mật khẩu không trùng khớp');
+            alert('Nhập lại mật khẩu không trùng khớp');
         }
     };
 
@@ -126,7 +125,7 @@ function SignIn() {
                             type="password"
                             placeholder="Nhập lại mật khẩu"
                             className={cx('morri_input')}
-                            required    
+                            required
                             onChange={(e) => dispatchRegister(setRePasswordRegister(e.target.value))}
                         />
                         <button className={cx('btn')}>Đăng kí</button>

@@ -62,8 +62,8 @@ function AdminProduct() {
                             <td className={cx('details-title-item')}>ID Brand</td>
                             <td className={cx('details-title-item')}>Tên sản phẩm</td>
                             <td className={cx('details-title-item')}>Giá</td>
-                            <td className={cx('details-title-item')}>Mô tả</td>
-                            <td className={cx('details-title-item')}>Thông số</td>
+                            {/* <td className={cx('details-title-item')}>Mô tả</td>
+                            <td className={cx('details-title-item')}>Thông số</td> */}
                             <td className={cx('details-title-item')}>Số lượng</td>
                         </tr>
                     </thead>
@@ -79,14 +79,14 @@ function AdminProduct() {
                                     <td className={cx('details-content-item', 'justify_item')}>{product.TENSANPHAM}</td>
                                     <td className={cx('details-content-item')}>{product.GIA}</td>
 
-                                    <td
-                                        className={cx('details-content-item', 'justify_item')}
+                                    {/* <td
+                                        className={cx('details-content-item', 'justify_item','ck__edit')}
                                         dangerouslySetInnerHTML={createMarkupGIOITHIEU(product)}
                                     ></td>
                                     <td
-                                        className={cx('details-content-item', 'justify_item')}
+                                        className={cx('details-content-item', 'justify_item','ck__edit')}
                                         dangerouslySetInnerHTML={createMarkupTHONGSO(product)}
-                                    ></td>
+                                    ></td> */}
                                     <td className={cx('details-content-item', 'justify_item')}>{product.SOLUONG}</td>
                                     <td className={cx('details-content-item')}>
                                         <Button

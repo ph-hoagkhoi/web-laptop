@@ -33,7 +33,9 @@ function ProductItem({ TENTHELOAI, ANH1, TENSANPHAM, GIA, ID_SANPHAM, GIOITHIEU,
                     <span className={cx('username')}>{TENTHELOAI}</span>
                 </div>
                 <div className={cx('box_price')}>
-                    <span className={cx('price')}>{GIA}</span>
+                    <span className={cx('price')}>
+                        <NumberFormat value={GIA} displayType={'text'} thousandSeparator={true} suffix={'đ'} />
+                    </span>
                 </div>
             </div>
         </Link>
