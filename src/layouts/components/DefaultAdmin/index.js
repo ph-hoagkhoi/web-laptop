@@ -127,14 +127,6 @@ function SidebarAdmin({ children }) {
                             <span className={cx('nav-title')}>Thống kê</span>
                         </Link>
                     </li>
-                    {/* <li className={cx('nav-item')}>
-                        <Link to={config.routes.adminStock} className={cx('nav-item-link')}>
-                            <span className={cx('nav-icon')}>
-                                <FontAwesomeIcon icon={faComment} />
-                            </span>
-                            <span className={cx('nav-title')}>Kho</span>
-                        </Link>
-                    </li> */}
                     <li className={cx('nav-item')} onClick={logOut}>
                         <Link to={''} className={cx('nav-item-link')}>
                             <span className={cx('nav-icon')}>
@@ -153,12 +145,12 @@ function SidebarAdmin({ children }) {
                         <FontAwesomeIcon icon={faBars} />
                     </div>
                     {/* <!-- search --> */}
-                    <div className={cx('search')}>
+                    {/* <div className={cx('search')}>
                         <label htmlFor="" className={cx('search-label')}>
                             <input className={cx('search-input')} type="text" placeholder="Search..." />
                             <FontAwesomeIcon icon={faSearch} className={cx('search-icon')} />
                         </label>
-                    </div>
+                    </div> */}
                     {/* <!-- user --> */}
                     <div className={cx('user')}>
                         <Image className={cx('user-img')} src="" alt="" />

@@ -60,53 +60,7 @@ function Sidebar({ children }) {
                     )}
                 </div>
             </div>
-            <div className={cx('col', 'l-9')}>
-                <div className={cx('filter')}>
-                    <span className={cx('filter-label')}>Sắp xếp theo</span>
-                    <button className={cx('filter-btn', 'btn')}>Phổ biến</button>
-                    <button className={cx('filter-btn', 'btn', 'btn-primary')}>Mới nhất</button>
-                    <button className={cx('filter-btn', 'btn')}>Bán chạy</button>
-                    <div className={cx('select-input')}>
-                        <span className={cx('select-input__label')}>Giá</span>
-                        <FontAwesomeIcon icon={faAngleDown} className={cx('select-input__icon')} />
-
-                        <ul className={cx('select-input__list')}>
-                            <li className={cx('select-input__item')}>
-                                <a href="" className={cx('select-input__link')}>
-                                    Thấp đến cao{' '}
-                                </a>
-                            </li>
-                            <li className={cx('select-input__item')}>
-                                <a href="" className={cx('select-input__link')}>
-                                    Cao đến thấp{' '}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div className={cx('filter__page')}>
-                        <span className={cx('filter__page-num')}>
-                            <span className={cx('filter__page-current')}>1</span>/14
-                        </span>
-                        <div className={cx('filter__page-control')}>
-                            <a href="" className={cx('filter__page-btn', 'filter__page-btn--disabled ')}>
-                                <FontAwesomeIcon
-                                    icon={faAngleLeft}
-                                    className={cx('filter__page-icon')}
-                                ></FontAwesomeIcon>
-                            </a>
-                            <a href="" className={cx('filter__page-btn')}>
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className={cx('filter__page-icon')}
-                                ></FontAwesomeIcon>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                {/* Product */}
-                {children}
-            </div>
+            <div className={cx('col', 'l-9')}>{children}</div>
         </div>
     );
 }

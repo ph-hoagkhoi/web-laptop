@@ -40,6 +40,7 @@ function DetailProduct() {
             dispatchShopping(setQuantityUP());
             setQuantityData(quantity + 1);
         }
+        console.log(stateShopping.SOLUONG);
     };
 
     const quantityDown = () => {
@@ -47,6 +48,7 @@ function DetailProduct() {
             dispatchShopping(setQuantityDown());
             setQuantityData(quantity - 1);
         }
+        console.log(quantity);
     };
 
     function createMarkup() {
@@ -75,7 +77,7 @@ function DetailProduct() {
         } else {
             navigate('/login');
         }
-    }; 
+    };
     console.log(stateShopping);
     const handleBuyNow = () => {
         if (cookies.name) {

@@ -56,26 +56,28 @@ function Search() {
                 <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                     <PopperWrapper>
                         {searchResult != 0 ? (
-                            searchResult.map((result) => {
-                                console.log(result);
-                                return (
-                                    <ProductItem
-                                        GIOITHIEU={result.GIOITHIEU}
-                                        key={result.ID_SANPHAM}
-                                        ID_SANPHAM={result.ID_SANPHAM}
-                                        TENTHELOAI={result.TENTHELOAI}
-                                        ANH1={result.ANH1}
-                                        imgProducts={{
-                                            IMAGEID: result.ID_ANH, 
-                                            ANH1: result.ANH1,
-                                            ANH2: result.ANH2,
-                                            ANH3: result.ANH3,
-                                            ANH4: result.ANH4,
-                                        }}
-                                        TENSANPHAM={result.TENSANPHAM}
-                                        GIA={result.GIA}
-                                    />
-                                );
+                            searchResult.map((result, index) => {
+                                if (index < 4) {
+                                    return (
+                                        <ProductItem
+                                            GIOITHIEU={result.GIOITHIEU}
+                                            THONGSO={result.THONGSO}
+                                            key={result.ID_SANPHAM}
+                                            ID_SANPHAM={result.ID_SANPHAM}
+                                            TENTHELOAI={result.TENTHELOAI}
+                                            ANH1={result.ANH1}
+                                            imgProducts={{
+                                                IMAGEID: result.ID_ANH,
+                                                ANH1: result.ANH1,
+                                                ANH2: result.ANH2,
+                                                ANH3: result.ANH3,
+                                                ANH4: result.ANH4,
+                                            }}
+                                            TENSANPHAM={result.TENSANPHAM}
+                                            GIA={result.GIA}
+                                        />
+                                    );
+                                }
                             })
                         ) : (
                             <></>

@@ -8,15 +8,17 @@ import NumberFormat from 'react-number-format';
 
 const cx = classNames.bind(styles);
 
-function ProductItem({ TENTHELOAI, ANH1, TENSANPHAM, GIA, ID_SANPHAM, GIOITHIEU, imgProducts }) {
+function ProductItem({ TENTHELOAI, ANH1, TENSANPHAM, GIA, ID_SANPHAM, GIOITHIEU, THONGSO, imgProducts }) {
+    console.log(imgProducts);
     return (
         <Link
-            to={`/sneaker/${ID_SANPHAM}`}
+            to={`/laptop/${ID_SANPHAM}`}
             state={{
                 data: {
                     ID_SANPHAM: ID_SANPHAM,
                     TENSANPHAM: TENSANPHAM,
                     GIOITHIEU: GIOITHIEU,
+                    THONGSO :THONGSO,
                     TENTHELOAI: TENTHELOAI,
                     GIA: GIA,
                     IMAGE: imgProducts,
