@@ -9,6 +9,7 @@ import config from '~/config';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { initState, productDetailsReducer } from '~/reducers/productReducers';
+import Image from '~/components/Image';
 import {
     setID,
     setName,
@@ -269,10 +270,10 @@ function AddProduct() {
                                                     value={brand.ID_THELOAI}
                                                     onChange={(e) => dispatch(setBrand(e.target.value))}
                                                 />
-                                                <FontAwesomeIcon
-                                                    icon={faFacebook}
+                                                <Image
+                                                    src={brand.ANHMOTA != null ? brand.ANHMOTA : ''}
                                                     className={cx('logo_brand')}
-                                                ></FontAwesomeIcon>
+                                                ></Image>
                                                 <span className={cx('item_label')}>{brand.TENTHELOAI}</span>
                                                 <span className={cx('opt-val')}>{brand.TENTHELOAI}</span>
                                             </div>

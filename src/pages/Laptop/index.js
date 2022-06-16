@@ -2,7 +2,7 @@ import Products from '~/components/Products';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function Sneaker() {
+function Laptop() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
@@ -51,4 +51,4 @@ function Sneaker() {
     }
 }
 
-export default Sneaker;
+export default Laptop;

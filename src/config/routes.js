@@ -23,6 +23,7 @@ const routes = {
     adminViewBill: '/admin/bill/:idbill',
     adminStock: '/admin/stock',
     adminProfileInfo: '/admin/profileinfo',
+    adminReport: '/admin/report',
 };
 
 export default routes;

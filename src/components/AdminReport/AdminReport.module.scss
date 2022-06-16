@@ -1,22 +1,15 @@
-// Product
-.product-header {
+.report-header {
     display: flex;
     justify-content: space-between;
-    margin: 20px 28px 20px 18px;
-    .product-heading {
-        font-size: 1.6rem;
+    margin: 20px 30px 20px 18px;
+    .report-heading {
+        font-size: 2rem;
     }
-    .product-create-btn {
-        width: 84px;
-        padding: 10px 6px;
-        border-radius: 10px;
-        background-color: var(--blue-color);
-        border: none;
-        color: var(--white-color) !important;
-        &:hover {
-            cursor: pointer;
-            opacity: 0.8;
-        }
+    .report-select {
+        font-size: 2rem;
+        border-right: none;
+        border-left: none;
+        outline: none;
     }
 }
 
@@ -44,16 +37,6 @@
     min-width: 20px;
     text-align: center;
     color: var(--black1-color);
-    .details-content-item p img {
-        max-height: 50px !important;
-    }
-    .details-content-item-img {
-        width: 100px;
-        height: 100px;
-    }
-}
-.ck__edit p img {
-    max-width: 100px;
 }
 
 .details-content-item::after {
@@ -82,10 +65,4 @@
 .details-content-item-btn:hover {
     cursor: pointer;
     opacity: 0.8;
-}
-
-.justify_item {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    // text-align: justify !important;
 }

@@ -119,14 +119,14 @@ function SidebarAdmin({ children }) {
                             <span className={cx('nav-title')}>Slider</span>
                         </Link>
                     </li>
-                    <li className={cx('nav-item')}>
-                        <Link to="#" className={cx('nav-item-link')}>
+                    {/* <li className={cx('nav-item')}>
+                        <Link to={config.routes.adminReport} className={cx('nav-item-link')}>
                             <span className={cx('nav-icon')}>
                                 <FontAwesomeIcon icon={faFileInvoice} />
                             </span>
                             <span className={cx('nav-title')}>Thống kê</span>
                         </Link>
-                    </li>
+                    </li> */}
                     <li className={cx('nav-item')} onClick={logOut}>
                         <Link to={''} className={cx('nav-item-link')}>
                             <span className={cx('nav-icon')}>

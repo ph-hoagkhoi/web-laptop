@@ -47,9 +47,9 @@ function AdminProduct() {
     return (
         <>
             {/* <!-- Begin adminProductTable --> */}
-            <div className={cx('account-header')}>
-                <h2 className={cx('account-heading')}>Thêm sản phẩm</h2>
-                <Button to={`/admin/product/new-item`} className={cx('account-create-btn')}>
+            <div className={cx('product-header')}>
+                <h2 className={cx('product-heading')}>Thêm sản phẩm</h2>
+                <Button to={`/admin/product/new-item`} className={cx('product-create-btn')}>
                     Thêm mới
                 </Button>
             </div>
