@@ -61,7 +61,7 @@ function DetailProduct() {
     const handleShoppingCart = () => {
         if (cookies.name) {
             axios
-                .post('http://26.87.217.216:8080/api/giohang/post', {
+                .post('http://localhost:8080/api/giohang/post', {
                     type: 'create',
                     data: stateShopping,
                 })

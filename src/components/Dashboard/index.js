@@ -24,13 +24,13 @@ function Dashboard() {
 
     useEffect(() => {
         if (cookies.name) {
-            axios.get('http://26.87.217.216:8080/api/hoadon/get').then((res) => {
+            axios.get('http://localhost:8080/api/hoadon/get').then((res) => {
                 setBillData(res.data);
             });
-            axios.get('http://26.87.217.216:8080/api/taikhoan/get').then((res) => {
+            axios.get('http://localhost:8080/api/taikhoan/get').then((res) => {
                 setAccData(res.data);
             });
-            axios.get('http://26.87.217.216:8080/api/sanpham/get').then((res) => {
+            axios.get('http://localhost:8080/api/sanpham/get').then((res) => {
                 setStockData(res.data);
             });
         }

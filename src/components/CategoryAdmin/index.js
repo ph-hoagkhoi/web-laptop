@@ -36,7 +36,7 @@ function AdminUser() {
     const getCourses = async () => {
         try {
             await axios
-                .get('http://26.87.217.216:8080/api/theloai/get')
+                .get('http://localhost:8080/api/theloai/get')
                 .then(async (res) => setBrandData(res.data))
                 .catch((error) => {
                     console.log(error);
@@ -57,7 +57,7 @@ function AdminUser() {
         try {
             if (window.confirm('Bạn có chắc chắn muốn thêm thương hiệu này không?')) {
                 axios
-                    .post('http://26.87.217.216:8080/api/theloai/post', {
+                    .post('http://localhost:8080/api/theloai/post', {
                         type: 'create',
                         data: stateBrand,
                     })
@@ -80,7 +80,7 @@ function AdminUser() {
         try {
             if (window.confirm('Bạn thật sự muốn xóa!!')) {
                 axios
-                    .post('http://26.87.217.216:8080/api/theloai/post', {
+                    .post('http://localhost:8080/api/theloai/post', {
                         type: 'delete',
                         data: { ID_THELOAI: item.ID_THELOAI },
                     })

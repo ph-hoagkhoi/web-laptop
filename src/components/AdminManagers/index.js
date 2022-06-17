@@ -34,7 +34,7 @@ function AdminManagers() {
     const getManager = async () => {
         try {
             await axios
-                .post('http://26.87.217.216:8080/api/taikhoan/nhanvien', {
+                .post('http://localhost:8080/api/taikhoan/nhanvien', {
                     type: 'get',
                 })
                 .then((res) => {
@@ -47,12 +47,12 @@ function AdminManagers() {
     };
 
     const handleSubmit = async () => {
-        await axios.get('http://26.87.217.216:8080/api/taikhoan/nhanvien').then((res) => console.log(res.data));
+        await axios.get('http://localhost:8080/api/taikhoan/nhanvien').then((res) => console.log(res.data));
     };
     const xoaNhanVien = async (ID_TAIKHOAN) => {
         if (window.confirm('Bạn chắc có chắc chắn xóa nhân viên này?')) {
             await axios
-                .post('http://26.87.217.216:8080/api/taikhoan/nhanvien', {
+                .post('http://localhost:8080/api/taikhoan/nhanvien', {
                     type: 'delete',
                     data: { ID_TAIKHOAN: ID_TAIKHOAN },
                 })
@@ -67,7 +67,7 @@ function AdminManagers() {
     const themNhanVien = async (e) => {
         e.preventDefault();
             await axios
-                .post('http://26.87.217.216:8080/api/taikhoan/nhanvien', {
+                .post('http://localhost:8080/api/taikhoan/nhanvien', {
                     type: 'create',
                     data: {...stateInfo,...stateTK}
                 })

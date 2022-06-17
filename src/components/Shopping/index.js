@@ -24,7 +24,7 @@ function Shipping() {
     useEffect(() => {
         if (cookies.name) {
             axios
-                .post('http://26.87.217.216:8080/api/giohang/post', {
+                .post('http://localhost:8080/api/giohang/post', {
                     type: 'get',
                     data: { ID_TAIKHOAN: cookies.name.ID },
                 })

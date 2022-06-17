@@ -35,7 +35,7 @@ function UpdateBrand({}) {
     const handleSubmitUpdateBrand = (data) => {
         try {
             axios
-                .post('http://26.87.217.216:8080/api/theloai/post', {
+                .post('http://localhost:8080/api/theloai/post', {
                     type: 'update',
                     data: stateBrand,
                 })

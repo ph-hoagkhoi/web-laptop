@@ -37,7 +37,7 @@ function AddressItem({ ID_GIAOHANG, ID_TAIKHOAN, TENNGUOINHAN, SDT, TENDIACHI, n
     };
     const updateAddress = async () => {
         await axios
-            .post('http://26.87.217.216:8080/api/giaohang/post', {
+            .post('http://localhost:8080/api/giaohang/post', {
                 type: 'update',
                 data: stateAddress,
             })
@@ -54,7 +54,7 @@ function AddressItem({ ID_GIAOHANG, ID_TAIKHOAN, TENNGUOINHAN, SDT, TENDIACHI, n
     const deleteAddress = async () => {
         if (window.confirm('Bạn có chắc chắn muốn xóa địa chỉ này?')) {
             await axios
-                .post('http://26.87.217.216:8080/api/giaohang/post', {
+                .post('http://localhost:8080/api/giaohang/post', {
                     type: 'delete',
                     data: { ID_TAIKHOAN: ID_TAIKHOAN, ID_GIAOHANG: ID_GIAOHANG },
                 })

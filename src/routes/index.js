@@ -12,6 +12,7 @@ import Home from '~/pages/Home';
 import Msi from '~/pages/Msi';
 import Acer from '~/pages/Acer';
 import Asus from '~/pages/Asus';
+import Dell from '~/pages/Dell';
 import SignIn from '~/components/SignIn';
 import Profile from '~/pages/Profile';
 import AddressProfile from '~/pages/AddressProfile';
@@ -41,6 +42,7 @@ const publicRoutes = [
     { path: config.routes.msi, component: Msi, layout: DefaultWithSidebar },
     { path: config.routes.acer, component: Acer, layout: DefaultWithSidebar },
     { path: config.routes.asus, component: Asus, layout: DefaultWithSidebar },
+    { path: config.routes.dell, component: Dell, layout: DefaultWithSidebar },
     { path: config.routes.login, component: SignIn, layout: Login },
     { path: config.routes.laptop, component: Laptop, layout: DefaultWithSidebar },
 
@@ -73,6 +75,7 @@ const privateRoutes = [
     { path: config.routes.msi, component: Msi, layout: DefaultWithSidebar },
     { path: config.routes.acer, component: Acer, layout: DefaultWithSidebar },
     { path: config.routes.asus, component: Asus, layout: DefaultWithSidebar },
+    { path: config.routes.laptop, component: Laptop, layout: DefaultWithSidebar },
     { path: config.routes.login, component: SignIn, layout: Login },
     // Profile
     { path: config.routes.profile, component: Profile, layout: ProfileAccount },

@@ -3,15 +3,16 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import classNames from 'classnames/bind';
-import styles from './Laptop.module.scss';
+import styles from './Dell.module.scss';
 const cx = classNames.bind(styles);
 
-function Laptop() {
+function DefaultLayout() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
-    const brand = 'Laptop';
+    const brand = 'Dell';
     const [sort, setSort] = useState('');
     const setSortPriceLowToHigh = () => {
         setSort('price_low_to_high');
@@ -67,25 +68,47 @@ function Laptop() {
                             items
                                 .sort((a, b) => a.GIA - b.GIA)
                                 .map((item) => {
-                                    return (
-                                        <div className={cx('col', 'l-3')} key={item.ID_SANPHAM}>
-                                            <Products
-                                                id={item.ID_SANPHAM}
-                                                name={item.TENSANPHAM}
-                                                price={item.GIA}
-                                                imgID={item.ID_ANH}
-                                                description={item.GIOITHIEU}
-                                                thongso={item.THONGSO}
-                                                soluong={item.SOLUONG}
-                                                brand={item.TENTHELOAI}
-                                            />
-                                        </div>
-                                    );
+                                    if (item.TENTHELOAI.toLowerCase() === brand.toLowerCase()) {
+                                        return (
+                                            <div className={cx('col', 'l-3')} key={item.ID_SANPHAM}>
+                                                <Products
+                                                    id={item.ID_SANPHAM}
+                                                    name={item.TENSANPHAM}
+                                                    price={item.GIA}
+                                                    imgID={item.ID_ANH}
+                                                    description={item.GIOITHIEU}
+                                                    thongso={item.THONGSO}
+                                                    soluong={item.SOLUONG}
+                                                    brand={item.TENTHELOAI}
+                                                />
+                                            </div>
+                                        );
+                                    }
                                 })
                         ) : sort == 'price_high_to_low' ? (
                             items
                                 .sort((a, b) => b.GIA - a.GIA)
                                 .map((item) => {
+                                    if (item.TENTHELOAI.toLowerCase() === brand.toLowerCase()) {
+                                        return (
+                                            <div className={cx('col', 'l-3')} key={item.ID_SANPHAM}>
+                                                <Products
+                                                    id={item.ID_SANPHAM}
+                                                    name={item.TENSANPHAM}
+                                                    price={item.GIA}
+                                                    imgID={item.ID_ANH}
+                                                    soluong={item.SOLUONG}
+                                                    description={item.GIOITHIEU}
+                                                    thongso={item.THONGSO}
+                                                    brand={item.TENTHELOAI}
+                                                />
+                                            </div>
+                                        );
+                                    }
+                                })
+                        ) : (
+                            items.map((item) => {
+                                if (item.TENTHELOAI.toLowerCase() === brand.toLowerCase()) {
                                     return (
                                         <div className={cx('col', 'l-3')} key={item.ID_SANPHAM}>
                                             <Products
@@ -93,30 +116,14 @@ function Laptop() {
                                                 name={item.TENSANPHAM}
                                                 price={item.GIA}
                                                 imgID={item.ID_ANH}
-                                                soluong={item.SOLUONG}
                                                 description={item.GIOITHIEU}
                                                 thongso={item.THONGSO}
+                                                soluong={item.SOLUONG}
                                                 brand={item.TENTHELOAI}
                                             />
                                         </div>
                                     );
-                                })
-                        ) : (
-                            items.map((item) => {
-                                return (
-                                    <div className={cx('col', 'l-3')} key={item.ID_SANPHAM}>
-                                        <Products
-                                            id={item.ID_SANPHAM}
-                                            name={item.TENSANPHAM}
-                                            price={item.GIA}
-                                            imgID={item.ID_ANH}
-                                            description={item.GIOITHIEU}
-                                            thongso={item.THONGSO}
-                                            soluong={item.SOLUONG}
-                                            brand={item.TENTHELOAI}
-                                        />
-                                    </div>
-                                );
+                                }
                             })
                         )
                     ) : (
@@ -128,4 +135,4 @@ function Laptop() {
     }
 }
 
-export default Laptop;
+export default DefaultLayout;

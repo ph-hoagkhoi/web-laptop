@@ -87,6 +87,9 @@
             &:active {
                 transform: scale(0.95);
             }
+            &:hover {
+                cursor: pointer;
+            }
         }
 
         .sign_in {

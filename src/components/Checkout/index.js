@@ -35,7 +35,7 @@ function Checkout() {
             dispatchOrder(setIDUser(cookies.name.ID));
             dispatchOrder(setTotal(location.state.data.delivery + location.state.data.money));
             axios
-                .post('http://26.87.217.216:8080/api/giohang/post', {
+                .post('http://localhost:8080/api/giohang/post', {
                     type: 'get',
                     data: { ID_TAIKHOAN: cookies.name.ID },
                 })
@@ -54,7 +54,7 @@ function Checkout() {
 
     const addOrder = async () => {
         await axios
-            .post('http://26.87.217.216:8080/api/hoadon/post', {
+            .post('http://localhost:8080/api/hoadon/post', {
                 type: 'create',
                 data: stateOrder,
             })
@@ -69,7 +69,7 @@ function Checkout() {
 
     const getCourses = async () => {
         await axios
-            .post('http://26.87.217.216:8080/api/giaohang/post', {
+            .post('http://localhost:8080/api/giaohang/post', {
                 type: 'get',
                 data: { ID_TAIKHOAN: cookies.name.ID },
             })
@@ -82,7 +82,7 @@ function Checkout() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await axios
-            .post('http://26.87.217.216:8080/api/giaohang/post', {
+            .post('http://localhost:8080/api/giaohang/post', {
                 type: 'create',
                 data: stateAddress,
             })
@@ -153,7 +153,7 @@ function Checkout() {
                                 </div>
                             </div>
                         </div>
-                        <div className={cx('payment')}>
+                        {/* <div className={cx('payment')}>
                             <h2 className={cx('payment_title')}>Phương thức thanh toán</h2>
                             <div className={cx('payment_container')}>
                                 <div className={cx('payment-item')}>
@@ -176,7 +176,7 @@ function Checkout() {
                                     </label>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className={cx('col', 'l-4', 'order')}>
                         <h2 className={cx('order_title')}>Sơ lược hóa đơn</h2>

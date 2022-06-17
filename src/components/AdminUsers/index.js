@@ -16,7 +16,7 @@ function AdminUsers() {
     const getCourses = async () => {
         try {
             await axios
-                .post('http://26.87.217.216:8080/api/taikhoan/khachhang', {
+                .post('http://localhost:8080/api/taikhoan/khachhang', {
                     type: 'get',
                 })
                 .then(async (res) => {
@@ -31,7 +31,7 @@ function AdminUsers() {
     };
     const xoaKhachHang  = async(ID_TAIKHOAN)=>{
         if(window.confirm('Bạn chắc có chắc chắn xóa khách hàng này?')){
-            await axios.post('http://26.87.217.216:8080/api/taikhoan/khachhang',{
+            await axios.post('http://localhost:8080/api/taikhoan/khachhang',{
             type:'delete',
             data: {ID_TAIKHOAN:ID_TAIKHOAN},
         })
@@ -46,7 +46,7 @@ function AdminUsers() {
     const handleDeleteProduct = (data) => {
         if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
             axios
-                .post('ttp://26.87.217.216:8080/api/taikhoan/khachhang', {
+                .post('ttp://localhost:8080/api/taikhoan/khachhang', {
                     type: 'delete',
                     data: { ID_TAIKHOAN: data },
                 })

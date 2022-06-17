@@ -22,7 +22,7 @@ function MSI() {
     };
     useEffect(() => {
         axios
-            .get('http://26.87.217.216:8080/api/sanpham/get')
+            .get('http://localhost:8080/api/sanpham/get')
             .then(async (res) => {
                 setItems(res.data);
                 setIsLoaded(true);

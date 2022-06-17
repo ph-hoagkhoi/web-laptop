@@ -4,6 +4,7 @@ const routes = {
     msi: '/msi',
     acer: '/acer',
     asus: '/asus',
+    dell: '/dell',
     search: '/search',
     login: 'login',
     product: '/laptop/:product',

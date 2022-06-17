@@ -18,7 +18,7 @@ function Sidebar({ children }) {
     const getCourses = async () => {
         try {
             await axios
-                .get('http://26.87.217.216:8080/api/theloai')
+                .get('http://localhost:8080/api/theloai')
                 .then(async (res) => {
                     setBrandData(res.data);
                 })
@@ -37,11 +37,11 @@ function Sidebar({ children }) {
                     <h3 className={cx('category__heading')}>DANH MỤC</h3>
                     {brandData != 0 ? (
                         <ul className={cx('category-list')}>
-                            {/* <li className={cx('category-item')}>
+                            <li className={cx('category-item')}>
                                 <Link to={config.routes.laptop} className={cx('category-item__link')}>
                                     Laptop
                                 </Link>
-                            </li> */}
+                            </li>
                             {brandData.map((brand) => {
                                 return (
                                     <li className={cx('category-item')} key={brand.ID_THELOAI}>

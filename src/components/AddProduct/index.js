@@ -45,7 +45,7 @@ function AddProduct() {
                 dispatch(setSoLuong(location.state.data.SOLUONG));
 
                 axios
-                    .post('http://26.87.217.216:8080/api/ctanh/post', {
+                    .post('http://localhost:8080/api/ctanh/post', {
                         type: 'get',
                         data: { ID_ANH: location.state.data.ID_ANH },
                     })
@@ -72,7 +72,7 @@ function AddProduct() {
                     });
 
                 axios
-                    .post('http://26.87.217.216:8080/api/theloai/post', {
+                    .post('http://localhost:8080/api/theloai/post', {
                         type: 'get',
                         data: { ID_THELOAI: location.state.data.ID_THELOAI },
                     })
@@ -81,7 +81,7 @@ function AddProduct() {
                     });
             }
         }
-        axios.post('http://26.87.217.216:8080/api/theloai/get').then((res) => {
+        axios.post('http://localhost:8080/api/theloai/get').then((res) => {
             setBrandData(res.data);
         });
     }, []);
@@ -95,7 +95,7 @@ function AddProduct() {
 
     const handleSubmitUpdateProduct = (data) => {
         axios
-            .post('http://26.87.217.216:8080/api/sanpham/post', {
+            .post('http://localhost:8080/api/sanpham/post', {
                 type: 'update',
                 data: state,
             })
@@ -117,7 +117,7 @@ function AddProduct() {
 
     const handleSubmitLogin = (data) => {
         axios
-            .post('http://26.87.217.216:8080/api/sanpham/post', {
+            .post('http://localhost:8080/api/sanpham/post', {
                 type: 'create',
                 data: state,
             })

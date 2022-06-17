@@ -4,7 +4,6 @@ import classNames from 'classnames/bind';
 import React from 'react';
 import { Fade } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
-import images from '~/assets/images';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 const cx = classNames.bind(styles);
@@ -14,7 +13,7 @@ function Slider() {
 
     useEffect(() => {
         axios
-            .post('http://26.87.217.216:8080/api/ctanh/post', {
+            .post('http://localhost:8080/api/ctanh/post', {
                 type: 'get',
                 data: { ID_ANH: '1' },
             })

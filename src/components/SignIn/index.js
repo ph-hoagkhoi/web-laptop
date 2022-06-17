@@ -46,7 +46,7 @@ function SignIn() {
 
     const handleSubmitLogin = (data) => {
         axios
-            .post('http://26.87.217.216:8080/api/taikhoan/signin', {
+            .post('http://localhost:8080/api/taikhoan/signin', {
                 data: stateLogin,
             })
             .then((response) => {
@@ -75,7 +75,7 @@ function SignIn() {
 
     const handleSubmitRegister = (data) => {
         axios
-            .post('http://26.87.217.216:8080/api/taikhoan/signup', {
+            .post('http://localhost:8080/api/taikhoan/signup', {
                 data: stateRegister,
             })
             .then((res) => {

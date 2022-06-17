@@ -21,7 +21,7 @@ function AdminProduct() {
     const getCourses = async () => {
         try {
             await axios
-                .get('http://26.87.217.216:8080/api/sanpham/get')
+                .get('http://localhost:8080/api/sanpham/get')
                 .then(async (res) => setProductData(res.data))
                 .catch((error) => {
                     console.log(error);
@@ -34,7 +34,7 @@ function AdminProduct() {
     const handleDeleteProduct = (data) => {
         if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
             axios
-                .post('http://26.87.217.216:8080/api/sanpham/post', {
+                .post('http://localhost:8080/api/sanpham/post', {
                     type: 'delete',
                     data: { ID_SANPHAM: data },
                 })

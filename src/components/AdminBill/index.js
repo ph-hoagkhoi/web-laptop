@@ -24,7 +24,7 @@ function AdminBill() {
     const getCourses = async () => {
         try {
             await axios
-                .get('http://26.87.217.216:8080/api/hoadon/get')
+                .get('http://localhost:8080/api/hoadon/get')
                 .then(async (res) => setBillData(res.data))
                 .catch((error) => {
                     console.log(error);
@@ -36,7 +36,7 @@ function AdminBill() {
     const capNhatTrangThai = async (ID_HOADON, TRANGTHAI) => {
         try {
             await axios
-                .post('http://26.87.217.216:8080/api/hoadon/post', {
+                .post('http://localhost:8080/api/hoadon/post', {
                     type: 'updatebill',
                     data: { ID_HOADON: ID_HOADON, TRANGTHAI: TRANGTHAI },
                 })

@@ -16,7 +16,7 @@ function Navbar() {
     const getCourses = async () => {
         try {
             await axios
-                .get('http://26.87.217.216:8080/api/theloai')
+                .get('http://localhost:8080/api/theloai')
                 .then(async (res) => {
                     setnavData(res.data);
                 })
@@ -34,11 +34,11 @@ function Navbar() {
                     Trang chủ
                 </Link>
             </li>
-            {/* <li className={cx('navbar-item')}>
+            <li className={cx('navbar-item')}>
                 <Link className={cx('navbar-link')} to={config.routes.laptop}>
                     Laptop
                 </Link>
-            </li> */}
+            </li>
             {navData != 0 ? (
                 navData.map((nav, index) => {
                     return (

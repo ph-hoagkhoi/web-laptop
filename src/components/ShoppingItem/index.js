@@ -14,7 +14,7 @@ function ShoppingItem({ ANH1, TENSANPHAM, TENTHELOAI, GIA, SOLUONG, ID_TAIKHOAN,
     const deleteItem = async () => {
         if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
             await axios
-                .post('http://26.87.217.216:8080/api/giohang/post', {
+                .post('http://localhost:8080/api/giohang/post', {
                     type: 'delete',
                     data: { ID_TAIKHOAN: ID_TAIKHOAN, ID_SANPHAM: ID_SANPHAM },
                 })
@@ -32,7 +32,7 @@ function ShoppingItem({ ANH1, TENSANPHAM, TENTHELOAI, GIA, SOLUONG, ID_TAIKHOAN,
     const quantityUp = async () => {
         if (Number(SOLUONG) < Number(SOLUONGKHO)) {
             await axios
-                .post('http://26.87.217.216:8080/api/giohang/post', {
+                .post('http://localhost:8080/api/giohang/post', {
                     type: 'update',
                     data: { ID_TAIKHOAN: ID_TAIKHOAN, ID_SANPHAM: ID_SANPHAM, SOLUONG: Number(SOLUONG) + 1 },
                 })
@@ -43,7 +43,7 @@ function ShoppingItem({ ANH1, TENSANPHAM, TENTHELOAI, GIA, SOLUONG, ID_TAIKHOAN,
     const quantityDown = async () => {
         if (Number(SOLUONG) > 1) {
             await axios
-                .post('http://26.87.217.216:8080/api/giohang/post', {
+                .post('http://localhost:8080/api/giohang/post', {
                     type: 'update',
                     data: { ID_TAIKHOAN: ID_TAIKHOAN, ID_SANPHAM: ID_SANPHAM, SOLUONG: Number(SOLUONG) - 1 },
                 })

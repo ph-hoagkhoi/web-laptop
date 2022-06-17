@@ -41,7 +41,7 @@ function Header() {
     useEffect(() => {
         if (cookies.name) {
             axios
-                .post('http://26.87.217.216:8080/api/giohang/post', {
+                .post('http://localhost:8080/api/giohang/post', {
                     type: 'get',
                     data: { ID_TAIKHOAN: cookies.name.ID },
                 })
@@ -53,7 +53,7 @@ function Header() {
                 });
 
             axios
-                .post('http://26.87.217.216:8080/api/taikhoan/post', {
+                .post('http://localhost:8080/api/taikhoan/post', {
                     type: 'get',
                     data: { ID_TAIKHOAN: cookies.name.ID },
                 })
@@ -68,12 +68,12 @@ function Header() {
         {
             icon: <FontAwesomeIcon icon={faUser} />,
             title: cookies.name
-                ? cookies.name.STATUS === 'e3afed0047b08059d0fada10f400c1e5'
-                    ? 'Đi tới trang Admin'
-                    : 'Thông tin tài khoản'
+                ? cookies.name.STATUS === 'e3afed0047b08059d0fada10f400c1e5' || cookies.name.STATUS === 'bb41913bef5490acdd27c873c1d72357'
+                ? 'Đi tới trang Admin'
+                : 'Thông tin tài khoản'
                 : '',
             to: cookies.name
-                ? cookies.name.STATUS === 'e3afed0047b08059d0fada10f400c1e5'
+                ? cookies.name.STATUS === 'e3afed0047b08059d0fada10f400c1e5'|| cookies.name.STATUS === 'bb41913bef5490acdd27c873c1d72357'
                     ? `${config.routes.admin}`
                     : `/@${cookies.name.ID}`
                 : '',

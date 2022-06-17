@@ -28,11 +28,10 @@ function Search() {
         }
         setLoading(true);
         axios
-            .post('http://26.87.217.216:8080/api/sanpham/timkiem', {
+            .post('http://localhost:8080/api/sanpham/timkiem', {
                 data: { tukhoa: debounced },
             })
             .then((res) => {
-                console.log(res.data);
                 setSearchResult(res.data);
                 setLoading(false);
             });

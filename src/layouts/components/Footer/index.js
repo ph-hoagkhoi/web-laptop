@@ -20,7 +20,7 @@ function Footer() {
     const getCourses = async () => {
         try {
             await axios
-                .get('http://26.87.217.216:8080/api/theloai')
+                .get('http://localhost:8080/api/theloai')
                 .then(async (res) => {
                     setnavData(res.data);
                 })
@@ -42,6 +42,9 @@ function Footer() {
                     <div className={cx('quicklinks', 'col', 'l-4')}>
                         <h2 className={cx('quicklinks-heading')}>Quick Links</h2>
                         <ul className={cx('quicklink')}>
+                            {/* <li className={cx('quicklink-item')}>
+                                <Link to={config.routes.laptop}>Laptop</Link>
+                            </li> */}
                             {navData != 0 ? (
                                 navData.map((nav, index) => {
                                     return (

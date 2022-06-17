@@ -24,7 +24,7 @@ function Products({ featured, id, name, price, imgID, description, brand, soluon
         dispatchCart(setIDSP(id));
 
         axios
-            .post('http://26.87.217.216:8080/api/ctanh/post', {
+            .post('http://localhost:8080/api/ctanh/post', {
                 type: 'get',
                 data: { ID_ANH: imgID },
             })

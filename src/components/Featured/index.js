@@ -12,7 +12,7 @@ function Featured() {
     const [countProduct, setCountProduct] = useState([]);
     useEffect(() => {
         try {
-            axios.post('http://26.87.217.216:8080/api/sanpham/noibat').then((res) => setCountProduct(res.data));
+            axios.post('http://localhost:8080/api/sanpham/noibat').then((res) => setCountProduct(res.data));
         } catch (error) {
             console.log(error);
         }

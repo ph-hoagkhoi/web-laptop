@@ -10,7 +10,7 @@ function Brands() {
     const [brandData, setBrandData] = useState([]);
     useEffect(() => {
         try {
-            axios.get('http://26.87.217.216:8080/api/theloai/get').then((res) => setBrandData(res.data));
+            axios.get('http://localhost:8080/api/theloai/get').then((res) => setBrandData(res.data));
         } catch (error) {
             console.log(error);
         }
@@ -18,7 +18,7 @@ function Brands() {
     return (
         <div className={cx('brand', 'row')}>
             <div className={cx('col', 'l-12', 'brand_item')}>
-                {brandData != 0 ? (
+                {brandData ? (
                     brandData.map((brand) => (
                         <Image
                             src={brand.ANHMOTA}
@@ -30,7 +30,7 @@ function Brands() {
                 ) : (
                     <></>
                 )}
-                {brandData != 0 ? (
+                {brandData ? (
                     brandData.map((brand) => (
                         <Image
                             src={brand.ANHMOTA}

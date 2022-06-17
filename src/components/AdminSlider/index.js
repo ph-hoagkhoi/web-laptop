@@ -25,7 +25,7 @@ function AdminSlider() {
     const [sliderData, setSliderData] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://26.87.217.216:8080/api/ctanh/get`).then((res) => {
+        axios.get(`http://localhost:8080/api/ctanh/get`).then((res) => {
             setSliderData(res.data);
             dispatchSlide(addSlide(res.data));
         });
@@ -62,7 +62,7 @@ function AdminSlider() {
 
     const handleSubmitSlide = (data) => {
         axios
-            .post('http://26.87.217.216:8080/api/ctanh/post', {
+            .post('http://localhost:8080/api/ctanh/post', {
                 type: 'update',
                 data: stateSlide,
             })

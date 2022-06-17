@@ -17,7 +17,7 @@ function AdminReport() {
     const getCourses = async () => {
         try {
             await axios
-                .get('http://26.87.217.216:8080/api/hoadon/get')
+                .get('http://localhost:8080/api/hoadon/get')
                 .then(async (res) => setReportData(res.data))
                 .catch((error) => {
                     console.log(error);

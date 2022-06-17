@@ -24,7 +24,7 @@ function ViewBill() {
     const getCourses = async () => {
         try {
             await axios
-                .post('http://26.87.217.216:8080/api/cthd/post', {
+                .post('http://localhost:8080/api/cthd/post', {
                     type: 'get',
                     data: { ID_HOADON: location.state.data.ID_HOADON },
                 })

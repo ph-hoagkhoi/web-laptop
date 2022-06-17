@@ -34,7 +34,7 @@ function Profile() {
         if (cookies.name) {
             dispatchUser(setIDAccount(cookies.name.ID));
             axios
-                .post('http://26.87.217.216:8080/api/taikhoan/post', {
+                .post('http://localhost:8080/api/taikhoan/post', {
                     type: 'get',
                     data: { ID_TAIKHOAN: cookies.name.ID },
                 })
@@ -78,7 +78,7 @@ function Profile() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await axios
-            .post('http://26.87.217.216:8080/api/taikhoan/post', {
+            .post('http://localhost:8080/api/taikhoan/post', {
                 type: 'update',
                 data: stateUser,
             })
