@@ -135,13 +135,13 @@ function AddressItem({ ID_GIAOHANG, ID_TAIKHOAN, TENNGUOINHAN, SDT, TENDIACHI, n
                                     Số điện thoại
                                 </label>
                                 <input
-                                    maxLength={10}
                                     className={cx('input-item')}
                                     type="text"
                                     value={stateAddress.SDT ? stateAddress.SDT : null}
                                     placeholder="Số điện thoại"
                                     name="phone"
                                     onChange={(e) => dispatchAddress(setInfoPhone(e.target.value))}
+                                    maxLength={10}
                                     onKeyPress={(event) => {
                                         if (!/[0-9]/.test(event.key)) {
                                             event.preventDefault();

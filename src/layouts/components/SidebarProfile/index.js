@@ -19,24 +19,24 @@ function SidebarProfile() {
                         Thông tin tài khoản
                     </Link>
                 </li>
-                <li className={cx('menu-item')}>
+                {/* <li className={cx('menu-item')}>
                     <Link to={`/@${cookies.name.ID}/payment-method`} className={cx('menu-link')}>
                         <FontAwesomeIcon icon={faCreditCard} className={cx('icon')} />
                         Phương thức thanh toán
                     </Link>
-                </li>
+                </li> */}
                 <li className={cx('menu-item')}>
                     <Link to={`/@${cookies.name.ID}/address-shipping`} className={cx('menu-link')}>
                         <FontAwesomeIcon icon={faAddressCard} className={cx('icon')} />
                         Địa chỉ giao hàng
                     </Link>
                 </li>
-                <li className={cx('menu-item')}>
+                {/* <li className={cx('menu-item')}>
                     <Link to={`/@${cookies.name.ID}/history-buy-product`} className={cx('menu-link')}>
                         <FontAwesomeIcon icon={faClockRotateLeft} className={cx('icon')} />
                         Lịch sử mua hàng
                     </Link>
-                </li>
+                </li> */}
             </ul>
         </div>
     );

@@ -66,20 +66,20 @@ function AdminManagers() {
     };
     const themNhanVien = async (e) => {
         e.preventDefault();
-            await axios
-                .post('http://localhost:8080/api/taikhoan/nhanvien', {
-                    type: 'create',
-                    data: {...stateInfo,...stateTK}
-                })
-                .then((res) => {
-                    console.log(res.data);
-                    if (res.data == 1) {
-                        alert('Thêm thành công!');
-                        window.location.reload();
-                    }else if(res.data == -1){
-                      alert('Tài khoản đã có người sử dụng!');
-                    }
-                });
+        await axios
+            .post('http://localhost:8080/api/taikhoan/nhanvien', {
+                type: 'create',
+                data: { ...stateInfo, ...stateTK },
+            })
+            .then((res) => {
+                console.log(res.data);
+                if (res.data == 1) {
+                    alert('Thêm thành công!');
+                    window.location.reload();
+                } else if (res.data == -1) {
+                    alert('Tài khoản đã có người sử dụng!');
+                }
+            });
     };
     const showBuyTickets = () => {
         setStatusModal(true);
@@ -227,6 +227,12 @@ function AdminManagers() {
                                             type="text"
                                             placeholder="Số điện thoại"
                                             onChange={(e) => dispatchInfo(setNumberPhone(e.target.value))}
+                                            maxLength={10}
+                                            onKeyPress={(event) => {
+                                                if (!/[0-9]/.test(event.key)) {
+                                                    event.preventDefault();
+                                                }
+                                            }}
                                         />
                                     </div>
 
